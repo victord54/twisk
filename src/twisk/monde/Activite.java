@@ -18,4 +18,5 @@ public class Activite extends Etape {
     public boolean estUneActivite() {
         return true;
     }
+
 }

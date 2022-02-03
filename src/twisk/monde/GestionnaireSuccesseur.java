@@ -25,6 +25,16 @@ public class GestionnaireSuccesseur implements Iterable<Etape> {
         return etapes.iterator();
     }
 
+    @Override
+    public String toString() {
+        StringBuilder builder = new StringBuilder();
+        for (Etape e : etapes) {
+            builder.append(" - " + e.toString());
+        }
+        
+        return builder.toString();
+    }
+
     public Etape getSucc(int i){
         return etapes.get(i);
     }

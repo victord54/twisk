@@ -1,9 +1,11 @@
 package twisk.monde.tests;
 
+import org.junit.jupiter.api.Test;
 import twisk.monde.Activite;
 import twisk.monde.Etape;
 import twisk.monde.GestionnaireSuccesseur;
 import twisk.monde.Guichet;
+import java.lang.StringBuilder;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -22,8 +24,8 @@ class GestionnaireSuccesseurTest {
     @org.junit.jupiter.api.Test
     void ajouter() {
         gS.ajouter(e1,e2);
-        assertTrue(gS.getSucc(0).toString().equals("test"));
-        assertTrue(gS.getSucc(1).toString().equals("guichet"));
+        assertTrue(gS.getSucc(0).toString().equalsIgnoreCase("test"));
+        assertTrue(gS.getSucc(1).toString().equalsIgnoreCase("guichet"));
     }
 
     @org.junit.jupiter.api.Test
@@ -35,6 +37,18 @@ class GestionnaireSuccesseurTest {
 
     @org.junit.jupiter.api.Test
     void iterator() {
+        gS.ajouter(new Activite("e"),new Activite("ee"),new Guichet("eee"));
+        StringBuilder s = new StringBuilder();
+        s.append("e");
+        for (Etape e : gS){
+            assertTrue(s.toString().equalsIgnoreCase(e.toString()));
+            s.append("e");
+        }
+    }
+
+    @Test
+    void string(){
         gS.ajouter(e1,e2);
+        System.out.println(gS.toString());
     }
 }

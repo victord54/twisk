@@ -20,7 +20,7 @@ public class GestionnaireEtapes implements Iterable<Etape> {
     }
 
     @Override
-    public Iterator iterator() {
+    public Iterator<Etape> iterator() {
         return etapes.iterator();
     }
 }

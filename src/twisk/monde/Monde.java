@@ -3,41 +3,46 @@ package twisk.monde;
 import java.util.Iterator;
 
 public class Monde implements Iterable<Etape> {
-    protected SasSortie sortie;
     protected SasEntree entree;
+    protected SasSortie sortie;
     protected GestionnaireEtapes gestionnaireEtape;
 
 
-    public Monde(){
+    public Monde() {
         sortie = new SasSortie();
         entree = new SasEntree();
         gestionnaireEtape = new GestionnaireEtapes();
     }
 
-    public void aCommeEntree(Etape ... etapes){
+    public void aCommeEntree(Etape... etapes) {
         entree.ajouterSuccesseur(etapes);
     }
 
-    public void aCommeSortie(Etape ... etapes){
-        for (Etape e : etapes){
+    public void aCommeSortie(Etape... etapes) {
+        for (Etape e : etapes) {
             e.ajouterSuccesseur(sortie);
         }
     }
 
-    public void ajouter(Etape ... etapes){
+    public void ajouter(Etape... etapes) {
         gestionnaireEtape.ajouter(etapes);
-        
+
     }
 
-    public int nbEtapes(){
+    public int nbEtapes() {
         return gestionnaireEtape.nbEtapes();
     }
 
-    public int nbGuichets(){
-        return 1;
+    public int nbGuichets() {
+        int n = 0;
+        for (Etape etape : gestionnaireEtape) {
+            if (etape.estUnGuichet())
+                n++;
+        }
+        return n;
     }
 
-    public Iterator<Etape> iterator(){
+    public Iterator<Etape> iterator() {
         return gestionnaireEtape.iterator();
     }
 }

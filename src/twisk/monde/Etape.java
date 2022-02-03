@@ -1,5 +1,7 @@
 package twisk.monde;
 
+import java.util.Iterator;
+
 public abstract class Etape implements Iterable {
     protected String nom;
     protected GestionnaireSuccesseur gestionnaireSuccesseur;
@@ -15,4 +17,8 @@ public abstract class Etape implements Iterable {
     public abstract boolean estUneActivite();
 
     public abstract boolean estUnGuichet();
+
+    public Iterator<Etape> iterator() {
+        return gestionnaireSuccesseur.iterator();
+    }
 }

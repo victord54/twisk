@@ -9,9 +9,9 @@ import twisk.monde.Guichet;
 import static org.junit.jupiter.api.Assertions.*;
 
 class GestionnaireSuccesseurTest {
-    GestionnaireSuccesseur gS;
-    Etape e1;
-    Etape e2;
+    private GestionnaireSuccesseur gS;
+    private Etape e1;
+    private Etape e2;
 
     @org.junit.jupiter.api.BeforeEach
     void setUp() {

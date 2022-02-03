@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
 
-public class GestionnaireSuccesseur implements Iterable {
+public class GestionnaireSuccesseur implements Iterable<Etape> {
     private ArrayList<Etape> etapes;
 
     public GestionnaireSuccesseur() {
@@ -19,8 +19,13 @@ public class GestionnaireSuccesseur implements Iterable {
         return etapes.size();
     }
 
+
     @Override
-    public Iterator iterator() {
+    public Iterator<Etape> iterator() {
         return etapes.iterator();
+    }
+
+    public Etape getSucc(int i){
+        return etapes.get(i);
     }
 }

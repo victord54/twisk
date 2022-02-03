@@ -9,6 +9,8 @@ public class Monde implements Iterable<Etape> {
 
 
     public Monde(){
+        sortie = new SasSortie();
+        entree = new SasSortie();
         gestionnaireEtape = new GestionnaireEtapes();
     }
 

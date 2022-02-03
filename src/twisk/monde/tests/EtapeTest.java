@@ -10,8 +10,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class EtapeTest {
-    Etape etape1;
-    Etape etape2;
+    private Etape etape1;
+    private Etape etape2;
 
     @BeforeEach
     void setUp() {

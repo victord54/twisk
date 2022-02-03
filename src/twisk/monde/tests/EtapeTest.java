@@ -7,6 +7,7 @@ import twisk.monde.Etape;
 import twisk.monde.Guichet;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class EtapeTest {
     Etape etape1;
@@ -26,9 +27,11 @@ class EtapeTest {
 
     @Test
     void iterator() {
-        etape1.ajouterSuccesseur(new Activite("te"), new Activite("tess"), new Guichet("eez"));
-
+        etape1.ajouterSuccesseur(new Activite("e"), new Activite("ee"), new Guichet("eee"));
+        StringBuilder s = new StringBuilder("e");
         for (Etape etape : etape1) {
+            assertTrue(s.toString().equalsIgnoreCase(etape.toString()));
+            s.append("e");
         }
     }
 }

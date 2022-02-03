@@ -5,7 +5,6 @@ import twisk.monde.Activite;
 import twisk.monde.Etape;
 import twisk.monde.GestionnaireSuccesseur;
 import twisk.monde.Guichet;
-import java.lang.StringBuilder;
 
 import static org.junit.jupiter.api.Assertions.*;
 

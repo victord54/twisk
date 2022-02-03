@@ -30,4 +30,8 @@ public abstract class Etape implements Iterable {
     public Iterator<Etape> iterator() {
         return gestionnaireSuccesseur.iterator();
     }
+
+    public String toString(){
+        return this.nom;
+    }
 }

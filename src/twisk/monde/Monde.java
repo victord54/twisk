@@ -10,16 +10,18 @@ public class Monde implements Iterable<Etape> {
 
     public Monde(){
         sortie = new SasSortie();
-        entree = new SasSortie();
+        entree = new SasEntree();
         gestionnaireEtape = new GestionnaireEtapes();
     }
 
     public void aCommeEntree(Etape ... etapes){
-        
+        entree.ajouterSuccesseur(etapes);
     }
 
     public void aCommeSortie(Etape ... etapes){
-
+        for (Etape e : etapes){
+            e.ajouterSuccesseur(sortie);
+        }
     }
 
     public void ajouter(Etape ... etapes){

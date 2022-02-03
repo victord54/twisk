@@ -10,7 +10,7 @@ public class Monde implements Iterable<Etape> {
 
     public Monde(){
         sortie = new SasSortie();
-        entree = new SasSortie();
+        entree = new SasEntree();
         gestionnaireEtape = new GestionnaireEtapes();
     }
 
@@ -29,11 +29,10 @@ public class Monde implements Iterable<Etape> {
 
     public int nbEtapes(){
         return gestionnaireEtape.nbEtapes();
-
     }
 
     public int nbGuichets(){
-
+        return 1;
     }
 
     public Iterator<Etape> iterator(){

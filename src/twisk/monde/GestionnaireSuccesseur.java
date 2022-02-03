@@ -8,6 +8,7 @@ public class GestionnaireSuccesseur implements Iterable {
     private ArrayList<Etape> etapes;
 
     public GestionnaireSuccesseur() {
+        etapes = new ArrayList<Etape>();
     }
 
     public void ajouter(Etape... etapes) {

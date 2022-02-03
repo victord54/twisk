@@ -1,6 +1,6 @@
 package twisk.monde;
 
-public class Activite extends Etape{
+public class Activite extends Etape {
     protected int temps;
     protected int ecartTemps;
 
@@ -17,9 +17,5 @@ public class Activite extends Etape{
     @Override
     public boolean estUneActivite() {
         return true;
-    }
-
-    public boolean estUnGuichet(){
-        return false;
     }
 }

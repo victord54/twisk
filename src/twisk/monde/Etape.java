@@ -8,10 +8,15 @@ public abstract class Etape implements Iterable {
 
     public Etape(String nom) {
         this.nom = nom;
+        gestionnaireSuccesseur = new GestionnaireSuccesseur();
     }
 
     public void ajouterSuccesseur(Etape... etapes) {
         gestionnaireSuccesseur.ajouter(etapes);
+    }
+
+    public int nbSuccesseurs() {
+        return gestionnaireSuccesseur.nbEtapes();
     }
 
     public boolean estUneActivite() {

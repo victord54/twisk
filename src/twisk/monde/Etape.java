@@ -11,12 +11,16 @@ public abstract class Etape implements Iterable {
     }
 
     public void ajouterSuccesseur(Etape... etapes) {
-
+        gestionnaireSuccesseur.ajouter(etapes);
     }
 
-    public abstract boolean estUneActivite();
+    public boolean estUneActivite() {
+        return false;
+    }
 
-    public abstract boolean estUnGuichet();
+    public boolean estUnGuichet() {
+        return false;
+    }
 
     public Iterator<Etape> iterator() {
         return gestionnaireSuccesseur.iterator();

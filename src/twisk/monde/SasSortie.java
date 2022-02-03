@@ -2,5 +2,7 @@ package twisk.monde;
 
 public class SasSortie extends Activite {
 
-    public SasSortie(){}
+    public SasSortie(String nom) {
+        super(nom);
+    }
 }

@@ -8,7 +8,7 @@ import twisk.monde.Guichet;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-class EtapeActiviteGuichetTest {
+class EtapeTest {
     Etape etape1;
     Etape etape2;
 
@@ -21,19 +21,14 @@ class EtapeActiviteGuichetTest {
     @Test
     void ajouterSuccesseur() {
         etape1.ajouterSuccesseur(new Activite("te"), new Activite("tess"), new Guichet("eez"));
-        System.out.println(etape1.nbSuccesseurs());
         assertEquals(3, etape1.nbSuccesseurs());
     }
 
     @Test
-    void estUneActivite() {
-    }
-
-    @Test
-    void estUnGuichet() {
-    }
-
-    @Test
     void iterator() {
+        etape1.ajouterSuccesseur(new Activite("te"), new Activite("tess"), new Guichet("eez"));
+
+        for (Etape etape : etape1) {
+        }
     }
 }

@@ -2,7 +2,7 @@ package twisk.monde;
 
 import java.util.Iterator;
 
-public abstract class Etape implements Iterable {
+public abstract class Etape implements Iterable<Etape> {
     protected String nom;
     protected GestionnaireSuccesseur gestionnaireSuccesseur;
 

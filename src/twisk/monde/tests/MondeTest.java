@@ -67,4 +67,17 @@ class MondeTest {
     @Test
     void iterator() {
     }
+
+    /*@Test
+    void testToString(){
+        Etape e1 = new Activite("e");
+        Etape e2 = new Activite("ee");
+        Etape e3 = new Activite("eee");
+        Etape e4 = new Activite("eeee");
+        e1.ajouterSuccesseur(e2,e3);
+        e3.ajouterSuccesseur(e4);
+        e2.ajouterSuccesseur(e3);
+        monde.ajouter(e1,e2,e3,e4);
+        System.out.println(monde.toString());
+    }*/
 }

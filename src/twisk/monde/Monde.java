@@ -42,7 +42,19 @@ public class Monde implements Iterable<Etape> {
         return n;
     }
 
+    public Etape getSasSortie(){
+        return sortie;
+    }
+
+    public Etape getSasEntree(){
+        return entree;
+    }
+
     public Iterator<Etape> iterator() {
         return gestionnaireEtape.iterator();
+    }
+
+    public String toString(){
+        return gestionnaireEtape.toString();
     }
 }

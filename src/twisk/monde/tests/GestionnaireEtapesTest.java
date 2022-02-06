@@ -24,8 +24,8 @@ class GestionnaireEtapesTest {
     @Test
     void ajouter() {
         gE.ajouter(e1,e2);
-        assertTrue(gE.getEtape(0).toString().equalsIgnoreCase("test"));
-        assertTrue(gE.getEtape(1).toString().equalsIgnoreCase("guigui"));
+        assertTrue(gE.getEtape(0).getNom().equalsIgnoreCase("test"));
+        assertTrue(gE.getEtape(1).getNom().equalsIgnoreCase("guigui"));
     }
 
     @Test
@@ -41,8 +41,11 @@ class GestionnaireEtapesTest {
         StringBuilder s = new StringBuilder();
         s.append("e");
         for (Etape e : gE){
-            assertTrue(s.toString().equalsIgnoreCase(e.toString()));
+            assertTrue(s.toString().equalsIgnoreCase(e.getNom()));
             s.append("e");
         }
     }
+
+
+
 }

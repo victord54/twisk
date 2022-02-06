@@ -29,7 +29,7 @@ public class GestionnaireSuccesseur implements Iterable<Etape> {
     public String toString() {
         StringBuilder builder = new StringBuilder();
         for (Etape e : etapes) {
-            builder.append(" - " + e.toString());
+            builder.append(" - " + e.getNom());
         }
         
         return builder.toString();
@@ -38,4 +38,6 @@ public class GestionnaireSuccesseur implements Iterable<Etape> {
     public Etape getSucc(int i){
         return etapes.get(i);
     }
+
+
 }

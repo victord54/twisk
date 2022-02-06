@@ -30,8 +30,9 @@ class EtapeTest {
         etape1.ajouterSuccesseur(new Activite("e"), new Activite("ee"), new Guichet("eee"));
         StringBuilder s = new StringBuilder("e");
         for (Etape etape : etape1) {
-            assertTrue(s.toString().equalsIgnoreCase(etape.toString()));
+            assertTrue(s.toString().equalsIgnoreCase(etape.getNom()));
             s.append("e");
         }
     }
+
 }

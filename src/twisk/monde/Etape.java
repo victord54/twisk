@@ -1,6 +1,7 @@
 package twisk.monde;
 
 import java.util.Iterator;
+import java.util.StringTokenizer;
 
 public abstract class Etape implements Iterable<Etape> {
     protected String nom;
@@ -31,7 +32,11 @@ public abstract class Etape implements Iterable<Etape> {
         return gestionnaireSuccesseur.iterator();
     }
 
-    public String toString(){
+    public String getNom(){
         return this.nom;
+    }
+
+    public String toString(){
+        return this.nom + " : " + nbSuccesseurs() + " successeur(s) " + gestionnaireSuccesseur.toString();
     }
 }

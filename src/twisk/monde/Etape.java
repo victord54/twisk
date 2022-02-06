@@ -1,14 +1,23 @@
 package twisk.monde;
 
+import outils.FabriqueNumero;
+
 import java.util.Iterator;
 import java.util.StringTokenizer;
 
 public abstract class Etape implements Iterable<Etape> {
+    protected int numEtape;
     protected String nom;
     protected GestionnaireSuccesseur gestionnaireSuccesseur;
 
-    public Etape(String nom) {
+    public Etape(String nom){
         this.nom = nom;
+        gestionnaireSuccesseur = new GestionnaireSuccesseur();
+    }
+
+    public Etape(String nom, int nbEtape) {
+        this.nom = nom;
+        this.numEtape = nbEtape ;
         gestionnaireSuccesseur = new GestionnaireSuccesseur();
     }
 
@@ -34,6 +43,10 @@ public abstract class Etape implements Iterable<Etape> {
 
     public String getNom(){
         return this.nom;
+    }
+
+    public int getNumEtape(){
+        return numEtape;
     }
 
     public String toString(){

@@ -2,21 +2,29 @@ package outils;
 
 public class FabriqueNumero {
     private int cptEtape;
-    private static FabriqueNumero instance = new FabriqueNumero();
+    private static final FabriqueNumero instance = new FabriqueNumero();
+    private int cptSemaphore;
 
-    private FabriqueNumero(){}
+    private FabriqueNumero() {
+    }
 
     public static FabriqueNumero getInstance() {
         return instance;
     }
 
-    public int getNumeroEtape(){
-        cptEtape ++;
+    public int getNumeroEtape() {
+        cptEtape++;
         return cptEtape - 1;
     }
 
-    public void reset(){
+    public int getNumeroSemaphore() {
+        cptSemaphore++;
+        return cptSemaphore;
+    }
+
+    public void reset() {
         cptEtape = 0;
+        cptSemaphore = 0;
     }
 
 

@@ -1,18 +1,20 @@
 package twisk.monde;
 
+import outils.FabriqueNumero;
+
 public class Guichet extends Etape {
     protected int nbJetons;
+    protected int numSemaphore;
 
-    public Guichet(String nom){
+    public Guichet(String nom) {
         super(nom);
-    }
-    public Guichet(String nom, int nbEtape) {
-        super(nom, nbEtape);
+        numSemaphore = FabriqueNumero.getInstance().getNumeroSemaphore();
     }
 
-    public Guichet(String nom, int nbEtape, int nb) {
-        super(nom, nbEtape);
+    public Guichet(String nom, int nb) {
+        super(nom);
         this.nbJetons = nb;
+        numSemaphore = FabriqueNumero.getInstance().getNumeroSemaphore();
     }
 
     @Override

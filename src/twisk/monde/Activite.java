@@ -7,9 +7,6 @@ public class Activite extends Etape {
     public Activite(String nom){
         super(nom);
     }
-    public Activite(String nom, int nbEtape) {
-        super(nom, nbEtape);
-    }
 
     public Activite(String nom, int t, int e) {
         super(nom);

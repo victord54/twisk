@@ -1,3 +1,5 @@
+package twisk;
+
 import simulation.Simulation;
 import twisk.monde.Activite;
 import twisk.monde.Etape;
@@ -6,7 +8,7 @@ import twisk.monde.Monde;
 
 public class ClientTwisk {
 
-    public static Monde monde1(){
+    public static Monde monde1() {
         Monde m = new Monde();
         Etape e1 = new Activite("zoo");
         Etape e2 = new Guichet("Guichet");
@@ -21,7 +23,7 @@ public class ClientTwisk {
         return m;
     }
 
-    public static void main(String args[]){
+    public static void main(String[] args) {
         Simulation simu = new Simulation();
         simu.simuler(monde1());
     }

@@ -18,19 +18,19 @@ class EtapeTest {
     @BeforeEach
     void setUp() {
         fabrique = FabriqueNumero.getInstance();
-        etape1 = new Activite("Test",fabrique.getNumeroEtape());
-        etape2 = new Guichet("Test aussi",fabrique.getNumeroEtape());
+        etape1 = new Activite("Test");
+        etape2 = new Guichet("Test aussi");
     }
 
     @Test
     void ajouterSuccesseur() {
-        etape1.ajouterSuccesseur(new Activite("te",fabrique.getNumeroEtape()), new Activite("tess",fabrique.getNumeroEtape()), new Guichet("eez",fabrique.getNumeroEtape()));
+        etape1.ajouterSuccesseur(new Activite("te"), new Activite("tess"), new Guichet("eez"));
         assertEquals(3, etape1.nbSuccesseurs());
     }
 
     @Test
     void iterator() {
-        etape1.ajouterSuccesseur(new Activite("e",fabrique.getNumeroEtape()), new Activite("ee",fabrique.getNumeroEtape()), new Guichet("eee",fabrique.getNumeroEtape()));
+        etape1.ajouterSuccesseur(new Activite("e"), new Activite("ee"), new Guichet("eee"));
         StringBuilder s = new StringBuilder("e");
         for (Etape etape : etape1) {
             assertTrue(s.toString().equalsIgnoreCase(etape.getNom()));

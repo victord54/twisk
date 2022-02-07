@@ -6,10 +6,6 @@ public class ActiviteRestreinte extends Activite {
         super(nom);
     }
 
-    public ActiviteRestreinte(String nom, int nbEtape){
-        super(nom,nbEtape);
-    }
-
     public ActiviteRestreinte(String nom, int t, int e) {
         super(nom,t,e);
     }

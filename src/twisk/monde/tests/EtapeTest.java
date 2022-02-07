@@ -13,11 +13,9 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 class EtapeTest {
     private Etape etape1;
     private Etape etape2;
-    private FabriqueNumero fabrique;
 
     @BeforeEach
     void setUp() {
-        fabrique = FabriqueNumero.getInstance();
         etape1 = new Activite("Test");
         etape2 = new Guichet("Test aussi");
     }
@@ -42,9 +40,9 @@ class EtapeTest {
     void testNumEtape(){
         assertEquals(etape1.getNumEtape(),0);
         assertEquals(etape2.getNumEtape(),1);
-        fabrique.reset();
 
-        Etape e3 = new Guichet("ee",fabrique.getNumeroEtape());
+        FabriqueNumero.getInstance().reset();
+        Etape e3 = new Guichet("ee");
         assertEquals(e3.getNumEtape(),0);
     }
 }

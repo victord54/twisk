@@ -2,10 +2,10 @@ package twisk.monde.tests;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import outils.FabriqueNumero;
 import twisk.monde.Activite;
 import twisk.monde.Etape;
 import twisk.monde.Guichet;
+import twisk.outils.FabriqueNumero;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;

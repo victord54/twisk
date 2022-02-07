@@ -1,8 +1,8 @@
-package outils.tests;
+package twisk.outils.tests;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import outils.FabriqueNumero;
+import twisk.outils.FabriqueNumero;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;

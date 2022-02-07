@@ -1,4 +1,4 @@
-package simulation;
+package twisk.simulation;
 
 import twisk.monde.Monde;
 

@@ -1,6 +1,6 @@
 package twisk.monde;
 
-import outils.FabriqueNumero;
+import twisk.outils.FabriqueNumero;
 
 public class Guichet extends Etape {
     protected int nbJetons;

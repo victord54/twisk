@@ -1,4 +1,4 @@
-package outils;
+package twisk.outils;
 
 public class FabriqueNumero {
     private int cptEtape;

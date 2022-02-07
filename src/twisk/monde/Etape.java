@@ -1,6 +1,6 @@
 package twisk.monde;
 
-import outils.FabriqueNumero;
+import twisk.outils.FabriqueNumero;
 
 import java.util.Iterator;
 

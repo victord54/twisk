@@ -2,8 +2,8 @@ package outils;
 
 public class FabriqueNumero {
     private int cptEtape;
-    private static final FabriqueNumero instance = new FabriqueNumero();
     private int cptSemaphore;
+    private static final FabriqueNumero instance = new FabriqueNumero();
 
     private FabriqueNumero() {
     }

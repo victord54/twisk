@@ -9,6 +9,7 @@ public class Guichet extends Etape {
     public Guichet(String nom) {
         super(nom);
         numSemaphore = FabriqueNumero.getInstance().getNumeroSemaphore();
+        nbJetons = 3;
     }
 
     public Guichet(String nom, int nb) {

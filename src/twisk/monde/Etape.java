@@ -31,6 +31,15 @@ public abstract class Etape implements Iterable<Etape> {
         return false;
     }
 
+    public boolean estUneSortie() {
+        for (Etape etape : gestionnaireSuccesseur) {
+            if (etape.getNom().equalsIgnoreCase("sortie")) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public Iterator<Etape> iterator() {
         return gestionnaireSuccesseur.iterator();
     }

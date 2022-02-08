@@ -37,6 +37,9 @@ class MondeTest {
         monde.ajouter(e1,e2,e3,e4);
         monde.aCommeSortie(e3,e4);
 
+        assertTrue(e3.estUneSortie());
+        assertTrue(e4.estUneSortie());
+        assertFalse(e1.estUneSortie());
 
     }
 

@@ -12,7 +12,7 @@ class ActiviteTest {
     private Etape etape;
 
     @BeforeEach
-    void setUP() {
+    void setUp() {
         etape = new Activite("test");
     }
 

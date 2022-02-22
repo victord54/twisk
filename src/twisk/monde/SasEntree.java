@@ -6,4 +6,13 @@ public class SasEntree extends Activite {
         super("entree");
 
     }
+
+    @Override
+    public String toC(){
+        StringBuilder builder = new StringBuilder();
+        builder.append("entrer(" + this.nom + ");\n");
+        builder.append("delai(" + this.temps + "," + this.ecartTemps + ");\n");
+        builder.append("transfert(" + this.nom + "," + this.gestionnaireSuccesseur.getSucc(0).getNom() + ");\n");
+        return builder.toString();
+    }
 }

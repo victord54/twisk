@@ -58,4 +58,8 @@ public class Monde implements Iterable<Etape> {
     public String toString(){
         return gestionnaireEtape.toString();
     }
+
+    public String toC(){
+        return null;
+    }
 }

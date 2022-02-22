@@ -10,15 +10,23 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class ActiviteTest {
     private Etape etape;
+    private Etape et1;
 
     @BeforeEach
     void setUp() {
         etape = new Activite("test");
+        et1 = new Activite("testttt");
+        etape.ajouterSuccesseur(et1);
     }
 
     @Test
     void estUneActivite() {
         assertTrue(etape.estUneActivite());
         assertFalse(etape.estUnGuichet());
+    }
+
+    @Test
+    void toC(){
+        System.out.println(etape.toC());
     }
 }

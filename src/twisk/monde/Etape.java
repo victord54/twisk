@@ -55,4 +55,8 @@ public abstract class Etape implements Iterable<Etape> {
     public String toString(){
         return this.nom + " : " + nbSuccesseurs() + " successeur(s) " + gestionnaireSuccesseur.toString();
     }
+
+    public String toC(){
+        return "";
+    }
 }

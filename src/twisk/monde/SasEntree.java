@@ -12,7 +12,8 @@ public class SasEntree extends Activite {
         StringBuilder builder = new StringBuilder();
         builder.append("entrer(" + this.numEtape + ");\n");
         builder.append("delai(" + this.temps + "," + this.ecartTemps + ");\n");
-        builder.append("transfert(" + this.nom + "," + this.gestionnaireSuccesseur.getSucc(0).getNom() + ");\n");
+        builder.append("transfert(" + this.numEtape + "," + this.gestionnaireSuccesseur.getSucc(0).getNumEtape() + ");\n");
+        this.gestionnaireSuccesseur.getSucc(0).toC();
         return builder.toString();
     }
 }

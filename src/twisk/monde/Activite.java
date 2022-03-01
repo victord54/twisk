@@ -24,8 +24,14 @@ public class Activite extends Etape {
     @Override
     public String toC(){
         StringBuilder builder = new StringBuilder();
-        builder.append("delai(" + temps + "," + ecartTemps +");\n");
-        builder.append("transfert(" + this.numEtape + "," + this.gestionnaireSuccesseur.getSucc(0).getNom() + ");\n");
+        if (!this.estUneSortie()){
+            builder.append("delai(" + temps + "," + ecartTemps +");\n");
+            builder.append("transfert(" + this.numEtape + "," + this.gestionnaireSuccesseur.getSucc(0).getNumEtape() + ");\n");
+            this.gestionnaireSuccesseur.getSucc(0).toC();
+        } else{
+            builder.append("delai(" + temps + "," + ecartTemps +");\n");
+            builder.append("transfert(" + this.numEtape + ",1)\n");
+        }
         return builder.toString();
     }
 

@@ -9,8 +9,8 @@ public class Monde implements Iterable<Etape> {
 
 
     public Monde() {
-        sortie = new SasSortie();
         entree = new SasEntree();
+        sortie = new SasSortie();
         gestionnaireEtape = new GestionnaireEtapes();
         gestionnaireEtape.ajouter(entree,sortie);
     }
@@ -64,6 +64,6 @@ public class Monde implements Iterable<Etape> {
         for (Etape etape : gestionnaireEtape) {
             str.append(etape.toC());
         }
-        return entree.toC();
+        return str.toString();
     }
 }

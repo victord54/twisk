@@ -22,4 +22,9 @@ public class Guichet extends Etape {
     public boolean estUnGuichet() {
         return true;
     }
+
+    @Override
+    public String toC(){
+        return "";
+    }
 }

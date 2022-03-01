@@ -25,6 +25,9 @@ public class Guichet extends Etape {
 
     @Override
     public String toC(){
+        StringBuilder str = new StringBuilder();
+        str.append("P(0,"+this.numSemaphore+");\n");
+        str.append("transfert(" + this.numEtape + "," + this.gestionnaireSuccesseur.getSucc(0).getNumEtape() + ");\n");
         return "";
     }
 }

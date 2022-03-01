@@ -43,11 +43,11 @@ public class Monde implements Iterable<Etape> {
         return n;
     }
 
-    public Etape getSasSortie(){
+    public Etape getSasSortie() {
         return sortie;
     }
 
-    public Etape getSasEntree(){
+    public Etape getSasEntree() {
         return entree;
     }
 
@@ -55,11 +55,15 @@ public class Monde implements Iterable<Etape> {
         return gestionnaireEtape.iterator();
     }
 
-    public String toString(){
+    public String toString() {
         return gestionnaireEtape.toString();
     }
 
-    public String toC(){
-        return null;
+    public String toC() {
+        StringBuilder str = new StringBuilder();
+        for (Etape etape : gestionnaireEtape) {
+            str.append(etape.toC());
+        }
+        return entree.toC();
     }
 }

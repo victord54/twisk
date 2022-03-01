@@ -10,10 +10,6 @@ public class ActiviteRestreinte extends Activite {
         super(nom, t, e);
     }
 
-    public String toC() {
-        return "";
-    }
-
     @Override
     public String toC(){
         StringBuilder builder = new StringBuilder();

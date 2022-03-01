@@ -45,16 +45,16 @@ class MondeTest {
 
     @Test
     void ajouter() {
-        assertEquals(0,monde.nbEtapes());
+        assertEquals(2, monde.nbEtapes());
         monde.ajouter(new Activite("e"), new Activite("ee"), new Activite("eee"));
-        assertEquals(3,monde.nbEtapes());
+        assertEquals(5, monde.nbEtapes());
     }
 
     @Test
     void nbEtapes() {
-        assertEquals(0,monde.nbEtapes());
+        assertEquals(2, monde.nbEtapes());
         monde.ajouter(new Activite("e"), new Activite("ee"), new Activite("eee"));
-        assertEquals(3,monde.nbEtapes());
+        assertEquals(5, monde.nbEtapes());
     }
 
     @Test

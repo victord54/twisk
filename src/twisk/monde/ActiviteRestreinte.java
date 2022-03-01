@@ -13,4 +13,12 @@ public class ActiviteRestreinte extends Activite {
     public String toC() {
         return "";
     }
+
+    @Override
+    public String toC(){
+        StringBuilder builder = new StringBuilder();
+        builder.append("delai(" + temps + "," + ecartTemps +");\n");
+        builder.append("transfert(" + this.numEtape + "," + this.gestionnaireSuccesseur.getSucc(0).getNom() + ");\n");
+        return builder.toString();
+    }
 }

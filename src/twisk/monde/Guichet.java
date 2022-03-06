@@ -23,11 +23,15 @@ public class Guichet extends Etape {
         return true;
     }
 
+    public int getNumSemaphore() {
+        return numSemaphore;
+    }
+
     @Override
-    public String toC(){
+    public String toC() {
         StringBuilder str = new StringBuilder();
-        str.append("P(0,"+this.numSemaphore+");\n");
-        str.append("transfert(" + this.numEtape + "," + this.gestionnaireSuccesseur.getSucc(0).getNumEtape() + ");\n");
-        return "";
+        str.append("P(0,").append(this.numSemaphore).append(");\n");
+        str.append("transfert(").append(this.numEtape).append(",").append(this.gestionnaireSuccesseur.getSucc().getNumEtape()).append(");\n");
+        return str.toString();
     }
 }

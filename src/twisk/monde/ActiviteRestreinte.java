@@ -15,9 +15,17 @@ public class ActiviteRestreinte extends Activite {
         this.numSemGuichet = semaphore;
     }
 
-    public String toC(){
+    @Override
+    public String toC() {
         StringBuilder str = new StringBuilder();
-        str.append("delai(")
+        str.append("delai(").append(temps).append(",").append(ecartTemps).append(");\n");
+        str.append("V(0,").append(numSemGuichet).append(");\n");
+        if (!this.estUneSortie()) {
+            str.append("transfert(").append(this.numEtape).append(",").append(this.gestionnaireSuccesseur.getSucc().getNumEtape()).append(");\n");
+            this.gestionnaireSuccesseur.getSucc().toC();
+        } else {
+            str.append("transfert(").append(this.numEtape).append(",1);\n");
+        }
+        return str.toString();
     }
-
 }

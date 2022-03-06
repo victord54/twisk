@@ -10,10 +10,10 @@ public class SasEntree extends Activite {
     @Override
     public String toC(){
         StringBuilder builder = new StringBuilder();
-        builder.append("entrer(" + this.numEtape + ");\n");
-        builder.append("delai(" + this.temps + "," + this.ecartTemps + ");\n");
-        builder.append("transfert(" + this.numEtape + "," + this.gestionnaireSuccesseur.getSucc(0).getNumEtape() + ");\n");
-        this.gestionnaireSuccesseur.getSucc(0).toC();
+        builder.append("entrer(").append(this.numEtape).append(");\n");
+        builder.append("delai(").append(this.temps).append(",").append(this.ecartTemps).append(");\n");
+        builder.append("transfert(").append(this.numEtape).append(",").append(this.gestionnaireSuccesseur.getSucc().getNumEtape()).append(");\n");
+        this.gestionnaireSuccesseur.getSucc().toC();
         return builder.toString();
     }
 }

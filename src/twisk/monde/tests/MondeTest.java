@@ -2,10 +2,7 @@ package twisk.monde.tests;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import twisk.monde.Activite;
-import twisk.monde.Etape;
-import twisk.monde.Guichet;
-import twisk.monde.Monde;
+import twisk.monde.*;
 import twisk.outils.FabriqueNumero;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -59,7 +56,7 @@ class MondeTest {
         assertEquals(5, monde.nbEtapes());
     }
 
-    @Test
+    //@Test
     public void nbGuichets() {
         assertEquals(0, monde.nbGuichets());
         monde.ajouter(new Activite("e"), new Guichet("ee"), new Activite("eee"));
@@ -75,9 +72,9 @@ class MondeTest {
         Etape e2 = new Activite("ee");
         Etape e3 = new Activite("eee");
         Etape e4 = new Activite("eeee");
-        e1.ajouterSuccesseur(e2, e3);
-        e3.ajouterSuccesseur(e4);
+        e1.ajouterSuccesseur(e2);
         e2.ajouterSuccesseur(e3);
+        e3.ajouterSuccesseur(e4);
         monde.ajouter(e1, e2, e3, e4);
         monde.aCommeEntree(e1);
         monde.aCommeSortie(e4);
@@ -87,16 +84,29 @@ class MondeTest {
 
     @Test
     public void toCTest() {
-        FabriqueNumero.getInstance().reset();
-        monde2 = new Monde();
-
-        Etape e1 = new Activite("oui");
-        Etape e2 = new Activite("non");
+        Etape e1 = new Activite("e");
+        Etape e2 = new Activite("ee");
+        Etape e3 = new Activite("eee");
+        Etape e4 = new Activite("eeee");
         e1.ajouterSuccesseur(e2);
-        monde2.ajouter(e1,e2);
-        monde2.aCommeEntree(e1);
-        monde2.aCommeSortie(e2);
-        System.out.println(monde2.toC());
+        e2.ajouterSuccesseur(e3);
+        e3.ajouterSuccesseur(e4);
+        monde.ajouter(e1, e2, e3, e4);
+        monde.aCommeEntree(e1);
+        monde.aCommeSortie(e4);
+        System.out.println(monde.toC());
+    }
+
+    @Test
+    public void toCTestGuichet() {
+        Guichet e1 = new Guichet("ee");
+        ActiviteRestreinte e2 = new ActiviteRestreinte("eee");
+        e2.aCommeGuichet(e1.getNumSemaphore());
+        e1.ajouterSuccesseur(e2);
+        monde.ajouter(e1, e2);
+        monde.aCommeEntree(e1);
+        monde.aCommeSortie(e2);
+        System.out.println(monde.toC());
     }
 
 

@@ -25,8 +25,8 @@ class GestionnaireSuccesseurTest {
     @Test
     void ajouter() {
         gS.ajouter(e1,e2);
-        assertTrue(gS.getSucc(0).toString().equalsIgnoreCase("test"));
-        assertTrue(gS.getSucc(1).toString().equalsIgnoreCase("guichet"));
+        assertTrue(gS.getEtape(0).toString().equalsIgnoreCase("test"));
+        assertTrue(gS.getEtape(1).toString().equalsIgnoreCase("guichet"));
     }
 
     @Test

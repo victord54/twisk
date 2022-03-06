@@ -5,10 +5,10 @@ import java.util.Arrays;
 import java.util.Iterator;
 
 public class GestionnaireSuccesseur implements Iterable<Etape> {
-    private ArrayList<Etape> etapes;
+    private final ArrayList<Etape> etapes;
 
     public GestionnaireSuccesseur() {
-        etapes = new ArrayList<Etape>();
+        etapes = new ArrayList<>();
     }
 
     public void ajouter(Etape... etapes) {
@@ -29,14 +29,17 @@ public class GestionnaireSuccesseur implements Iterable<Etape> {
     public String toString() {
         StringBuilder builder = new StringBuilder();
         for (Etape e : etapes) {
-            builder.append(" - " + e.getNom());
+            builder.append(" - ").append(e.getNom());
         }
         
         return builder.toString();
     }
-
-    public Etape getSucc(int i){
+    public Etape getEtape(int i) {
         return etapes.get(i);
+    }
+
+    public Etape getSucc(){
+        return getEtape(0);
     }
 
 

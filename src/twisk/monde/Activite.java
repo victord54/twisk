@@ -4,7 +4,7 @@ public class Activite extends Etape {
     protected int temps;
     protected int ecartTemps;
 
-    public Activite(String nom){
+    public Activite(String nom) {
         super(nom);
         temps = 4;
         ecartTemps = 2;
@@ -22,17 +22,15 @@ public class Activite extends Etape {
     }
 
     @Override
-    public String toC(){
+    public String toC() {
         StringBuilder builder = new StringBuilder();
-        if (!this.estUneSortie()){
-            builder.append("delai(" + temps + "," + ecartTemps +");\n");
-            builder.append("transfert(" + this.numEtape + "," + this.gestionnaireSuccesseur.getSucc(0).getNumEtape() + ");\n");
-            this.gestionnaireSuccesseur.getSucc(0).toC();
-        } else{
-            builder.append("delai(" + temps + "," + ecartTemps +");\n");
-            builder.append("transfert(" + this.numEtape + ",1)\n");
+        builder.append("delai(").append(temps).append(",").append(ecartTemps).append(");\n");
+        if (!this.estUneSortie()) {
+            builder.append("transfert(").append(this.numEtape).append(",").append(this.gestionnaireSuccesseur.getSucc().getNumEtape()).append(");\n");
+            this.gestionnaireSuccesseur.getSucc().toC();
+        } else {
+            builder.append("transfert(").append(this.numEtape).append(",1);\n");
         }
         return builder.toString();
     }
-
 }

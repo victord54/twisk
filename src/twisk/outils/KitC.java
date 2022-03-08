@@ -33,6 +33,7 @@ public class KitC {
         try {
             File chemin = new File("client.c");
             PrintWriter flotFiltre = new PrintWriter(chemin);
+            flotFiltre.println("#include \"def.h\"");
             flotFiltre.print(codeC);
             flotFiltre.close();
 

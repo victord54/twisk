@@ -8,8 +8,8 @@ import java.nio.file.Paths;
 import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
 
 public class KitC {
-
-    public KitC(){}
+    public KitC() {
+    }
 
     public void creerEnvironnement(){
         try {
@@ -25,6 +25,5 @@ public class KitC {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
 }

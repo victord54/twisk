@@ -22,7 +22,7 @@ public class ClientTwisk {
     }
 
     public static void main(String[] args) {
-        Simulation simu = new Simulation();
-        simu.simuler(monde1());
+        Simulation simulation = new Simulation();
+        simulation.simuler(monde1());
     }
 }

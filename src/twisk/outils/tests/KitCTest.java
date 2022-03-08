@@ -17,4 +17,9 @@ class KitCTest {
     void creerEnvironnement() {
         kit.creerEnvironnement();
     }
+
+    @Test
+    void creerFichier(){
+        kit.creerFichier("testtesttesttestt");
+    }
 }

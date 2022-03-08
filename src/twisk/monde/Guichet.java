@@ -30,7 +30,7 @@ public class Guichet extends Etape {
     @Override
     public String toC() {
         StringBuilder str = new StringBuilder();
-        str.append("P(0,").append(this.numSemaphore).append(");\n");
+        str.append("P(ids,").append(this.numSemaphore).append(");\n");
         str.append("transfert(").append(this.numEtape).append(",").append(this.gestionnaireSuccesseur.getSucc().getNumEtape()).append(");\n");
         return str.toString();
     }

@@ -12,7 +12,7 @@ public class Simulation {
     }
 
     public void simuler(Monde monde) {
-        monde.toC();
+        kit.creerFichier(monde.toC());
     }
 
 }

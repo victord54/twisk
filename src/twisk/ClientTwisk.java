@@ -1,24 +1,22 @@
 package twisk;
 
-import twisk.monde.Activite;
-import twisk.monde.Etape;
-import twisk.monde.Guichet;
-import twisk.monde.Monde;
+import twisk.monde.*;
 import twisk.simulation.Simulation;
 
 public class ClientTwisk {
 
     public static Monde monde1() {
         Monde m = new Monde();
-        Etape e1 = new Activite("zoo");
-        Etape e2 = new Guichet("Guichet");
+        Guichet e1 = new Guichet("Guichet");
+        ActiviteRestreinte e2 = new ActiviteRestreinte("zoo");
         Etape e3 = new Activite("toboggan");
         Etape e4 = new Activite("piscine");
-        e2.ajouterSuccesseur(e1);
-        e1.ajouterSuccesseur(e3);
+        e2.aCommeGuichet(e1.getNumSemaphore());
+        e1.ajouterSuccesseur(e2);
+        e2.ajouterSuccesseur(e3);
         e3.ajouterSuccesseur(e4);
         m.ajouter(e1,e2,e3,e4);
-        m.aCommeEntree(e2);
+        m.aCommeEntree(e1);
         m.aCommeSortie(e4);
         return m;
     }

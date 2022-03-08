@@ -65,6 +65,26 @@ public class KitC {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
 
+
+    public void construireLaLibrairie(){
+        Runtime runtime = Runtime.getRuntime();
+        try {
+            Process p = runtime.exec("gcc -shared /tmp/twisk/programmeC.o /tmp/twisk/client.o -o /tmp/twisk/libTwisk.so");
+            // récupération des messages sur la sortie standard et la sortie d’erreur de la commande exécutée
+            // à reprendre éventuellement et à adapter à votre code
+            BufferedReader output = new BufferedReader(new InputStreamReader(p.getInputStream()));
+            BufferedReader error = new BufferedReader(new InputStreamReader(p.getErrorStream()));
+            String ligne ;
+            while ((ligne = output.readLine()) != null) {
+                System.out.println(ligne);
+            }
+            while ((ligne = error.readLine()) != null) {
+                System.out.println(ligne);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

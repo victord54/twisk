@@ -14,6 +14,7 @@ public class Simulation {
     public void simuler(Monde monde) {
         kit.creerFichier(monde.toC());
         kit.compiler();
+        kit.construireLaLibrairie();
     }
 
 }

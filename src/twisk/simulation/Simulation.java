@@ -7,6 +7,7 @@ public class Simulation {
 
     public void simuler(Monde monde){
         System.out.println(monde.toC());
+        System.out.println(monde.toString());
     }
 
 }

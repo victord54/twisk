@@ -115,7 +115,7 @@ public abstract class Etape implements Iterable<Etape> {
     /**
      * Méthode abstraite définissant le code c à ajouter pour une étape.
      *
-     * @return Le code C.
+     * @return Le code c.
      */
     public abstract String toC();
 

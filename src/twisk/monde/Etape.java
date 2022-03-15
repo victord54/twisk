@@ -16,7 +16,7 @@ public abstract class Etape implements Iterable<Etape> {
     protected GestionnaireSuccesseur gestionnaireSuccesseur;
 
     /**
-     * Constructeur de la classe
+     * Constructeur de la classe.
      *
      * @param nom Nom de l'étape.
      */
@@ -113,12 +113,17 @@ public abstract class Etape implements Iterable<Etape> {
     }
 
     /**
-     * Méthode définissant le code c à ajouter pour une étape.
+     * Méthode abstraite définissant le code c à ajouter pour une étape.
      *
      * @return Le code C.
      */
     public abstract String toC();
 
+    /**
+     * Méthode abstraite donnant le nombre de jetons.
+     *
+     * @return Nombre de jetons.
+     */
     public abstract int getNbJetons();
 
 }

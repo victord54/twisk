@@ -25,13 +25,21 @@ public class Simulation {
         kit.construireLaLibrairie();
         System.load("/tmp/twisk/libTwisk.so");
 
-        int[] tab_jetons_guichet = new int[2];
-        tab_jetons_guichet[0] = 1;
-        tab_jetons_guichet[1] = 2;
 
-        int nb_etapes = 7;
-        int nb_guichets = 2;
-        int nb_clients = 5;
+
+        int nb_etapes = monde.nbEtapes() +1;
+        int nb_guichets = 1;
+        int nb_clients = 2;
+
+        int[] tab_jetons_guichet = new int[nb_guichets];
+        int j =0;
+
+        for (Etape e:monde){
+            if (e.estUnGuichet()){
+                tab_jetons_guichet[j] = e.getNbJetons();
+                j++;
+            }
+        }
 
         int[] tab = start_simulation(nb_etapes, nb_guichets, nb_clients, tab_jetons_guichet);
         int[] tab_client = ou_sont_les_clients(nb_etapes, nb_clients);
@@ -41,6 +49,7 @@ public class Simulation {
         for (int i = 0; i < nb_clients; i++) {
             System.out.print(tab[i] + " ");
         }
+        System.out.println();
 
         // Affichage des PID des clients par étape
         while (tab_client[(nb_clients + 1)] != nb_clients) {

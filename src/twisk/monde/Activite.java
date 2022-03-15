@@ -33,4 +33,8 @@ public class Activite extends Etape {
         }
         return builder.toString();
     }
+
+    public int getNbJetons(){
+        return 0;
+    }
 }

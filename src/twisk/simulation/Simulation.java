@@ -46,12 +46,7 @@ public class Simulation {
         }
 
         // Affichage des PID des clients par étape
-        while (tab_client[(nb_etapes - 1) * nb_clients + nb_etapes - 1] != nb_clients) { // [18] = 5
-            try {
-                Runtime.getRuntime().exec("clear");
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+        while (tab_client[(nb_clients + 1)] != nb_clients) {
             tab_client = ou_sont_les_clients(nb_etapes, nb_clients);
             int decalage = 0;
             int nb_a_afficher = tab_client[0];
@@ -63,6 +58,7 @@ public class Simulation {
                 System.out.println();
                 decalage += nb_clients + 1;
                 nb_a_afficher = tab_client[decalage];
+
             }
         }
      
@@ -74,5 +70,4 @@ public class Simulation {
 
         nettoyage();
     }
-
 }

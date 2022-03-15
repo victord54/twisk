@@ -32,7 +32,7 @@ public class KitC {
             File chemin = new File("client.c");
             PrintWriter flotFiltre = new PrintWriter(chemin);
             flotFiltre.println("#include \"def.h\"");
-            flotFiltre.println("void simuler(int ids){");
+            flotFiltre.println("void simulation(int ids){");
             flotFiltre.print(codeC);
             flotFiltre.println("}");
             flotFiltre.close();

@@ -4,8 +4,6 @@ import twisk.monde.Etape;
 import twisk.monde.Monde;
 import twisk.outils.KitC;
 
-import java.io.IOException;
-
 public class Simulation {
     public native int[] start_simulation(int nbEtapes, int nbGuichets, int nbClients, int[] tabJetonsGuichet);
 
@@ -60,13 +58,6 @@ public class Simulation {
 
             }
         }
-     
-        try {
-            Thread.sleep(5000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
         nettoyage();
     }
 }

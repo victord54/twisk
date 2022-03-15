@@ -24,4 +24,4 @@ test:
 
 clean:
 	@echo "Suppression du client et de la cible ..."
-	@rm client.o $(target) $(lib) $(client)
+	@rm $(target) $(lib) $(client)

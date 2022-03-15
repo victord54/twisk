@@ -34,4 +34,8 @@ public class Guichet extends Etape {
         str.append("transfert(").append(this.numEtape).append(",").append(this.gestionnaireSuccesseur.getSucc().getNumEtape()).append(");\n");
         return str.toString();
     }
+
+    public int getNbJetons(){
+        return nbJetons;
+    }
 }

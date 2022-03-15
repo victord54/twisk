@@ -27,7 +27,7 @@ public class Activite extends Etape {
      *
      * @param nom Nom de l'activité.
      * @param t   Durée de l'activité.
-     * @param e   Incertitude sur la durée (t +/- e)
+     * @param e   Incertitude sur la durée (t +/- e) de l'activité.
      */
     public Activite(String nom, int t, int e) {
         super(nom);

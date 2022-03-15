@@ -27,7 +27,6 @@ public class Simulation {
         kit.construireLaLibrairie();
         System.load("/tmp/twisk/libTwisk.so");
 
-        /* ---------------- */
         int[] tab_jetons_guichet = new int[2];
         tab_jetons_guichet[0] = 1;
         tab_jetons_guichet[1] = 2;

@@ -4,6 +4,8 @@ import twisk.monde.Etape;
 import twisk.monde.Monde;
 import twisk.outils.KitC;
 
+import java.io.IOException;
+
 public class Simulation {
     public native int[] start_simulation(int nbEtapes, int nbGuichets, int nbClients, int[] tabJetonsGuichet);
 
@@ -44,6 +46,11 @@ public class Simulation {
         System.out.println();
         // Affichage des PID des clients par étape
         while (tab_client[(nb_etapes - 1) * nb_clients + nb_etapes - 1] != nb_clients) { // [18] = 5
+            try {
+                Runtime.getRuntime().exec("clear");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
             tab_client = ou_sont_les_clients(nb_etapes, nb_clients);
             int decalage = 0;
             int nb_a_afficher = tab_client[0];

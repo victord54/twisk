@@ -90,6 +90,7 @@ public abstract class Etape implements Iterable<Etape> {
      *
      * @return Le nouvel itérateur
      */
+    @Override
     public Iterator<Etape> iterator() {
         return gestionnaireSuccesseur.iterator();
     }
@@ -117,6 +118,7 @@ public abstract class Etape implements Iterable<Etape> {
      *
      * @return Les champs constituant l'étape.
      */
+    @Override
     public String toString() {
         return this.nom + " : " + nbSuccesseurs() + " successeur(s) " + gestionnaireSuccesseur.toString();
     }
@@ -129,7 +131,7 @@ public abstract class Etape implements Iterable<Etape> {
     public abstract String toC();
 
     /**
-     * Méthode abstraite donnant le nombre de jetons.
+     * Getter abstrait donnant le nombre de jetons.
      *
      * @return Nombre de jetons.
      */

@@ -64,7 +64,7 @@ public class Activite extends Etape {
     }
 
     /**
-     * Méthode donnant le nombre de jetons.
+     * Getter donnant le nombre de jetons.
      *
      * @return 0, car c'est une activité et non un guichet.
      */

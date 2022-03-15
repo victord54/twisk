@@ -25,21 +25,23 @@ public class Simulation {
         System.load("/tmp/twisk/libTwisk.so");
 
         /* ---------------- */
-        int[] tab_jetons_guichet = {1, 2};
-        int nb_etapes = monde.nbEtapes();
-        int nb_guichets = monde.nbGuichets();
+        int[] tab_jetons_guichet = new int[2];
+        tab_jetons_guichet[0] = 1;
+        tab_jetons_guichet[1] = 2;
+
+        int nb_etapes = 7;
+        int nb_guichets = 2;
         int nb_clients = 5;
 
         int[] tab = start_simulation(nb_etapes, nb_guichets, nb_clients, tab_jetons_guichet);
         int[] tab_client = ou_sont_les_clients(nb_etapes, nb_clients);
 
         // Affichage des PID des clients
-        System.out.println("les clients : ");
+        System.out.print("les clients : ");
         for (int i = 0; i < nb_clients; i++) {
-            System.out.println(tab[i]);
+            System.out.print(tab[i] + " ");
         }
         System.out.println();
-
         // Affichage des PID des clients par étape
         while (tab_client[(nb_etapes - 1) * nb_clients + nb_etapes - 1] != nb_clients) { // [18] = 5
             tab_client = ou_sont_les_clients(nb_etapes, nb_clients);

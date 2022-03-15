@@ -11,8 +11,17 @@ import twisk.outils.FabriqueNumero;
 import java.util.Iterator;
 
 public abstract class Etape implements Iterable<Etape> {
+    /**
+     * Champs contenant le numéro de l'étape.
+     */
     protected int numEtape;
+    /**
+     * Champs contenant le nom de l'étape.
+     */
     protected String nom;
+    /**
+     * Champs contenant le gestionnaire des successeurs de l'étape actuelle.
+     */
     protected GestionnaireSuccesseur gestionnaireSuccesseur;
 
     /**

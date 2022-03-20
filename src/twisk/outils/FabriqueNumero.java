@@ -30,6 +30,7 @@ public class FabriqueNumero {
 
     /**
      * Getter donnant l'instance du singleton.
+     *
      * @return instance.
      */
     public static FabriqueNumero getInstance() {
@@ -38,6 +39,7 @@ public class FabriqueNumero {
 
     /**
      * Getter donnant le numéro unique de la prochaine étape.
+     *
      * @return Numéro unique de l'étape.
      */
     public int getNumeroEtape() {
@@ -47,6 +49,7 @@ public class FabriqueNumero {
 
     /**
      * Getter donnant le numéro unique du prochain guichet.
+     *
      * @return Sémaphore unique.
      */
     public int getNumeroSemaphore() {

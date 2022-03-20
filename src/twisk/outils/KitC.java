@@ -1,3 +1,10 @@
+/**
+ * Classe représentant les outils destinés à écrire le code c.
+ *
+ * @author Kurth Claire et Dallé Victor
+ * @since 02/02/2022
+ */
+
 package twisk.outils;
 
 import java.io.*;
@@ -8,12 +15,18 @@ import java.nio.file.Paths;
 import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
 
 public class KitC {
+    /**
+     * Constructeur par défaut de la classe.
+     */
     public KitC() {
     }
 
-    public void creerEnvironnement(){
+    /**
+     * Méthode créant le répertoire twisk dans /tmp et qui copie les fichiers objects et header nécessaires.
+     */
+    public void creerEnvironnement() {
         try {
-            // création du répertoire twisk sous /tmp. Ne déclenche pas d’erreur si le répertoire existe déjà
+            // Création du répertoire twisk sous /tmp. Ne déclenche pas d’erreur si le répertoire existe déjà
             Path directories = Files.createDirectories(Paths.get("/tmp/twisk"));
             // copie des deux fichiers programmeC.o et def.h depuis le projet sous /tmp/twisk
             String[] liste = {"programmeC.o", "def.h", "codeNatif.o"};
@@ -30,20 +43,31 @@ public class KitC {
         }
     }
 
+    /**
+     * Méthode permettant de copier-coller un fichier.
+     *
+     * @param source Répertoire source.
+     * @param dest   Répertoire de destination.
+     * @throws IOException Exception d'entrée-sortie.
+     */
     private void copier(InputStream source, File dest) throws IOException {
-        InputStream sourceFile = source;
         OutputStream destinationFile = new FileOutputStream(dest);
         // Lecture par segment de 0.5Mo
-        byte buffer[] = new byte[512 * 1024];
+        byte[] buffer = new byte[512 * 1024];
         int nbLecture;
-        while ((nbLecture = sourceFile.read(buffer)) != -1) {
+        while ((nbLecture = source.read(buffer)) != -1) {
             destinationFile.write(buffer, 0, nbLecture);
         }
         destinationFile.close();
-        sourceFile.close();
+        source.close();
     }
 
-        public void creerFichier(String codeC){
+    /**
+     * Méthode permettant de créer un fichier.
+     *
+     * @param codeC Nom du fichier à créer.
+     */
+    public void creerFichier(String codeC) {
         try {
             File chemin = new File("client.c");
             PrintWriter flotFiltre = new PrintWriter(chemin);
@@ -56,22 +80,23 @@ public class KitC {
             Path newdir = Paths.get("/tmp/twisk/");
             Path source = Paths.get("client.c");
             Files.move(source, newdir.resolve(source.getFileName()), REPLACE_EXISTING);
-
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-
-    public void compiler(){
+    /**
+     * Méthode permettant de compiler du code c.
+     */
+    public void compiler() {
         Runtime runtime = Runtime.getRuntime();
         try {
-            Process p = runtime.exec("gcc -Wall -fPIC -c /tmp/twisk/client.c -o /tmp/twisk/client.o" );
+            Process p = runtime.exec("gcc -Wall -fPIC -c /tmp/twisk/client.c -o /tmp/twisk/client.o");
             // récupération des messages sur la sortie standard et la sortie d’erreur de la commande exécutée
             // à reprendre éventuellement et à adapter à votre code
             BufferedReader output = new BufferedReader(new InputStreamReader(p.getInputStream()));
             BufferedReader error = new BufferedReader(new InputStreamReader(p.getErrorStream()));
-            String ligne ;
+            String ligne;
             while ((ligne = output.readLine()) != null) {
                 System.out.println(ligne);
             }
@@ -83,8 +108,10 @@ public class KitC {
         }
     }
 
-
-    public void construireLaLibrairie(){
+    /**
+     * Méthode permettant de compiler et construire une librairie c.
+     */
+    public void construireLaLibrairie() {
         Runtime runtime = Runtime.getRuntime();
         try {
             Process p = runtime.exec("gcc -shared /tmp/twisk/programmeC.o /tmp/twisk/codeNatif.o /tmp/twisk/client.o -o /tmp/twisk/libTwisk.so");
@@ -92,7 +119,7 @@ public class KitC {
             // à reprendre éventuellement et à adapter à votre code
             BufferedReader output = new BufferedReader(new InputStreamReader(p.getInputStream()));
             BufferedReader error = new BufferedReader(new InputStreamReader(p.getErrorStream()));
-            String ligne ;
+            String ligne;
             while ((ligne = output.readLine()) != null) {
                 System.out.println(ligne);
             }

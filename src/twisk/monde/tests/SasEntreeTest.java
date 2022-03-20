@@ -6,8 +6,6 @@ import twisk.monde.Activite;
 import twisk.monde.Etape;
 import twisk.monde.SasEntree;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 class SasEntreeTest {
     Etape entree;
 

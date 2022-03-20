@@ -32,11 +32,12 @@ public class Monde implements Iterable<Etape> {
         entree = new SasEntree();
         sortie = new SasSortie();
         gestionnaireEtape = new GestionnaireEtapes();
-        gestionnaireEtape.ajouter(entree,sortie);
+        gestionnaireEtape.ajouter(entree, sortie);
     }
 
     /**
      * Méthode définissant les points d'entrée du monde.
+     *
      * @param etapes Les étapes d'entrée.
      */
     public void aCommeEntree(Etape... etapes) {
@@ -45,6 +46,7 @@ public class Monde implements Iterable<Etape> {
 
     /**
      * Méthode définissant les points de sortie du monde.
+     *
      * @param etapes Les étapes de sortie.
      */
     public void aCommeSortie(Etape... etapes) {
@@ -55,6 +57,7 @@ public class Monde implements Iterable<Etape> {
 
     /**
      * Méthode ajoutant des étapes au monde.
+     *
      * @param etapes Les étapes à ajouter au monde.
      */
     public void ajouter(Etape... etapes) {
@@ -64,6 +67,7 @@ public class Monde implements Iterable<Etape> {
 
     /**
      * Getter donnant le nombre d'étapes du monde.
+     *
      * @return Nombre d'étapes du monde.
      */
     public int nbEtapes() {
@@ -72,6 +76,7 @@ public class Monde implements Iterable<Etape> {
 
     /**
      * Getter donnant le nombre de guichets du monde.
+     *
      * @return Nombre de guichets du monde.
      */
     public int nbGuichets() {
@@ -85,6 +90,7 @@ public class Monde implements Iterable<Etape> {
 
     /**
      * Getter donnant le sas d'entrée du monde.
+     *
      * @return Sas d'entrée.
      */
     public Etape getSasEntree() {
@@ -93,6 +99,7 @@ public class Monde implements Iterable<Etape> {
 
     /**
      * Getter donnant le sas de sortie du monde.
+     *
      * @return Sas de sortie.
      */
     public Etape getSasSortie() {
@@ -101,6 +108,7 @@ public class Monde implements Iterable<Etape> {
 
     /**
      * Méthode définissant un nouvel itérateur sur le monde.
+     *
      * @return Itérateur sur les étapes.
      */
     public Iterator<Etape> iterator() {
@@ -109,6 +117,7 @@ public class Monde implements Iterable<Etape> {
 
     /**
      * Méthode toString().
+     *
      * @return Les étapes constituant le monde..
      */
     public String toString() {
@@ -117,6 +126,7 @@ public class Monde implements Iterable<Etape> {
 
     /**
      * Méthode définissant le code c à ajouter pour le monde.
+     *
      * @return Le code c.
      */
     public String toC() {

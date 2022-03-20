@@ -7,15 +7,16 @@ import twisk.monde.Etape;
 import twisk.monde.GestionnaireEtapes;
 import twisk.monde.Guichet;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class GestionnaireEtapesTest {
-    private GestionnaireEtapes gE;
     Etape e1;
     Etape e2;
+    private GestionnaireEtapes gE;
 
     @BeforeEach
-    void setUp(){
+    void setUp() {
         gE = new GestionnaireEtapes();
         e1 = new Activite("test");
         e2 = new Guichet("guigui");
@@ -23,29 +24,28 @@ class GestionnaireEtapesTest {
 
     @Test
     void ajouter() {
-        gE.ajouter(e1,e2);
+        gE.ajouter(e1, e2);
         assertTrue(gE.getEtape(0).getNom().equalsIgnoreCase("test"));
         assertTrue(gE.getEtape(1).getNom().equalsIgnoreCase("guigui"));
     }
 
     @Test
     void nbEtapes() {
-        assertEquals(0,gE.nbEtapes());
-        gE.ajouter(e1,e2);
-        assertEquals(2,gE.nbEtapes());
+        assertEquals(0, gE.nbEtapes());
+        gE.ajouter(e1, e2);
+        assertEquals(2, gE.nbEtapes());
     }
 
     @Test
     void iterator() {
-        gE.ajouter(new Activite("e"),new Activite("ee"),new Guichet("eee"));
+        gE.ajouter(new Activite("e"), new Activite("ee"), new Guichet("eee"));
         StringBuilder s = new StringBuilder();
         s.append("e");
-        for (Etape e : gE){
+        for (Etape e : gE) {
             assertTrue(s.toString().equalsIgnoreCase(e.getNom()));
             s.append("e");
         }
     }
-
 
 
 }

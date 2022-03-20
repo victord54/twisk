@@ -22,6 +22,7 @@ public class Guichet extends Etape {
 
     /**
      * Constructeur de la classe.
+     *
      * @param nom Nom associé au guichet.
      */
     public Guichet(String nom) {
@@ -32,8 +33,9 @@ public class Guichet extends Etape {
 
     /**
      * Constructeur de la classe.
+     *
      * @param nom Nom associé au guichet.
-     * @param nb Nombre de jetons pour le guichet.
+     * @param nb  Nombre de jetons pour le guichet.
      */
     public Guichet(String nom, int nb) {
         super(nom);
@@ -43,6 +45,7 @@ public class Guichet extends Etape {
 
     /**
      * Méthode vérifiant si l'Etape est un guichet.
+     *
      * @return Vrai, car c'est un guichet.
      */
     @Override
@@ -52,6 +55,7 @@ public class Guichet extends Etape {
 
     /**
      * Getter donnant l'id du guichet.
+     *
      * @return Numéro de sémaphore.
      */
     public int getNumSemaphore() {
@@ -60,6 +64,7 @@ public class Guichet extends Etape {
 
     /**
      * Méthode définissant le code c à ajouter pour un guichet.
+     *
      * @return Le code c.
      */
     @Override
@@ -72,9 +77,10 @@ public class Guichet extends Etape {
 
     /**
      * Getter donnant le nombre de jetons disponibles pour le guichet.
+     *
      * @return Le nombre de jetons.
      */
-    public int getNbJetons(){
+    public int getNbJetons() {
         return nbJetons;
     }
 }

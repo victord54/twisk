@@ -19,10 +19,11 @@ public class SasEntree extends Activite {
 
     /**
      * Méthode définissant le code c à ajouter pour un sas d'entrée.
+     *
      * @return Le code c.
      */
     @Override
-    public String toC(){
+    public String toC() {
         StringBuilder builder = new StringBuilder();
         builder.append("entrer(").append(this.numEtape).append(");\n");
         builder.append("delai(").append(this.temps).append(",").append(this.ecartTemps).append(");\n");

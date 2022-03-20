@@ -13,6 +13,7 @@ public class Activite extends Etape {
 
     /**
      * Constructeur de la classe.
+     *
      * @param nom Nom de l'activité.
      */
     public Activite(String nom) {
@@ -23,6 +24,7 @@ public class Activite extends Etape {
 
     /**
      * Autre constructeur de la classe.
+     *
      * @param nom Nom de l'activité.
      * @param t   Durée de l'activité.
      * @param e   Incertitude sur la durée (t +/- e) de l'activité.
@@ -35,6 +37,7 @@ public class Activite extends Etape {
 
     /**
      * Méthode qui vérifie si une étape est une activité.
+     *
      * @return Un booléen qui renvoie true car c'est une activité.
      */
     @Override
@@ -44,6 +47,7 @@ public class Activite extends Etape {
 
     /**
      * Méthode définissant le code c à ajouter pour une activité.
+     *
      * @return Le code c.
      */
     @Override
@@ -61,6 +65,7 @@ public class Activite extends Etape {
 
     /**
      * Getter donnant le nombre de jetons.
+     *
      * @return 0, car c'est une activité et non un guichet.
      */
     @Override

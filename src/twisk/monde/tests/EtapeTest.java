@@ -37,12 +37,12 @@ class EtapeTest {
     }
 
     @Test
-    void testNumEtape(){
-        assertEquals(etape1.getNumEtape(),0);
-        assertEquals(etape2.getNumEtape(),1);
+    void testNumEtape() {
+        assertEquals(etape1.getNumEtape(), 0);
+        assertEquals(etape2.getNumEtape(), 1);
 
         FabriqueNumero.getInstance().reset();
         Etape e3 = new Guichet("ee");
-        assertEquals(e3.getNumEtape(),0);
+        assertEquals(e3.getNumEtape(), 0);
     }
 }

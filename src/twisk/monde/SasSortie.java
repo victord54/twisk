@@ -18,9 +18,10 @@ public class SasSortie extends Activite {
 
     /**
      * Méthode définissant le code c à ajouter pour un sas de sortie.
+     *
      * @return Le code c.
      */
-    public String toC(){
+    public String toC() {
         return "";
     }
 }

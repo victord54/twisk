@@ -5,18 +5,18 @@ import twisk.monde.Monde;
 import twisk.outils.KitC;
 
 public class Simulation {
-    public native int[] start_simulation(int nbEtapes, int nbGuichets, int nbClients, int[] tabJetonsGuichet);
-
-    public native void nettoyage();
-
-    public native int[] ou_sont_les_clients(int nbEtapes, int nbClients);
-
-    private KitC kit;
+    private final KitC kit;
 
     public Simulation() {
         kit = new KitC();
         kit.creerEnvironnement();
     }
+
+    public native int[] start_simulation(int nbEtapes, int nbGuichets, int nbClients, int[] tabJetonsGuichet);
+
+    public native void nettoyage();
+
+    public native int[] ou_sont_les_clients(int nbEtapes, int nbClients);
 
     public void simuler(Monde monde) {
         System.out.println(monde.toString());
@@ -26,16 +26,15 @@ public class Simulation {
         System.load("/tmp/twisk/libTwisk.so");
 
 
-
-        int nb_etapes = monde.nbEtapes() +1;
+        int nb_etapes = monde.nbEtapes() + 1;
         int nb_guichets = 1;
         int nb_clients = 2;
 
         int[] tab_jetons_guichet = new int[nb_guichets];
-        int j =0;
+        int j = 0;
 
-        for (Etape e:monde){
-            if (e.estUnGuichet()){
+        for (Etape e : monde) {
+            if (e.estUnGuichet()) {
                 tab_jetons_guichet[j] = e.getNbJetons();
                 j++;
             }

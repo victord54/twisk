@@ -26,7 +26,7 @@ class ActiviteTest {
     }
 
     @Test
-    void toC(){
+    void toC() {
         System.out.println(etape.toC());
     }
 }

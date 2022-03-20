@@ -4,10 +4,9 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import twisk.outils.KitC;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 class KitCTest {
     KitC kit;
+
     @BeforeEach
     void setUp() {
         kit = new KitC();
@@ -19,7 +18,7 @@ class KitCTest {
     }
 
     @Test
-    void creerFichier(){
+    void creerFichier() {
         kit.creerFichier("testtesttesttestt");
     }
 

@@ -15,7 +15,7 @@ public class ClientTwisk {
         e1.ajouterSuccesseur(e2);
         e2.ajouterSuccesseur(e3);
         e3.ajouterSuccesseur(e4);
-        m.ajouter(e1,e2,e3,e4);
+        m.ajouter(e1, e2, e3, e4);
         m.aCommeEntree(e1);
         m.aCommeSortie(e4);
         return m;

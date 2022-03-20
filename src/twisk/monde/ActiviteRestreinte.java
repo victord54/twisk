@@ -15,6 +15,7 @@ public class ActiviteRestreinte extends Activite {
 
     /**
      * Constructeur de la classe
+     *
      * @param nom Nom de l'activité restreinte.
      */
     public ActiviteRestreinte(String nom) {
@@ -23,6 +24,7 @@ public class ActiviteRestreinte extends Activite {
 
     /**
      * Autre constructeur de la classe.
+     *
      * @param nom Nom de l'activité restreinte.
      * @param t   Durée de l'activité restreinte.
      * @param e   Incertitude sur la durée (t +/- e) de l'activité restreinte.
@@ -33,6 +35,7 @@ public class ActiviteRestreinte extends Activite {
 
     /**
      * Méthode définissant le guichet auquel l'activité restreinte est reliée.
+     *
      * @param semaphore Identifiant unique du guichet.
      */
     public void aCommeGuichet(int semaphore) {
@@ -41,6 +44,7 @@ public class ActiviteRestreinte extends Activite {
 
     /**
      * Méthode définissant le code c à ajouter pour une activité restreinte.
+     *
      * @return Le code c.
      */
     @Override

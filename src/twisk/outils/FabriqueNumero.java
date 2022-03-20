@@ -8,19 +8,17 @@ package twisk.outils;
 
 public class FabriqueNumero {
     /**
+     * Instante pour le singleton.
+     */
+    private static final FabriqueNumero instance = new FabriqueNumero();
+    /**
      * Compteur d'étapes.
      */
     private int cptEtape;
-
     /**
      * Compteur de guichets.
      */
     private int cptSemaphore;
-
-    /**
-     * Instante pour le singleton.
-     */
-    private static final FabriqueNumero instance = new FabriqueNumero();
 
     /**
      * Constructeur par défaut de la classe.

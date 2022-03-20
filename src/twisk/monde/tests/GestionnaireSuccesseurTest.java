@@ -24,32 +24,32 @@ class GestionnaireSuccesseurTest {
 
     @Test
     void ajouter() {
-        gS.ajouter(e1,e2);
+        gS.ajouter(e1, e2);
         assertTrue(gS.getEtape(0).toString().equalsIgnoreCase("test"));
         assertTrue(gS.getEtape(1).toString().equalsIgnoreCase("guichet"));
     }
 
     @Test
     void nbEtapes() {
-        assertEquals(0,gS.nbEtapes());
-        gS.ajouter(e1,e2);
-        assertEquals(2,gS.nbEtapes());
+        assertEquals(0, gS.nbEtapes());
+        gS.ajouter(e1, e2);
+        assertEquals(2, gS.nbEtapes());
     }
 
     @Test
     void iterator() {
-        gS.ajouter(new Activite("e"),new Activite("ee"),new Guichet("eee"));
+        gS.ajouter(new Activite("e"), new Activite("ee"), new Guichet("eee"));
         StringBuilder s = new StringBuilder();
         s.append("e");
-        for (Etape e : gS){
+        for (Etape e : gS) {
             assertTrue(s.toString().equalsIgnoreCase(e.toString()));
             s.append("e");
         }
     }
 
     @Test
-    void string(){
-        gS.ajouter(e1,e2);
+    void string() {
+        gS.ajouter(e1, e2);
         System.out.println(gS.toString());
     }
 }

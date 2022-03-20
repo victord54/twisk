@@ -26,6 +26,7 @@ public abstract class Etape implements Iterable<Etape> {
 
     /**
      * Constructeur de la classe.
+     *
      * @param nom Nom de l'étape.
      */
     public Etape(String nom) {
@@ -36,6 +37,7 @@ public abstract class Etape implements Iterable<Etape> {
 
     /**
      * Méthode qui ajoute un successeur à l'étape actuelle.
+     *
      * @param etapes Les étapes successeures.
      */
     public void ajouterSuccesseur(Etape... etapes) {
@@ -44,6 +46,7 @@ public abstract class Etape implements Iterable<Etape> {
 
     /**
      * Méthode qui donne le nombre de successeurs de l'étape actuelle.
+     *
      * @return Le nombre de successeurs.
      */
     public int nbSuccesseurs() {
@@ -52,6 +55,7 @@ public abstract class Etape implements Iterable<Etape> {
 
     /**
      * Méthode qui vérifie si l'étape est une activité.
+     *
      * @return Un booléen indiquant si c'est une activité ou non.
      */
     public boolean estUneActivite() {
@@ -60,6 +64,7 @@ public abstract class Etape implements Iterable<Etape> {
 
     /**
      * Méthode qui vérifie si l'étape est un guichet.
+     *
      * @return Un booléen indiquant si c'est un guichet ou non.
      */
     public boolean estUnGuichet() {
@@ -68,6 +73,7 @@ public abstract class Etape implements Iterable<Etape> {
 
     /**
      * Méthode qui vérifie si l'étape est une sortie.
+     *
      * @return Un booléen indiquant si c'est une sortie ou non.
      */
     public boolean estUneSortie() {
@@ -81,6 +87,7 @@ public abstract class Etape implements Iterable<Etape> {
 
     /**
      * Méthode définissant un nouvel itérateur pour Etape
+     *
      * @return Le nouvel itérateur
      */
     @Override
@@ -90,6 +97,7 @@ public abstract class Etape implements Iterable<Etape> {
 
     /**
      * Getter du nom de l'activité.
+     *
      * @return Le nom.
      */
     public String getNom() {
@@ -98,6 +106,7 @@ public abstract class Etape implements Iterable<Etape> {
 
     /**
      * Getter du numéro de l'étape.
+     *
      * @return Le numéro de l'étape.
      */
     public int getNumEtape() {
@@ -106,6 +115,7 @@ public abstract class Etape implements Iterable<Etape> {
 
     /**
      * Méthode toString().
+     *
      * @return Les champs constituant l'étape.
      */
     @Override
@@ -115,12 +125,14 @@ public abstract class Etape implements Iterable<Etape> {
 
     /**
      * Méthode abstraite définissant le code c à ajouter pour une étape.
+     *
      * @return Le code c.
      */
     public abstract String toC();
 
     /**
      * Getter abstrait donnant le nombre de jetons.
+     *
      * @return Nombre de jetons.
      */
     public abstract int getNbJetons();

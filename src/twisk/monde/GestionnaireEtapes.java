@@ -25,6 +25,7 @@ public class GestionnaireEtapes implements Iterable<Etape> {
 
     /**
      * Méthode qui permet d'ajouter des étapes au gestionnaire.
+     *
      * @param etapes Les étapes à ajouter.
      */
     public void ajouter(Etape... etapes) {
@@ -33,6 +34,7 @@ public class GestionnaireEtapes implements Iterable<Etape> {
 
     /**
      * Getter donnant le nombre d'étapes dans le gestionnaire.
+     *
      * @return Le nombre d'étapes dans le gestionnaire d'étapes.
      */
     public int nbEtapes() {
@@ -41,6 +43,7 @@ public class GestionnaireEtapes implements Iterable<Etape> {
 
     /**
      * Méthode définissant un nouvel itérateur pour le gestionnaire d'étapes.
+     *
      * @return Le nouvel itérateur.
      */
     @Override
@@ -50,6 +53,7 @@ public class GestionnaireEtapes implements Iterable<Etape> {
 
     /**
      * Getter d'une étape du gestionnaire d'étapes.
+     *
      * @param i Indice de l'étape à renvoyer.
      * @return L'étape à l'indice i.
      */
@@ -59,6 +63,7 @@ public class GestionnaireEtapes implements Iterable<Etape> {
 
     /**
      * Méthode toString().
+     *
      * @return Les étapes que contient le gestionnaire.
      */
     @Override

@@ -71,7 +71,7 @@ public class Monde implements Iterable<Etape> {
     }
 
     /**
-     * Getter donnant le nombre de guichet du monde.
+     * Getter donnant le nombre de guichets du monde.
      * @return Nombre de guichets du monde.
      */
     public int nbGuichets() {

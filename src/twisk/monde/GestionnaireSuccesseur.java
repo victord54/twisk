@@ -66,7 +66,7 @@ public class GestionnaireSuccesseur implements Iterable<Etape> {
     /**
      * Getter qui donne un successeur.
      * @param i Indice de l'étape à renvoyer.
-     * @return L'étape à l"indice i.
+     * @return L'étape à l'indice i.
      */
     public Etape getEtape(int i) {
         return etapes.get(i);

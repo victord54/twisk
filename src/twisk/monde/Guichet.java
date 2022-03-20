@@ -1,5 +1,5 @@
 /**
- * Classe représentant Un guichet.
+ * Classe représentant un guichet.
  *
  * @author Kurth Claire et Dallé Victor
  * @since 02/02/2022
@@ -59,8 +59,7 @@ public class Guichet extends Etape {
     }
 
     /**
-     * Méthode abstraite définissant le code c à ajouter pour une étape.
-     *
+     * Méthode définissant le code c à ajouter pour un guichet.
      * @return Le code c.
      */
     @Override

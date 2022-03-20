@@ -26,7 +26,6 @@ public class GestionnaireSuccesseur implements Iterable<Etape> {
 
     /**
      * Méthode qui permet d'ajouter des étapes au gestionnaire.
-     *
      * @param etapes Les successeurs.
      */
     public void ajouter(Etape... etapes) {
@@ -35,7 +34,6 @@ public class GestionnaireSuccesseur implements Iterable<Etape> {
 
     /**
      * Getter qui donne le nombre de successeurs de l'étape.
-     *
      * @return Le nombre de successeurs.
      */
     public int nbEtapes() {
@@ -44,7 +42,6 @@ public class GestionnaireSuccesseur implements Iterable<Etape> {
 
     /**
      * Méthode qui définie un nouvel itérateur pour le gestionnaire de successeurs.
-     *
      * @return Le nouvel itérateur.
      */
     @Override
@@ -54,7 +51,6 @@ public class GestionnaireSuccesseur implements Iterable<Etape> {
 
     /**
      * Méthode toString()
-     *
      * @return Les successeurs de l'étape concernée.
      */
     @Override
@@ -69,7 +65,6 @@ public class GestionnaireSuccesseur implements Iterable<Etape> {
 
     /**
      * Getter qui donne un successeur.
-     *
      * @param i Indice de l'étape à renvoyer.
      * @return L'étape à l"indice i.
      */
@@ -79,7 +74,6 @@ public class GestionnaireSuccesseur implements Iterable<Etape> {
 
     /**
      * Getter qui donne le premier successeur.
-     *
      * @return Le 1er successeur.
      */
     public Etape getSucc() {

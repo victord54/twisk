@@ -1,3 +1,10 @@
+/**
+ * Classe principale du projet.
+ *
+ * @author Kurth Claire et Dallé Victor
+ * @since 02/02/2022
+ */
+
 package twisk;
 
 import twisk.monde.*;
@@ -5,6 +12,11 @@ import twisk.simulation.Simulation;
 
 public class ClientTwisk {
 
+    /**
+     * Un monde parmi d'autres pour la simulation.
+     *
+     * @return Le monde créé.
+     */
     public static Monde monde1() {
         Monde m = new Monde();
         Guichet e1 = new Guichet("Guichet");
@@ -21,6 +33,11 @@ public class ClientTwisk {
         return m;
     }
 
+    /**
+     * Méthode main permettant l'exécution du programme.
+     *
+     * @param args Arguments lors de l'exécution.
+     */
     public static void main(String[] args) {
         Simulation simulation = new Simulation();
         simulation.simuler(monde1());

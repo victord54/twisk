@@ -1,0 +1,41 @@
+@startuml
+package twisk {
+  package monde {
+    abstract class Etape {
+      - int numEtape
+      - String nom
+      - GestionnaireSuccesseur gestionnaireSuccesseur
+      
+      + Etape(String nom)
+      + void ajouterSuccesseur(Etape... etapes)
+      + int nbSuccesseurs()
+      + boolean estUneActivite()
+      + boolean estUnGuichet()
+      + boolean estUneSortie()
+      + Iterator<Etape> iterator()
+      + String getNom()
+      + int getNumEtape()
+      + String toString()
+      + abstract String toC()
+      + abstract int getNbJetons()
+    }
+  }
+  
+  package outils {
+    class Fabrique {
+    }
+  }
+  
+  package ressources {
+  class files
+  }
+  
+  package simulation {
+    class Simulation {
+    }
+  }
+  
+  class ClientTwisk {
+  }
+}
+@enduml

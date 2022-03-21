@@ -1,3 +1,10 @@
+/**
+ * Classe représentant les outils nécessaire au bon fonctionnement de la simulation.
+ *
+ * @author Kurth Claire et Dallé Victor
+ * @since 02/02/2022
+ */
+
 package twisk.simulation;
 
 import twisk.monde.Etape;
@@ -5,19 +12,49 @@ import twisk.monde.Monde;
 import twisk.outils.KitC;
 
 public class Simulation {
+    /**
+     * Champs représentant les outils pour compiler, exécuter le code c.
+     */
     private final KitC kit;
 
+    /**
+     * Constructeur par défaut de la classe.
+     */
     public Simulation() {
         kit = new KitC();
         kit.creerEnvironnement();
     }
 
+    /**
+     * Méthode permettant le démarrage de la simulation (code c).
+     *
+     * @param nbEtapes         Le nombre d'étapes du monde.
+     * @param nbGuichets       Le nombre de guichets du monde.
+     * @param nbClients        Le nombre de clients du monde.
+     * @param tabJetonsGuichet Le nombre de jetons par guichets.
+     * @return Le tableau contenant les clients.
+     */
     public native int[] start_simulation(int nbEtapes, int nbGuichets, int nbClients, int[] tabJetonsGuichet);
 
+    /**
+     * Méthode qui stoppe les processus.
+     */
     public native void nettoyage();
 
+    /**
+     * Méthode donnant l'emplacement des clients dans les différentes étapes du monde.
+     *
+     * @param nbEtapes  Le nombre d'étapes du monde.
+     * @param nbClients Le nombre de clients du monde.
+     * @return Le tableau contenant l'emplacement des clients en fonction des étapes.
+     */
     public native int[] ou_sont_les_clients(int nbEtapes, int nbClients);
 
+    /**
+     * Méthode lançant la simulation.
+     *
+     * @param monde Le monde.
+     */
     public void simuler(Monde monde) {
         System.out.println(monde.toString());
         kit.creerFichier(monde.toC());

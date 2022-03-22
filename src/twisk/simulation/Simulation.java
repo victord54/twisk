@@ -64,7 +64,7 @@ public class Simulation {
 
 
         int nb_etapes = monde.nbEtapes() + 1;
-        int nb_guichets = 1;
+        int nb_guichets = monde.nbGuichets();
         int nb_clients = 2;
 
         int[] tab_jetons_guichet = new int[nb_guichets];
@@ -101,6 +101,11 @@ public class Simulation {
                 decalage += nb_clients + 1;
                 nb_a_afficher = tab_client[decalage];
 
+            }
+            try {
+                Thread.sleep(1000);
+            } catch(Exception e){
+                System.out.println(e.toString());
             }
         }
         nettoyage();

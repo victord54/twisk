@@ -5,7 +5,7 @@ package twisk {
       - int numEtape
       - String nom
       - GestionnaireSuccesseur gestionnaireSuccesseur
-      
+
       + Etape(String nom)
       + void ajouterSuccesseur(Etape... etapes)
       + int nbSuccesseurs()
@@ -20,21 +20,21 @@ package twisk {
       + abstract int getNbJetons()
     }
   }
-  
+
   package outils {
     class Fabrique {
     }
   }
-  
+
   package ressources {
   class files
   }
-  
+
   package simulation {
     class Simulation {
     }
   }
-  
+
   class ClientTwisk {
   }
 }

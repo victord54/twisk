@@ -24,6 +24,7 @@ public abstract class Etape implements Iterable<Etape> {
      */
     protected GestionnaireSuccesseur gestionnaireSuccesseur;
 
+//  Constructeur
     /**
      * Constructeur de la classe.
      *
@@ -35,15 +36,7 @@ public abstract class Etape implements Iterable<Etape> {
         numEtape = FabriqueNumero.getInstance().getNumeroEtape();
     }
 
-    /**
-     * Méthode qui ajoute un successeur à l'étape actuelle.
-     *
-     * @param etapes Les étapes successeures.
-     */
-    public void ajouterSuccesseur(Etape... etapes) {
-        gestionnaireSuccesseur.ajouter(etapes);
-    }
-
+//  Getters
     /**
      * Méthode qui donne le nombre de successeurs de l'étape actuelle.
      *
@@ -86,16 +79,6 @@ public abstract class Etape implements Iterable<Etape> {
     }
 
     /**
-     * Méthode définissant un nouvel itérateur pour Etape
-     *
-     * @return Le nouvel itérateur
-     */
-    @Override
-    public Iterator<Etape> iterator() {
-        return gestionnaireSuccesseur.iterator();
-    }
-
-    /**
      * Getter du nom de l'activité.
      *
      * @return Le nom.
@@ -114,6 +97,36 @@ public abstract class Etape implements Iterable<Etape> {
     }
 
     /**
+     * Getter abstrait donnant le nombre de jetons.
+     *
+     * @return Nombre de jetons.
+     */
+    public abstract int getNbJetons();
+
+//  Setters
+
+    /**
+     * Méthode qui ajoute un successeur à l'étape actuelle.
+     *
+     * @param etapes Les étapes successeures.
+     */
+    public void ajouterSuccesseur(Etape... etapes) {
+        gestionnaireSuccesseur.ajouter(etapes);
+    }
+
+// Autres méthodes
+
+    /**
+     * Méthode définissant un nouvel itérateur pour Etape
+     *
+     * @return Le nouvel itérateur
+     */
+    @Override
+    public Iterator<Etape> iterator() {
+        return gestionnaireSuccesseur.iterator();
+    }
+
+    /**
      * Méthode toString().
      *
      * @return Les champs constituant l'étape.
@@ -129,12 +142,4 @@ public abstract class Etape implements Iterable<Etape> {
      * @return Le code c.
      */
     public abstract String toC();
-
-    /**
-     * Getter abstrait donnant le nombre de jetons.
-     *
-     * @return Nombre de jetons.
-     */
-    public abstract int getNbJetons();
-
 }

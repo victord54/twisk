@@ -1,41 +1,79 @@
 @startuml
 package twisk {
-  package monde {
-    abstract class Etape {
-      - int numEtape
-      - String nom
-      - GestionnaireSuccesseur gestionnaireSuccesseur
+    package monde {
+        abstract class Etape {
+            # int numEtape
+            # String nom
+            # GestionnaireSuccesseur gestionnaireSuccesseur
 
-      + Etape(String nom)
-      + void ajouterSuccesseur(Etape... etapes)
-      + int nbSuccesseurs()
-      + boolean estUneActivite()
-      + boolean estUnGuichet()
-      + boolean estUneSortie()
-      + Iterator<Etape> iterator()
-      + String getNom()
-      + int getNumEtape()
-      + String toString()
-      + abstract String toC()
-      + abstract int getNbJetons()
+            .. Constructeur ..
+            + Etape(String nom)
+            .. Getters ..
+            + int nbSuccesseurs()
+            + boolean estUneActivite()
+            + boolean estUnGuichet()
+            + boolean estUneSortie()
+            + String getNom()
+            + int getNumEtape()
+            + {abstract} int getNbJetons()
+            .. Setters ..
+            + void ajouterSuccesseur(Etape... etapes)
+            .. Autres méthodes ..
+            + Iterator<Etape> iterator()
+            + String toString()
+            + {abstract} String toC()
+        }
+
+        class Activite {
+            # int temps
+            # int ecartTemps
+
+            .. Constructeurs ..
+            + Activite(String nom)
+            + Activite(String nom, int t, int e)
+            .. Getters ..
+            + boolean estUneActivite()
+            + int getNbJetons()
+            .. Autres méthodes ..
+            + String toC()
+        }
+
+        class ActiviteRestreinte {
+            - int numSemGuichet
+
+            .. Constructeurs ..
+            + ActiviteRestreinte(String nom)
+            + ActiviteRestreinte(String nom, int t, int e)
+            .. Setter ..
+            + void aCommeGuichet(int semaphore)
+            .. Autres méthodes ..
+            + String toC()
+        }
     }
-  }
 
-  package outils {
-    class Fabrique {
+    package outils {
+        class Fabrique {
+        }
     }
-  }
 
-  package ressources {
-  class files
-  }
+    package ressources {
+        class files
+        }
 
-  package simulation {
-    class Simulation {
+    package simulation {
+        class Simulation {
+        }
     }
-  }
 
-  class ClientTwisk {
-  }
+    class ClientTwisk {
+    }
+
+    class Iterable {
+    + Iterator<Etape> iterator()
+    }
 }
+
+Etape .up.|> Iterable
+Activite -up-|> Etape
+ActiviteRestreinte -up-|> Etape
 @enduml

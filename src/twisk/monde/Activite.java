@@ -46,6 +46,16 @@ public class Activite extends Etape {
     }
 
     /**
+     * Getter donnant le nombre de jetons.
+     *
+     * @return 0, car c'est une activité et non un guichet.
+     */
+    @Override
+    public int getNbJetons() {
+        return 0;
+    }
+
+    /**
      * Méthode définissant le code c à ajouter pour une activité.
      *
      * @return Le code c.
@@ -63,13 +73,4 @@ public class Activite extends Etape {
         return builder.toString();
     }
 
-    /**
-     * Getter donnant le nombre de jetons.
-     *
-     * @return 0, car c'est une activité et non un guichet.
-     */
-    @Override
-    public int getNbJetons() {
-        return 0;
-    }
 }

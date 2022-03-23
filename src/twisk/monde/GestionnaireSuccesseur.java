@@ -25,21 +25,40 @@ public class GestionnaireSuccesseur implements Iterable<Etape> {
     }
 
     /**
-     * Méthode qui permet d'ajouter des étapes au gestionnaire.
-     *
-     * @param etapes Les successeurs.
-     */
-    public void ajouter(Etape... etapes) {
-        this.etapes.addAll(Arrays.asList(etapes));
-    }
-
-    /**
      * Getter qui donne le nombre de successeurs de l'étape.
      *
      * @return Le nombre de successeurs.
      */
     public int nbEtapes() {
         return etapes.size();
+    }
+
+    /**
+     * Getter qui donne un successeur.
+     *
+     * @param i Indice de l'étape à renvoyer.
+     * @return L'étape à l'indice i.
+     */
+    public Etape getEtape(int i) {
+        return etapes.get(i);
+    }
+
+    /**
+     * Getter qui donne le premier successeur.
+     *
+     * @return Le 1er successeur.
+     */
+    public Etape getSucc() {
+        return getEtape(0);
+    }
+
+    /**
+     * Méthode qui permet d'ajouter des étapes au gestionnaire.
+     *
+     * @param etapes Les successeurs.
+     */
+    public void ajouter(Etape... etapes) {
+        this.etapes.addAll(Arrays.asList(etapes));
     }
 
     /**
@@ -66,25 +85,4 @@ public class GestionnaireSuccesseur implements Iterable<Etape> {
 
         return builder.toString();
     }
-
-    /**
-     * Getter qui donne un successeur.
-     *
-     * @param i Indice de l'étape à renvoyer.
-     * @return L'étape à l'indice i.
-     */
-    public Etape getEtape(int i) {
-        return etapes.get(i);
-    }
-
-    /**
-     * Getter qui donne le premier successeur.
-     *
-     * @return Le 1er successeur.
-     */
-    public Etape getSucc() {
-        return getEtape(0);
-    }
-
-
 }

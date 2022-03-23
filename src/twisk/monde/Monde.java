@@ -23,7 +23,7 @@ public class Monde implements Iterable<Etape> {
     /**
      * Champs contenant le gestionnaire d'étapes du monde.
      */
-    protected GestionnaireEtapes gestionnaireEtape;
+    protected GestionnaireEtapes gestionnaireEtapes;
 
     /**
      * Constructeur par défaut de la classe.
@@ -31,8 +31,49 @@ public class Monde implements Iterable<Etape> {
     public Monde() {
         entree = new SasEntree();
         sortie = new SasSortie();
-        gestionnaireEtape = new GestionnaireEtapes();
-        gestionnaireEtape.ajouter(entree, sortie);
+        gestionnaireEtapes = new GestionnaireEtapes();
+        gestionnaireEtapes.ajouter(entree, sortie);
+    }
+
+    /**
+     * Getter donnant le nombre d'étapes du monde.
+     *
+     * @return Nombre d'étapes du monde.
+     */
+    public int nbEtapes() {
+        return gestionnaireEtapes.nbEtapes();
+    }
+
+    /**
+     * Getter donnant le nombre de guichets du monde.
+     *
+     * @return Nombre de guichets du monde.
+     */
+    public int nbGuichets() {
+        int n = 0;
+        for (Etape etape : gestionnaireEtapes) {
+            if (etape.estUnGuichet())
+                n++;
+        }
+        return n;
+    }
+
+    /**
+     * Getter donnant le sas d'entrée du monde.
+     *
+     * @return Sas d'entrée.
+     */
+    public Etape getSasEntree() {
+        return entree;
+    }
+
+    /**
+     * Getter donnant le sas de sortie du monde.
+     *
+     * @return Sas de sortie.
+     */
+    public Etape getSasSortie() {
+        return sortie;
     }
 
     /**
@@ -61,49 +102,8 @@ public class Monde implements Iterable<Etape> {
      * @param etapes Les étapes à ajouter au monde.
      */
     public void ajouter(Etape... etapes) {
-        gestionnaireEtape.ajouter(etapes);
+        gestionnaireEtapes.ajouter(etapes);
 
-    }
-
-    /**
-     * Getter donnant le nombre d'étapes du monde.
-     *
-     * @return Nombre d'étapes du monde.
-     */
-    public int nbEtapes() {
-        return gestionnaireEtape.nbEtapes();
-    }
-
-    /**
-     * Getter donnant le nombre de guichets du monde.
-     *
-     * @return Nombre de guichets du monde.
-     */
-    public int nbGuichets() {
-        int n = 0;
-        for (Etape etape : gestionnaireEtape) {
-            if (etape.estUnGuichet())
-                n++;
-        }
-        return n;
-    }
-
-    /**
-     * Getter donnant le sas d'entrée du monde.
-     *
-     * @return Sas d'entrée.
-     */
-    public Etape getSasEntree() {
-        return entree;
-    }
-
-    /**
-     * Getter donnant le sas de sortie du monde.
-     *
-     * @return Sas de sortie.
-     */
-    public Etape getSasSortie() {
-        return sortie;
     }
 
     /**
@@ -112,7 +112,7 @@ public class Monde implements Iterable<Etape> {
      * @return Itérateur sur les étapes.
      */
     public Iterator<Etape> iterator() {
-        return gestionnaireEtape.iterator();
+        return gestionnaireEtapes.iterator();
     }
 
     /**
@@ -121,7 +121,7 @@ public class Monde implements Iterable<Etape> {
      * @return Les étapes constituant le monde..
      */
     public String toString() {
-        return gestionnaireEtape.toString();
+        return gestionnaireEtapes.toString();
     }
 
     /**
@@ -131,7 +131,7 @@ public class Monde implements Iterable<Etape> {
      */
     public String toC() {
         StringBuilder str = new StringBuilder();
-        for (Etape etape : gestionnaireEtape) {
+        for (Etape etape : gestionnaireEtapes) {
             str.append(etape.toC());
         }
         return str.toString();

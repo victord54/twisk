@@ -105,7 +105,7 @@ public class Simulation {
             try {
                 Thread.sleep(1000);
             } catch(Exception e){
-                System.out.println(e.toString());
+                System.out.println(e.getMessage());
             }
         }
         nettoyage();

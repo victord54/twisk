@@ -14,7 +14,6 @@ public class SasEntree extends Activite {
      */
     public SasEntree() {
         super("entree");
-
     }
 
     /**

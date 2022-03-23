@@ -54,6 +54,15 @@ public class Guichet extends Etape {
     }
 
     /**
+     * Getter donnant le nombre de jetons disponibles pour le guichet.
+     *
+     * @return Le nombre de jetons.
+     */
+    public int getNbJetons() {
+        return nbJetons;
+    }
+
+    /**
      * Getter donnant l'id du guichet.
      *
      * @return Numéro de sémaphore.
@@ -73,14 +82,5 @@ public class Guichet extends Etape {
         str.append("P(ids,").append(this.numSemaphore).append(");\n");
         str.append("transfert(").append(this.numEtape).append(",").append(this.gestionnaireSuccesseur.getSucc().getNumEtape()).append(");\n");
         return str.toString();
-    }
-
-    /**
-     * Getter donnant le nombre de jetons disponibles pour le guichet.
-     *
-     * @return Le nombre de jetons.
-     */
-    public int getNbJetons() {
-        return nbJetons;
     }
 }

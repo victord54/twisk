@@ -21,6 +21,7 @@ public class SasSortie extends Activite {
      *
      * @return Le code c.
      */
+    @Override
     public String toC() {
         return "";
     }

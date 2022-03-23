@@ -24,31 +24,12 @@ public class GestionnaireEtapes implements Iterable<Etape> {
     }
 
     /**
-     * Méthode qui permet d'ajouter des étapes au gestionnaire.
-     *
-     * @param etapes Les étapes à ajouter.
-     */
-    public void ajouter(Etape... etapes) {
-        this.etapes.addAll(Arrays.asList(etapes));
-    }
-
-    /**
      * Getter donnant le nombre d'étapes dans le gestionnaire.
      *
      * @return Le nombre d'étapes dans le gestionnaire d'étapes.
      */
     public int nbEtapes() {
         return etapes.size();
-    }
-
-    /**
-     * Méthode définissant un nouvel itérateur pour le gestionnaire d'étapes.
-     *
-     * @return Le nouvel itérateur.
-     */
-    @Override
-    public Iterator<Etape> iterator() {
-        return etapes.iterator();
     }
 
     /**
@@ -59,6 +40,25 @@ public class GestionnaireEtapes implements Iterable<Etape> {
      */
     public Etape getEtape(int i) {
         return etapes.get(i);
+    }
+
+    /**
+     * Méthode qui permet d'ajouter des étapes au gestionnaire.
+     *
+     * @param etapes Les étapes à ajouter.
+     */
+    public void ajouter(Etape... etapes) {
+        this.etapes.addAll(Arrays.asList(etapes));
+    }
+
+    /**
+     * Méthode définissant un nouvel itérateur pour le gestionnaire d'étapes.
+     *
+     * @return Le nouvel itérateur.
+     */
+    @Override
+    public Iterator<Etape> iterator() {
+        return etapes.iterator();
     }
 
     /**

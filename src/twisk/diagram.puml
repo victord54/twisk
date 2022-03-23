@@ -49,31 +49,153 @@ package twisk {
             .. Autres méthodes ..
             + String toC()
         }
+
+        class GestionnaireEtapes {
+            - ArrayList<Etape> etapes
+
+            .. Constructeur ..
+            + GestionnaireEtapes()
+            .. Getters ..
+            + int nbEtapes()
+            + Etape getEtape(int i)
+            .. Setters ..
+            + void ajouter((Etape... etapes)
+            .. Autres méthodes ..
+            + Iterator<Etape> iterator()
+            + String toString()
+        }
+
+        class GestionnaireSuccesseur {
+            - ArrayList<Etape> etapes
+
+            .. Constructeur ..
+            + GestionnaireSuccesseur()
+            .. Getters ..
+            + int nbEtapes()
+            + Etape getEtape()
+            + Etape getSucc()
+            .. Setters ..
+            + void ajouter((Etape... etapes)
+            .. Autres méthodes ..
+            + Iterator<Etape> iterator()
+            + String toString()
+        }
+
+        class Guichet {
+            # int nbJetons
+            # int numSemaphore
+
+            .. Constructeurs ..
+            + Guichet(String nom)
+            + Guichet(String nom, int nb)
+            .. Getters ..
+            + boolean estUnGuichet()
+            + int getNbJetons()
+            + int getNumSemaphore()
+            .. Autres méthodes ..
+            + String toC()
+        }
+
+        class Monde {
+            # SasEntree entree
+            # SasSortie sortie
+            # GestionnaireEtapes gestionnaireEtapes
+
+            .. Constructeur ..
+            + Monde()
+            .. Getters ..
+            + int nbEtapes()
+            + int nbGuichets()
+            + Etape getSasEntree()
+            + Etape getSasSortie()
+            .. Setters ..
+            + void aCommeEntree(Etape... etapes)
+            + void aCommeSortie(Etape... etapes)
+            + void ajouter(Etape... etapes)
+            .. Autres méthodes ..
+            + Iterator<Etape> iterator()
+            + String toString()
+            + String toC()
+        }
+
+        class SasEntree {
+            .. Constructeur ..
+            + SasEntree()
+            .. Autres méthodes ..
+            + String toC()
+        }
+
+        class SasSortie {
+            .. Constructeur ..
+            + SasSortie()
+            .. Autres méthodes ..
+            + String toC()
+        }
     }
 
     package outils {
-        class Fabrique {
+        class FabriqueNumero {
+            - FabriqueNumero instance
+            - int cptEtape
+            - int cptSemaphore
+
+            .. Constructeur ..
+            - FabriqueNumero()
+            .. Getters ..
+            + FabriqueNumero getInstance()
+            + int getNumeroEtape()
+            + int getNumeroSemaphore()
+            .. Setter ..
+            + void reset()
+        }
+
+        class KitC {
+            .. Constructeur ..
+            + KitC()
+            .. Autres méthodes ..
+            + void creerEnvironnement()
+            + void copier(InputStream source, File dest)
+            + void creerFichier(String codeC)
+            + void compiler()
+            + void construireLaLibrairie()
         }
     }
 
     package ressources {
-        class files
-        }
+        class "Code C" << (R,#FF7700) Fichier >>
+    }
 
     package simulation {
         class Simulation {
+            - KitC kit
+
+            .. Constructeur ..
+            + Simulation()
+            .. Autres méthodes ..
+            + int[] start_simulation(int nbEtapes, int nbGuichets, int nbClients, int[] tabJetonsGuichet)
+            + void nettoyage()
+            + int[] ou_sont_les_clients(int nbEtapes, int nbClients)
+            + void simuler(Monde monde)
         }
     }
 
     class ClientTwisk {
+        + Monde monde1()
+        + void main(String[] args)
     }
 
-    class Iterable {
-    + Iterator<Etape> iterator()
+    class Iterable<Etape> {
+        + Iterator<Etape> iterator()
     }
 }
 
 Etape .up.|> Iterable
 Activite -up-|> Etape
-ActiviteRestreinte -up-|> Etape
+ActiviteRestreinte -up-|> Activite
+GestionnaireEtapes .up.|> Iterable
+GestionnaireSuccesseur .up.|> Iterable
+Guichet -up-|> Etape
+Monde .up.|> Iterable
+SasEntree -up-|> Activite
+SasSortie -up-|> Activite
 @enduml

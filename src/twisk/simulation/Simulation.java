@@ -13,6 +13,10 @@ import twisk.outils.KitC;
 
 public class Simulation {
     /**
+     * Champs représentant le nombre de clients.
+     */
+    private int nbClients;
+    /**
      * Champs représentant les outils pour compiler, exécuter le code c.
      */
     private final KitC kit;
@@ -23,6 +27,7 @@ public class Simulation {
     public Simulation() {
         kit = new KitC();
         kit.creerEnvironnement();
+        this.nbClients = 5;
     }
 
     /**
@@ -51,6 +56,14 @@ public class Simulation {
     public native int[] ou_sont_les_clients(int nbEtapes, int nbClients);
 
     /**
+     * Méthode qui permet de set les nombres de clients
+     * @param nb le nombre de clients
+     */
+    public void setNbClients(int nb){
+        this.nbClients = nb;
+    }
+
+    /**
      * Méthode lançant la simulation.
      *
      * @param monde Le monde.
@@ -65,7 +78,7 @@ public class Simulation {
 
         int nb_etapes = monde.nbEtapes() + 1;
         int nb_guichets = monde.nbGuichets();
-        int nb_clients = 2;
+        int nb_clients = this.nbClients;
 
         int[] tab_jetons_guichet = new int[nb_guichets];
         int j = 0;

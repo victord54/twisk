@@ -103,7 +103,6 @@ public class Monde implements Iterable<Etape> {
      */
     public void ajouter(Etape... etapes) {
         gestionnaireEtapes.ajouter(etapes);
-
     }
 
     /**

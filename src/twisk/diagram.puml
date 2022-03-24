@@ -168,13 +168,14 @@ package twisk {
     package simulation {
         class Simulation {
             - KitC kit
-
+            - int nbClients
             .. Constructeur ..
             + Simulation()
             .. Autres méthodes ..
             + int[] start_simulation(int nbEtapes, int nbGuichets, int nbClients, int[] tabJetonsGuichet)
             + void nettoyage()
             + int[] ou_sont_les_clients(int nbEtapes, int nbClients)
+            + void setNbClients(int nb)
             + void simuler(Monde monde)
         }
     }

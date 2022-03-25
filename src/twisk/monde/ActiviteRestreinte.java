@@ -11,7 +11,7 @@ public class ActiviteRestreinte extends Activite {
     /**
      * Indique le numéro de sémaphore du guichet.
      */
-    private int numSemGuichet = 1;
+    private int numSemGuichet;
 
     /**
      * Constructeur de la classe

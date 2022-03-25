@@ -58,7 +58,6 @@ public class ActiviteRestreinte extends Activite {
         str.append("V(ids,").append(numSemGuichet).append(");\n");
         if (!this.estUneSortie()) {
             str.append("transfert(").append(this.numEtape).append(",").append(this.gestionnaireSuccesseur.getSucc().getNumEtape()).append(");\n");
-            this.gestionnaireSuccesseur.getSucc().toC();
         } else {
             str.append("transfert(").append(this.numEtape).append(",1);\n");
         }

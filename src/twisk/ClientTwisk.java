@@ -47,7 +47,7 @@ public class ClientTwisk {
         etape1.ajouterSuccesseur(etape2);
         etape2.ajouterSuccesseur(guichet);
         guichet.ajouterSuccesseur(act1);
-        monde.ajouter(etape1, etape2);
+        monde.ajouter(etape2, etape1);
         monde.ajouter(act1);
         monde.ajouter(guichet);
         monde.aCommeEntree(etape1);

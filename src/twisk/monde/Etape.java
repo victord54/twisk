@@ -46,6 +46,10 @@ public abstract class Etape implements Iterable<Etape> {
         return gestionnaireSuccesseur.nbEtapes();
     }
 
+    public Etape getSuccesseur() {
+        return this.gestionnaireSuccesseur.getSucc();
+    }
+
     /**
      * Méthode qui vérifie si l'étape est une activité.
      *

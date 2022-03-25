@@ -70,7 +70,6 @@ public class Activite extends Etape {
         builder.append("delai(").append(temps).append(",").append(ecartTemps).append(");\n");
         if (!this.estUneSortie()) {
             builder.append("transfert(").append(this.numEtape).append(",").append(this.gestionnaireSuccesseur.getSucc().getNumEtape()).append(");\n");
-            this.gestionnaireSuccesseur.getSucc().toC();
         } else {
             builder.append("transfert(").append(this.numEtape).append(",1);\n");
         }

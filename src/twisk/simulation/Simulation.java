@@ -115,6 +115,7 @@ public class Simulation {
                 nb_a_afficher = tab_client[decalage];
 
             }
+
             try {
                 Thread.sleep(1000);
             } catch(Exception e){

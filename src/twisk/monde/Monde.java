@@ -120,7 +120,14 @@ public class Monde implements Iterable<Etape> {
      * @return Les étapes constituant le monde..
      */
     public String toString() {
-        return gestionnaireEtapes.toString();
+        StringBuilder stringBuilder = new StringBuilder();
+        Etape etape = entree;
+        while (etape.nbSuccesseurs() >= 1) {
+            stringBuilder.append(etape.toString()).append("\n");
+            etape = etape.gestionnaireSuccesseur.getSucc();
+        }
+        stringBuilder.append(sortie.toString()).append("\n");
+        return stringBuilder.toString();
     }
 
     /**
@@ -130,8 +137,13 @@ public class Monde implements Iterable<Etape> {
      */
     public String toC() {
         StringBuilder str = new StringBuilder();
-        for (Etape etape : gestionnaireEtapes) {
+//        for (Etape etape : gestionnaireEtapes) {
+//            str.append(etape.toC());
+//        }
+        Etape etape = entree;
+        while (etape.nbSuccesseurs() >= 1) {
             str.append(etape.toC());
+            etape = etape.gestionnaireSuccesseur.getSucc();
         }
         return str.toString();
     }

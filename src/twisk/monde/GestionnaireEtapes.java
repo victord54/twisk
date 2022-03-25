@@ -42,6 +42,10 @@ public class GestionnaireEtapes implements Iterable<Etape> {
         return etapes.get(i);
     }
 
+    public boolean contains(Etape etape) {
+        return etapes.contains(etape);
+    }
+
     /**
      * Méthode qui permet d'ajouter des étapes au gestionnaire.
      *
@@ -49,6 +53,10 @@ public class GestionnaireEtapes implements Iterable<Etape> {
      */
     public void ajouter(Etape... etapes) {
         this.etapes.addAll(Arrays.asList(etapes));
+    }
+
+    public void remove(Etape etape) {
+        etapes.remove(etape);
     }
 
     /**

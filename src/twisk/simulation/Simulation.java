@@ -76,7 +76,7 @@ public class Simulation {
         System.load("/tmp/twisk/libTwisk.so");
 
 
-        int nb_etapes = monde.nbEtapes() + 1;
+        int nb_etapes = monde.nbEtapes();
         int nb_guichets = monde.nbGuichets();
         int nb_clients = this.nbClients;
 
@@ -105,7 +105,7 @@ public class Simulation {
             tab_client = ou_sont_les_clients(nb_etapes, nb_clients);
             int decalage = 0;
             int nb_a_afficher = tab_client[0];
-            for (Etape e : monde) {
+            /*for (Etape e : monde) {
                 System.out.print("Etape " + e.getNumEtape() + " " + e.getNom() + " - nb clients : " + nb_a_afficher + " - ");
                 for (int i = decalage + 1; i < decalage + 1 + nb_a_afficher; i++) {
                     System.out.print(tab_client[i] + " ");
@@ -114,7 +114,27 @@ public class Simulation {
                 decalage += nb_clients + 1;
                 nb_a_afficher = tab_client[decalage];
 
+            }*/
+
+            //for (j = 0 ; j < nb_etapes ; j++){
+            j = 0;
+            for (Etape e :monde){
+                int i = j*nb_clients + j;
+                int pos = i;
+                //System.out.print("Etape" + monde.getEtape(j).getNumEtape() + " " + monde.getEtape(j).getNom() + " - nb clients : " + nb_a_afficher + " - ");
+                System.out.print("Etape " + e.getNumEtape() + " " + e.getNom() + " - nb clients : " + nb_a_afficher + " - ");
+
+                int k = 0;
+                for (i = pos + 1 ; i < pos + nb_clients + 1; i ++){
+                    if (tab_client[i] != 0 && k !=tab_client[pos]){
+                        System.out.print(tab_client[i] +" ");
+                        k++;
+                    }
+                }
+                System.out.print("\n");
+                j++;
             }
+
 
             try {
                 Thread.sleep(1000);

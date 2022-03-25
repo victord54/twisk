@@ -147,4 +147,8 @@ public class Monde implements Iterable<Etape> {
         }
         return str.toString();
     }
+
+    public Etape getEtape(int i){
+        return this.gestionnaireEtapes.getEtape(i);
+    }
 }

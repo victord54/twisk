@@ -23,7 +23,7 @@ public class ClientTwisk {
         ActiviteRestreinte e2 = new ActiviteRestreinte("zoo");
         Etape e3 = new Activite("toboggan");
         Etape e4 = new Activite("piscine");
-        e2.aCommeGuichet(e1.getNumSemaphore());
+        e2.setSemaphoreGuichet(e1.getNumSemaphore());
         e1.ajouterSuccesseur(e2);
         e2.ajouterSuccesseur(e3);
         e3.ajouterSuccesseur(e4);

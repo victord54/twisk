@@ -114,6 +114,8 @@ public abstract class Etape implements Iterable<Etape> {
         gestionnaireSuccesseur.ajouter(etapes);
     }
 
+    public abstract void setSemaphoreGuichet(int semaphore);
+
 // Autres méthodes
 
     /**

@@ -101,7 +101,7 @@ class MondeTest {
     public void toCTestGuichet() {
         Guichet e1 = new Guichet("ee");
         ActiviteRestreinte e2 = new ActiviteRestreinte("eee");
-        e2.aCommeGuichet(e1.getNumSemaphore());
+        e2.setSemaphoreGuichet(e1.getNumSemaphore());
         e1.ajouterSuccesseur(e2);
         monde.ajouter(e1, e2);
         monde.aCommeEntree(e1);

@@ -11,7 +11,7 @@ public class ActiviteRestreinte extends Activite {
     /**
      * Indique le numéro de sémaphore du guichet.
      */
-    private int numSemGuichet;
+    private int numSemGuichet = 1;
 
     /**
      * Constructeur de la classe
@@ -33,12 +33,16 @@ public class ActiviteRestreinte extends Activite {
         super(nom, t, e);
     }
 
+    public int getNumSemGuichet() {
+        return numSemGuichet;
+    }
+
     /**
      * Méthode définissant le guichet auquel l'activité restreinte est reliée.
      *
      * @param semaphore Identifiant unique du guichet.
      */
-    public void aCommeGuichet(int semaphore) {
+    public void setSemaphoreGuichet(int semaphore) {
         this.numSemGuichet = semaphore;
     }
 

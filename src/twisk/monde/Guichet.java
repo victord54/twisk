@@ -71,6 +71,18 @@ public class Guichet extends Etape {
         return numSemaphore;
     }
 
+    @Override
+    public void ajouterSuccesseur(Etape... etapes) {
+        for (Etape e: etapes) {
+            e.setSemaphoreGuichet(this.numSemaphore);
+            this.gestionnaireSuccesseur.ajouter(e);
+        }
+    }
+
+    @Override
+    public void setSemaphoreGuichet(int semaphore) {
+    }
+
     /**
      * Méthode définissant le code c à ajouter pour un guichet.
      *

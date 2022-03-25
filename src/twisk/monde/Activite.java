@@ -55,6 +55,10 @@ public class Activite extends Etape {
         return 0;
     }
 
+    @Override
+    public void setSemaphoreGuichet(int semaphore) {
+    }
+
     /**
      * Méthode définissant le code c à ajouter pour une activité.
      *

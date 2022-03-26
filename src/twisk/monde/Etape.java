@@ -10,7 +10,7 @@ import twisk.outils.FabriqueNumero;
 
 import java.util.Iterator;
 
-public abstract class Etape implements Iterable<Etape> {
+public abstract class Etape implements Iterable<Etape>, Comparable<Etape> {
     /**
      * Champs contenant le numéro de l'étape.
      */
@@ -148,4 +148,14 @@ public abstract class Etape implements Iterable<Etape> {
      * @return Le code c.
      */
     public abstract String toC();
+
+    @Override
+    public int compareTo(Etape o) {
+        if (this.numEtape == o.numEtape)
+            return  0;
+        else if (numEtape > o.numEtape)
+            return 1;
+        else
+            return -1;
+    }
 }

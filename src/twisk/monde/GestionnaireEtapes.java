@@ -8,6 +8,7 @@ package twisk.monde;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.Iterator;
 
 public class GestionnaireEtapes implements Iterable<Etape> {
@@ -53,6 +54,8 @@ public class GestionnaireEtapes implements Iterable<Etape> {
      */
     public void ajouter(Etape... etapes) {
         this.etapes.addAll(Arrays.asList(etapes));
+        Collections.sort(this.etapes);
+//        System.out.println(this.etapes); // Debug
     }
 
     public void remove(Etape etape) {

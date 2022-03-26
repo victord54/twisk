@@ -126,18 +126,35 @@ public class Simulation {
 //                decalage += nb_clients + 1;
 //                nb_a_afficher = tab_client[decalage];
 //            }
-            int decalage = 1;
+            int decalage = 0;
             for (Etape e: monde) {
                 // Gestion de tout
                 if (e.getNumEtape() != 1) {
-                    System.out.println("Etape " + e.getNumEtape() + " : " + e.getNom() + " : " + Arrays.toString(clientsConcernes(tab_client, decalage, nb_clients + decalage -1)));
+                    System.out.print("Etape " + e.getNumEtape() + " - " + e.getNom());
+                    int i = 0;
+                    int[] tabTmp = clientsConcernes(tab_client, decalage, nb_clients + decalage);
+                    System.out.print(" (" + tabTmp[0] + " clients) : ");
+                    for (j = 1; j <= tabTmp[0]; j++) {
+                        System.out.print(tabTmp[j] + " ");
+                        i++;
+                    }
+                    System.out.println();
                 }
 //                // L'étape devient son successeur
 //                e = e.getSuccesseur();
                 decalage += nb_clients + 1; // Une valeur
             }
             Etape etape = monde.getSasSortie();
-            System.out.println("Etape " + etape.getNumEtape() + " : " + etape.getNom() + " : " + Arrays.toString(clientsConcernes(tab_client, nb_clients+2, 2*nb_clients+1)) + "\n");
+
+            System.out.print("Etape " + etape.getNumEtape() + " - " + etape.getNom() + " :");
+            int i = 0;
+            int[] tabTmp = clientsConcernes(tab_client, nb_clients + 1, nb_clients*2 +1);
+            System.out.print(" (" + tabTmp[0] + " clients) : ");
+            for (j = 1; j <= tabTmp[0]; j++) {
+                System.out.print(tabTmp[j] + " ");
+                i++;
+            }
+            System.out.println();
             try {
                 Thread.sleep(1000);
             } catch(Exception e) {

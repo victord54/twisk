@@ -1,11 +1,22 @@
 @startuml
 package twisk {
+    class ClientTwisk {
+        + Monde monde1()
+        + Monde monde2()
+        + void main(String[] args)
+    }
+
+    interface Iterable<Etape> {
+        + Iterator<Etape> iterator()
+    }
+
+    interface Comparable<Etape>{
+    }
+
     package monde {
         abstract class Etape {
             # int numEtape
             # String nom
-            # GestionnaireSuccesseur gestionnaireSuccesseur
-
             .. Constructeur ..
             + Etape(String nom)
             .. Getters ..
@@ -15,19 +26,22 @@ package twisk {
             + boolean estUneSortie()
             + String getNom()
             + int getNumEtape()
+            + Etape getSuccesseur()
             + {abstract} int getNbJetons()
             .. Setters ..
             + void ajouterSuccesseur(Etape... etapes)
+            + {abstract} void setSemaphoreGuichet(int semaphore)
             .. Autres méthodes ..
             + Iterator<Etape> iterator()
             + String toString()
             + {abstract} String toC()
+            + int compareTo(Etape o)
+
         }
 
         class Activite {
             # int temps
             # int ecartTemps
-
             .. Constructeurs ..
             + Activite(String nom)
             + Activite(String nom, int t, int e)
@@ -40,19 +54,18 @@ package twisk {
 
         class ActiviteRestreinte {
             - int numSemGuichet
-
             .. Constructeurs ..
             + ActiviteRestreinte(String nom)
             + ActiviteRestreinte(String nom, int t, int e)
             .. Setter ..
-            + void aCommeGuichet(int semaphore)
+            + void setSemaphoreGuichet(int semaphore)
+            .. Getter ..
+            + int getNumSemGuichet() {
             .. Autres méthodes ..
             + String toC()
         }
 
         class GestionnaireEtapes {
-            - ArrayList<Etape> etapes
-
             .. Constructeur ..
             + GestionnaireEtapes()
             .. Getters ..
@@ -66,8 +79,6 @@ package twisk {
         }
 
         class GestionnaireSuccesseur {
-            - ArrayList<Etape> etapes
-
             .. Constructeur ..
             + GestionnaireSuccesseur()
             .. Getters ..
@@ -84,7 +95,6 @@ package twisk {
         class Guichet {
             # int nbJetons
             # int numSemaphore
-
             .. Constructeurs ..
             + Guichet(String nom)
             + Guichet(String nom, int nb)
@@ -94,13 +104,10 @@ package twisk {
             + int getNumSemaphore()
             .. Autres méthodes ..
             + String toC()
+            + void ajouterSuccesseur(Etape... etapes)
         }
 
         class Monde {
-            # SasEntree entree
-            # SasSortie sortie
-            # GestionnaireEtapes gestionnaireEtapes
-
             .. Constructeur ..
             + Monde()
             .. Getters ..
@@ -135,10 +142,8 @@ package twisk {
 
     package outils {
         class FabriqueNumero {
-            - FabriqueNumero instance
             - int cptEtape
             - int cptSemaphore
-
             .. Constructeur ..
             - FabriqueNumero()
             .. Getters ..
@@ -167,29 +172,23 @@ package twisk {
 
     package simulation {
         class Simulation {
-            - KitC kit
             - int nbClients
             .. Constructeur ..
             + Simulation()
+            .. Setter ..
+            + void setNbClients(int nb)
             .. Autres méthodes ..
             + int[] start_simulation(int nbEtapes, int nbGuichets, int nbClients, int[] tabJetonsGuichet)
             + void nettoyage()
             + int[] ou_sont_les_clients(int nbEtapes, int nbClients)
-            + void setNbClients(int nb)
+            + int[] clientsConcernes(int[] tab, int depart, int arrivee)
             + void simuler(Monde monde)
         }
     }
-
-    class ClientTwisk {
-        + Monde monde1()
-        + void main(String[] args)
-    }
-
-    class Iterable<Etape> {
-        + Iterator<Etape> iterator()
-    }
 }
 
+FabriqueNumero --"1" FabriqueNumero : static instance
+Simulation -right--"1" KitC
 Etape .up.|> Iterable
 Activite -up-|> Etape
 ActiviteRestreinte -up-|> Activite
@@ -199,4 +198,10 @@ Guichet -up-|> Etape
 Monde .up.|> Iterable
 SasEntree -up-|> Activite
 SasSortie -up-|> Activite
+SasSortie "1"-up-- Monde
+SasEntree "1"-up-- Monde
+Monde -right--"1"GestionnaireEtapes
+GestionnaireEtapes -left--"*" Etape
+GestionnaireSuccesseur "1"-right--"*" Etape
+Etape .right.|> Comparable
 @enduml

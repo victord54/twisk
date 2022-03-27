@@ -88,7 +88,7 @@ public class Simulation {
         System.load("/tmp/twisk/libTwisk.so");
 
 
-        int nb_etapes = monde.nbEtapes() + 1;
+        int nb_etapes = monde.nbEtapes() ;
         int nb_guichets = monde.nbGuichets();
         int nb_clients = this.nbClients;
 

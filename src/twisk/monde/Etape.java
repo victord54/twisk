@@ -46,6 +46,10 @@ public abstract class Etape implements Iterable<Etape>, Comparable<Etape> {
         return gestionnaireSuccesseur.nbEtapes();
     }
 
+    /**
+     * Méthode qui donne le 1er successeur de l'étape
+     * @return le 1er successeur de l'étape
+     */
     public Etape getSuccesseur() {
         return this.gestionnaireSuccesseur.getSucc();
     }
@@ -149,6 +153,11 @@ public abstract class Etape implements Iterable<Etape>, Comparable<Etape> {
      */
     public abstract String toC();
 
+    /**
+     * Méthode qui compare le numéro de l'étape de this à celui d'une autre étape
+     * @param o une étape
+     * @return 0 si c'est la même étape, 1 si le numéro de l'étape est supérieur à celui de o, -1 sinon.
+     */
     @Override
     public int compareTo(Etape o) {
         if (this.numEtape == o.numEtape)

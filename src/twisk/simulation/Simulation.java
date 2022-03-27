@@ -57,6 +57,13 @@ public class Simulation {
      */
     public native int[] ou_sont_les_clients(int nbEtapes, int nbClients);
 
+    /**
+     * Méthode qui retourne un tableau de clients concernés par l'étape en cours (qui sont dans cette étape)
+     * @param tab le tableau des clients
+     * @param depart 1er clients concerné par
+     * @param arrivee dernier client concerné
+     * @return le tableau des clients concernés
+     */
     public int[] clientsConcernes(int[] tab, int depart, int arrivee) {
         int[] tabFinal = new int[(arrivee - depart) + 1];
         int n = 0;

@@ -8,7 +8,14 @@
 package twisk.monde;
 
 public class Activite extends Etape {
+    /**
+     * Champ contenant le temps passé dans l'étape.
+     */
     protected int temps;
+
+    /**
+     * Champ contenant l'écart-temps du temps de l'étape.
+     */
     protected int ecartTemps;
 
     /**

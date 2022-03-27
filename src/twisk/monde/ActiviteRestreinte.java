@@ -33,10 +33,6 @@ public class ActiviteRestreinte extends Activite {
         super(nom, t, e);
     }
 
-    public int getNumSemGuichet() {
-        return numSemGuichet;
-    }
-
     /**
      * Méthode définissant le guichet auquel l'activité restreinte est reliée.
      *

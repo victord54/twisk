@@ -89,6 +89,7 @@ public class Simulation {
      */
     public void simuler(Monde monde) {
         System.out.println(monde.toString());
+        System.out.println("Les étapes ne seront pas dans l'ordre !");
         kit.creerFichier(monde.toC());
         kit.compiler();
         kit.construireLaLibrairie();
@@ -118,7 +119,6 @@ public class Simulation {
             System.out.print(tab[i] + " ");
         }
         System.out.println();
-
         // Affichage des PID des clients par étape
         while (tab_client[(nb_clients + 1)] != nb_clients) {
             tab_client = ou_sont_les_clients(nb_etapes, nb_clients);

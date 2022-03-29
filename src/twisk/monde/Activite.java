@@ -8,7 +8,14 @@
 package twisk.monde;
 
 public class Activite extends Etape {
+    /**
+     * Champ contenant le temps passé dans l'étape.
+     */
     protected int temps;
+
+    /**
+     * Champ contenant l'écart-temps du temps de l'étape.
+     */
     protected int ecartTemps;
 
     /**
@@ -55,6 +62,10 @@ public class Activite extends Etape {
         return 0;
     }
 
+    @Override
+    public void setSemaphoreGuichet(int semaphore) {
+    }
+
     /**
      * Méthode définissant le code c à ajouter pour une activité.
      *
@@ -66,7 +77,6 @@ public class Activite extends Etape {
         builder.append("delai(").append(temps).append(",").append(ecartTemps).append(");\n");
         if (!this.estUneSortie()) {
             builder.append("transfert(").append(this.numEtape).append(",").append(this.gestionnaireSuccesseur.getSucc().getNumEtape()).append(");\n");
-            this.gestionnaireSuccesseur.getSucc().toC();
         } else {
             builder.append("transfert(").append(this.numEtape).append(",1);\n");
         }

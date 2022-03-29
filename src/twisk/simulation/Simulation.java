@@ -11,6 +11,8 @@ import twisk.monde.Etape;
 import twisk.monde.Monde;
 import twisk.outils.KitC;
 
+import java.util.Arrays;
+
 public class Simulation {
     /**
      * Champs représentant le nombre de clients.
@@ -56,6 +58,23 @@ public class Simulation {
     public native int[] ou_sont_les_clients(int nbEtapes, int nbClients);
 
     /**
+     * Méthode qui retourne un tableau de clients concernés par l'étape en cours (qui sont dans cette étape)
+     * @param tab le tableau des clients
+     * @param depart 1er clients concerné par
+     * @param arrivee dernier client concerné
+     * @return le tableau des clients concernés
+     */
+    public int[] clientsConcernes(int[] tab, int depart, int arrivee) {
+        int[] tabFinal = new int[(arrivee - depart) + 1];
+        int n = 0;
+        for (int i = depart; i <= arrivee; i++) {
+            tabFinal[n] = tab[i];
+            n++;
+        }
+        return tabFinal;
+    }
+
+    /**
      * Méthode qui permet de set les nombres de clients
      * @param nb le nombre de clients
      */
@@ -70,13 +89,14 @@ public class Simulation {
      */
     public void simuler(Monde monde) {
         System.out.println(monde.toString());
+        System.out.println("Les étapes ne seront pas dans l'ordre !");
         kit.creerFichier(monde.toC());
         kit.compiler();
         kit.construireLaLibrairie();
         System.load("/tmp/twisk/libTwisk.so");
 
 
-        int nb_etapes = monde.nbEtapes();
+        int nb_etapes = monde.nbEtapes() ;
         int nb_guichets = monde.nbGuichets();
         int nb_clients = this.nbClients;
 
@@ -99,46 +119,52 @@ public class Simulation {
             System.out.print(tab[i] + " ");
         }
         System.out.println();
-
         // Affichage des PID des clients par étape
         while (tab_client[(nb_clients + 1)] != nb_clients) {
             tab_client = ou_sont_les_clients(nb_etapes, nb_clients);
+//            int decalage = 0;
+//            int nb_a_afficher = tab_client[0];
+//            for (Etape e : monde) {
+//                System.out.print("Etape " + e.getNumEtape() + " " + e.getNom() + " - nb clients : " + nb_a_afficher + " - ");
+//                for (int i = decalage + 1; i < decalage + 1 + nb_a_afficher; i++) {
+//                    System.out.print(tab_client[i] + " ");
+//                }
+//                System.out.println();
+//                decalage += nb_clients + 1;
+//                nb_a_afficher = tab_client[decalage];
+//            }
             int decalage = 0;
-            int nb_a_afficher = tab_client[0];
-            /*for (Etape e : monde) {
-                System.out.print("Etape " + e.getNumEtape() + " " + e.getNom() + " - nb clients : " + nb_a_afficher + " - ");
-                for (int i = decalage + 1; i < decalage + 1 + nb_a_afficher; i++) {
-                    System.out.print(tab_client[i] + " ");
-                }
-                System.out.println();
-                decalage += nb_clients + 1;
-                nb_a_afficher = tab_client[decalage];
-
-            }*/
-
-            //for (j = 0 ; j < nb_etapes ; j++){
-            j = 0;
-            for (Etape e :monde){
-                int i = j*nb_clients + j;
-                int pos = i;
-                //System.out.print("Etape" + monde.getEtape(j).getNumEtape() + " " + monde.getEtape(j).getNom() + " - nb clients : " + nb_a_afficher + " - ");
-                System.out.print("Etape " + e.getNumEtape() + " " + e.getNom() + " - nb clients : " + nb_a_afficher + " - ");
-
-                int k = 0;
-                for (i = pos + 1 ; i < pos + nb_clients + 1; i ++){
-                    if (tab_client[i] != 0 && k !=tab_client[pos]){
-                        System.out.print(tab_client[i] +" ");
-                        k++;
+            for (Etape e: monde) {
+                // Gestion de tout
+                if (e.getNumEtape() != 1) {
+                    System.out.print("Etape " + e.getNumEtape() + " - " + e.getNom());
+                    int i = 0;
+                    int[] tabTmp = clientsConcernes(tab_client, decalage, nb_clients + decalage);
+                    System.out.print(" (" + tabTmp[0] + " clients) : ");
+                    for (j = 1; j <= tabTmp[0]; j++) {
+                        System.out.print(tabTmp[j] + " ");
+                        i++;
                     }
+                    System.out.println();
                 }
-                System.out.print("\n");
-                j++;
+//                // L'étape devient son successeur
+//                e = e.getSuccesseur();
+                decalage += nb_clients + 1; // Une valeur
             }
+            Etape etape = monde.getSasSortie();
 
-
+            System.out.print("Etape " + etape.getNumEtape() + " - " + etape.getNom() + " :");
+            int i = 0;
+            int[] tabTmp = clientsConcernes(tab_client, nb_clients + 1, nb_clients*2 +1);
+            System.out.print(" (" + tabTmp[0] + " clients) : ");
+            for (j = 1; j <= tabTmp[0]; j++) {
+                System.out.print(tabTmp[j] + " ");
+                i++;
+            }
+            System.out.println();
             try {
                 Thread.sleep(1000);
-            } catch(Exception e){
+            } catch(Exception e) {
                 System.out.println(e.getMessage());
             }
         }

@@ -10,7 +10,7 @@ import twisk.outils.FabriqueNumero;
 
 import java.util.Iterator;
 
-public abstract class Etape implements Iterable<Etape> {
+public abstract class Etape implements Iterable<Etape>, Comparable<Etape> {
     /**
      * Champs contenant le numéro de l'étape.
      */
@@ -44,6 +44,14 @@ public abstract class Etape implements Iterable<Etape> {
      */
     public int nbSuccesseurs() {
         return gestionnaireSuccesseur.nbEtapes();
+    }
+
+    /**
+     * Méthode qui donne le 1er successeur de l'étape
+     * @return le 1er successeur de l'étape
+     */
+    public Etape getSuccesseur() {
+        return this.gestionnaireSuccesseur.getSucc();
     }
 
     /**
@@ -114,6 +122,8 @@ public abstract class Etape implements Iterable<Etape> {
         gestionnaireSuccesseur.ajouter(etapes);
     }
 
+    public abstract void setSemaphoreGuichet(int semaphore);
+
 // Autres méthodes
 
     /**
@@ -142,4 +152,19 @@ public abstract class Etape implements Iterable<Etape> {
      * @return Le code c.
      */
     public abstract String toC();
+
+    /**
+     * Méthode qui compare le numéro de l'étape de this à celui d'une autre étape
+     * @param o une étape
+     * @return 0 si c'est la même étape, 1 si le numéro de l'étape est supérieur à celui de o, -1 sinon.
+     */
+    @Override
+    public int compareTo(Etape o) {
+        if (this.numEtape == o.numEtape)
+            return  0;
+        else if (numEtape > o.numEtape)
+            return 1;
+        else
+            return -1;
+    }
 }

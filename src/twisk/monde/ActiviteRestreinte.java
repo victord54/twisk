@@ -38,7 +38,7 @@ public class ActiviteRestreinte extends Activite {
      *
      * @param semaphore Identifiant unique du guichet.
      */
-    public void aCommeGuichet(int semaphore) {
+    public void setSemaphoreGuichet(int semaphore) {
         this.numSemGuichet = semaphore;
     }
 
@@ -54,7 +54,6 @@ public class ActiviteRestreinte extends Activite {
         str.append("V(ids,").append(numSemGuichet).append(");\n");
         if (!this.estUneSortie()) {
             str.append("transfert(").append(this.numEtape).append(",").append(this.gestionnaireSuccesseur.getSucc().getNumEtape()).append(");\n");
-            this.gestionnaireSuccesseur.getSucc().toC();
         } else {
             str.append("transfert(").append(this.numEtape).append(",1);\n");
         }

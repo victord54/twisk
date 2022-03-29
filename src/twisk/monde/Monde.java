@@ -124,7 +124,7 @@ public class Monde implements Iterable<Etape> {
         Etape etape = entree;
         while (etape.nbSuccesseurs() >= 1) {
             stringBuilder.append(etape.toString()).append("\n");
-            etape = etape.gestionnaireSuccesseur.getSucc();
+            etape = etape.getSuccesseur();
         }
         stringBuilder.append(sortie.toString()).append("\n");
         return stringBuilder.toString();
@@ -137,9 +137,6 @@ public class Monde implements Iterable<Etape> {
      */
     public String toC() {
         StringBuilder str = new StringBuilder();
-//        for (Etape etape : gestionnaireEtapes) {
-//            str.append(etape.toC());
-//        }
         Etape etape = entree;
         while (etape.nbSuccesseurs() >= 1) {
             str.append(etape.toC());

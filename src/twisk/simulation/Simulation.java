@@ -72,6 +72,14 @@ public class Simulation {
         return tabFinal;
     }
 
+    /**
+     * Méthode qui permet de set les nombres de clients
+     * @param nb le nombre de clients
+     */
+    public void setNbClients(int nb){
+        this.gestionnaireClients.setNbClients(nb);
+    }
+
 
     /**
      * Méthode lançant la simulation.
@@ -85,7 +93,6 @@ public class Simulation {
         kit.compiler();
         kit.construireLaLibrairie();
         System.load("/tmp/twisk/libTwisk.so");
-        gestionnaireClients.setNbClients(4);
 
         int nb_etapes = monde.nbEtapes() ;
         int nb_guichets = monde.nbGuichets();

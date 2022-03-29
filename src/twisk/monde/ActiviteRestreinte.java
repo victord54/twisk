@@ -59,4 +59,5 @@ public class ActiviteRestreinte extends Activite {
         }
         return str.toString();
     }
+
 }

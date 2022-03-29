@@ -20,6 +20,10 @@ public class Client {
         this.rang = rang;
     }
 
+    public Etape getEtape(){
+        return this.etape;
+    }
+
     @Override
     public String toString() {
         return "Client{" +

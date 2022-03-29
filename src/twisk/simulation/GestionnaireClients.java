@@ -18,6 +18,10 @@ public class GestionnaireClients implements Iterable<Client> {
         this.nbClients = nbClients;
     }
 
+    public ArrayList<Client> getClients() {
+        return clients;
+    }
+
     public void setClients(int ... nbClients){
         for (int n : nbClients){
             this.clients.add(new Client(n));
@@ -39,7 +43,7 @@ public class GestionnaireClients implements Iterable<Client> {
 
     @Override
     public Iterator<Client> iterator(){
-        this.clients.iterator();
+        return this.clients.iterator();
     }
 
     

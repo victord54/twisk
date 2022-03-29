@@ -11,8 +11,21 @@ public class Client {
         this.numeroClient = numero;
     }
 
+    public int getNumeroClient() {
+        return numeroClient;
+    }
+
     public void allerA(Etape etape, int rang){
         this.etape = etape;
         this.rang = rang;
+    }
+
+    @Override
+    public String toString() {
+        return "Client{" +
+                "numeroClient=" + numeroClient +
+                ", rang=" + rang +
+                ", etape=" + etape +
+                '}';
     }
 }

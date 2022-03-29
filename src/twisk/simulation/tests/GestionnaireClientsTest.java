@@ -23,8 +23,4 @@ class GestionnaireClientsTest {
             n++;
         }
     }
-
-    @Test
-    void allerA() {
-    }
 }

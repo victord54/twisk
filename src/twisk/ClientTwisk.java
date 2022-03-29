@@ -68,14 +68,14 @@ public class ClientTwisk {
 
         ClassLoaderPerso loaderPerso = new ClassLoaderPerso(this.getClass().getClassLoader());
         try {
-            loaderPerso.loadClass("twisk.simulation.Simulation");
-            Class<?> s = loaderPerso.getClass();
+            Class<?> s = loaderPerso.loadClass("twisk.simulation.Simulation");
+            System.out.println(s);
             Object sim = s.getDeclaredConstructor().newInstance();
             Method setNbClient = s.getMethod("setNbClients",int.class);
             setNbClient.invoke(sim,5);
-            Method simuler = s.getMethod("simuler");
-            simuler.invoke(sim);
-        } catch (InstantiationException | IllegalAccessException | NoSuchMethodException | InvocationTargetException | ClassNotFoundException e) {
+            Method simuler = s.getMethod("simuler", Monde.class);
+            simuler.invoke(sim, monde);
+        } catch (ClassNotFoundException | InvocationTargetException | InstantiationException | IllegalAccessException | NoSuchMethodException e) {
             e.printStackTrace();
         }
 

@@ -55,5 +55,11 @@ public class GestionnaireClients implements Iterable<Client> {
         return this.clients.iterator();
     }
 
-    
+    @Override
+    public String toString() {
+        return "GestionnaireClients{" +
+                "clients=" + clients +
+                ", nbClients=" + nbClients +
+                '}';
+    }
 }

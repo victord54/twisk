@@ -11,8 +11,6 @@ import twisk.monde.Etape;
 import twisk.monde.Monde;
 import twisk.outils.KitC;
 
-import java.util.Arrays;
-
 public class Simulation {
 
     /**
@@ -87,7 +85,7 @@ public class Simulation {
         kit.compiler();
         kit.construireLaLibrairie();
         System.load("/tmp/twisk/libTwisk.so");
-        gestionnaireClients.setClients(15);
+        gestionnaireClients.setNbClients(4);
 
         int nb_etapes = monde.nbEtapes() ;
         int nb_guichets = monde.nbGuichets();
@@ -110,56 +108,35 @@ public class Simulation {
         System.out.print("les clients : ");
         for (int i = 0; i < nb_clients; i++) {
             System.out.print(tab[i] + " ");
+            gestionnaireClients.setClients(tab[i]);
         }
         System.out.println();
         // Affichage des PID des clients par étape
         while (tab_client[(nb_clients + 1)] != nb_clients) {
             tab_client = ou_sont_les_clients(nb_etapes, nb_clients);
-//            int decalage = 0;
-//            int nb_a_afficher = tab_client[0];
-//            for (Etape e : monde) {
-//                System.out.print("Etape " + e.getNumEtape() + " " + e.getNom() + " - nb clients : " + nb_a_afficher + " - ");
-//                for (int i = decalage + 1; i < decalage + 1 + nb_a_afficher; i++) {
-//                    System.out.print(tab_client[i] + " ");
-//                }
-//                System.out.println();
-//                decalage += nb_clients + 1;
-//                nb_a_afficher = tab_client[decalage];
-//            }
             int decalage = 0;
             for (Etape e: monde) {
                 // Gestion de tout
-                if (e.getNumEtape() != 1) {
-                    System.out.print("Etape " + e.getNumEtape() + " - " + e.getNom());
-                    int i = 0;
-                    int[] tabTmp = clientsConcernes(tab_client, decalage, nb_clients + decalage);
-                    System.out.print(" (" + tabTmp[0] + " clients) : ");
-                    for (j = 1; j <= tabTmp[0]; j++) {
-                        System.out.print(tabTmp[j] + " ");
-                        i++;
-                    }
-                    System.out.println();
+                System.out.print("Etape " + e.getNumEtape() + " - " + e.getNom());
+                int i = 0;
+                int[] tabTmp = clientsConcernes(tab_client, decalage, nb_clients + decalage);
+                System.out.print(" (" + tabTmp[0] + " clients) : ");
+                for (j = 1; j <= tabTmp[0]; j++) {
+                    System.out.print(tabTmp[j] + " ");
+                    gestionnaireClients.allerA(tabTmp[j], e, j);
+                    i++;
                 }
-//                // L'étape devient son successeur
-//                e = e.getSuccesseur();
+                    System.out.println();
                 decalage += nb_clients + 1; // Une valeur
             }
-            Etape etape = monde.getSasSortie();
-
-            System.out.print("Etape " + etape.getNumEtape() + " - " + etape.getNom() + " :");
-            int i = 0;
-            int[] tabTmp = clientsConcernes(tab_client, nb_clients + 1, nb_clients*2 +1);
-            System.out.print(" (" + tabTmp[0] + " clients) : ");
-            for (j = 1; j <= tabTmp[0]; j++) {
-                System.out.print(tabTmp[j] + " ");
-                i++;
-            }
+//            System.out.println(gestionnaireClients); // Debug
             System.out.println();
             try {
                 Thread.sleep(1000);
             } catch(Exception e) {
                 System.out.println(e.getMessage());
             }
+
         }
         nettoyage();
     }

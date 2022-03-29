@@ -64,7 +64,6 @@ public class ClientTwisk {
      */
     public static void main(String[] args) {
         Simulation simulation = new Simulation();
-        simulation.setNbClients(15);
         simulation.simuler(monde1());
     }
 }

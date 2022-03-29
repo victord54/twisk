@@ -8,7 +8,12 @@
 package twisk;
 
 import twisk.monde.*;
+import twisk.outils.ClassLoaderPerso;
 import twisk.simulation.Simulation;
+import twisk.outils.ClassLoaderPerso;
+
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 
 public class ClientTwisk {
 
@@ -63,7 +68,22 @@ public class ClientTwisk {
      * @param args Arguments lors de l'exécution.
      */
     public static void main(String[] args) {
-        Simulation simulation = new Simulation();
-        simulation.simuler(monde1());
+        ClassLoaderPerso loaderPerso = new ClassLoaderPerso(this.getClass().getClassLoader());
+        try {
+            loaderPerso.loadClass("twisk.simulation.Simulation");
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        try {
+            Class<?> s = loaderPerso.getClass();
+            Object sim = s.newInstance();
+            Method setNbClient = s.getMethod("setNbClients",int.class);
+            setNbClient.invoke(5);
+            Method simuler = s.getMethod("simuler");
+            simuler.invoke(monde1());
+        } catch (InstantiationException | IllegalAccessException | NoSuchMethodException | InvocationTargetException e) {
+            e.printStackTrace();
+        }
+
     }
 }

@@ -9,6 +9,7 @@ package twisk.simulation;
 
 import twisk.monde.Etape;
 import twisk.monde.Monde;
+import twisk.outils.FabriqueNumero;
 import twisk.outils.KitC;
 
 public class Simulation {
@@ -146,5 +147,7 @@ public class Simulation {
 
         }
         nettoyage();
+        gestionnaireClients.nettoyer();
+        FabriqueNumero.getInstance().reset();
     }
 }

@@ -75,6 +75,10 @@ public class ClientTwisk {
             setNbClient.invoke(sim,5);
             Method simuler = s.getMethod("simuler", Monde.class);
             simuler.invoke(sim, monde);
+            // Reload un truc pour que ça marche ?
+            // Il faudra ajouter un compteur de monde et renommer la librairie en fct du monde.
+            loaderPerso.finalize();
+            simuler.invoke(sim, monde1());
         } catch (ClassNotFoundException | InvocationTargetException | InstantiationException | IllegalAccessException | NoSuchMethodException e) {
             e.printStackTrace();
         }

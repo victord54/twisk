@@ -45,6 +45,11 @@ public class GestionnaireClients implements Iterable<Client> {
         this.clients.clear();
     }
 
+
+    public int getNbClients(){
+        return this.nbClients;
+    }
+
     @Override
     public Iterator<Client> iterator(){
         return this.clients.iterator();

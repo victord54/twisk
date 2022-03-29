@@ -9,11 +9,11 @@ public class GestionnaireClients implements Iterable<Client> {
     protected ArrayList<Client> clients;
     protected int nbClients;
 
-    public GestionnaireClients(){
+    public GestionnaireClients() {
         this.clients = new ArrayList<>();
     }
 
-    public GestionnaireClients(int nbClients){
+    public GestionnaireClients(int nbClients) {
         this.clients = new ArrayList<>();
         this.nbClients = nbClients;
     }
@@ -22,44 +22,41 @@ public class GestionnaireClients implements Iterable<Client> {
         return clients;
     }
 
-    public void setClients(int ... nbClients){
-        for (int n : nbClients){
+    public void setClients(int... nbClients) {
+        for (int n : nbClients) {
             this.clients.add(new Client(n));
         }
     }
 
-    public void setNbClients(int nbClients){
+    public void setNbClients(int nbClients) {
         this.nbClients = nbClients;
     }
 
 
-    public void allerA(int numeroClient, Etape etape, int rang){
-        for (Client c : clients){
-            if (c.getNumeroClient() == numeroClient){
-                c.allerA(etape,rang);
+    public void allerA(int numeroClient, Etape etape, int rang) {
+        for (Client c : clients) {
+            if (c.getNumeroClient() == numeroClient) {
+                c.allerA(etape, rang);
             }
         }
     }
 
-    public void nettoyer(){
+    public void nettoyer() {
         this.clients.clear();
     }
 
 
-    public int getNbClients(){
+    public int getNbClients() {
         return this.nbClients;
     }
 
     @Override
-    public Iterator<Client> iterator(){
+    public Iterator<Client> iterator() {
         return this.clients.iterator();
     }
 
     @Override
     public String toString() {
-        return "GestionnaireClients{" +
-                "clients=" + clients +
-                ", nbClients=" + nbClients +
-                '}';
+        return "GestionnaireClients{" + "clients=" + clients + ", nbClients=" + nbClients + '}';
     }
 }

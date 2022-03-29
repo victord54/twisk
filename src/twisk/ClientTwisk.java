@@ -9,14 +9,20 @@ package twisk;
 
 import twisk.monde.*;
 import twisk.outils.ClassLoaderPerso;
+import twisk.simulation.Client;
 import twisk.simulation.Simulation;
 import twisk.outils.ClassLoaderPerso;
 
+import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
 public class ClientTwisk {
 
+
+    public ClientTwisk(){
+
+    }
     /**
      * Un monde parmi d'autres pour la simulation.
      *
@@ -45,7 +51,7 @@ public class ClientTwisk {
      *
      * @return Le monde créé.
      */
-    public static Monde monde2() {
+    public void monde2() {
         Monde monde = new Monde();
         Guichet guichet = new Guichet("ticket", 2);
         Activite act1 = new ActiviteRestreinte("toboggan", 2, 1);
@@ -59,7 +65,20 @@ public class ClientTwisk {
         monde.ajouter(guichet);
         monde.aCommeEntree(etape1);
         monde.aCommeSortie(act1);
-        return monde;
+
+        ClassLoaderPerso loaderPerso = new ClassLoaderPerso(this.getClass().getClassLoader());
+        try {
+            loaderPerso.loadClass("twisk.simulation.Simulation");
+            Class<?> s = loaderPerso.getClass();
+            Object sim = s.getDeclaredConstructor().newInstance();
+            Method setNbClient = s.getMethod("setNbClients",int.class);
+            setNbClient.invoke(sim,5);
+            Method simuler = s.getMethod("simuler");
+            simuler.invoke(sim);
+        } catch (InstantiationException | IllegalAccessException | NoSuchMethodException | InvocationTargetException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+
     }
 
     /**
@@ -68,22 +87,7 @@ public class ClientTwisk {
      * @param args Arguments lors de l'exécution.
      */
     public static void main(String[] args) {
-        ClassLoaderPerso loaderPerso = new ClassLoaderPerso(this.getClass().getClassLoader());
-        try {
-            loaderPerso.loadClass("twisk.simulation.Simulation");
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-        try {
-            Class<?> s = loaderPerso.getClass();
-            Object sim = s.newInstance();
-            Method setNbClient = s.getMethod("setNbClients",int.class);
-            setNbClient.invoke(5);
-            Method simuler = s.getMethod("simuler");
-            simuler.invoke(monde1());
-        } catch (InstantiationException | IllegalAccessException | NoSuchMethodException | InvocationTargetException e) {
-            e.printStackTrace();
-        }
-
+        ClientTwisk client = new ClientTwisk();
+        client.monde2();
     }
 }

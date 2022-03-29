@@ -30,7 +30,11 @@ public class GestionnaireClients implements Iterable<Client> {
 
 
     public void allerA(int numeroClient, Etape etape, int rang){
-        
+        for (Client c : clients){
+            if (c.getNumeroClient() == numeroClient){
+                c.allerA(etape,rang);
+            }
+        }
     }
 
     public void nettoyer(){
@@ -39,7 +43,7 @@ public class GestionnaireClients implements Iterable<Client> {
 
     @Override
     public Iterator<Client> iterator(){
-        this.clients.iterator();
+        return this.clients.iterator();
     }
 
     

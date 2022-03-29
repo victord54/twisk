@@ -15,4 +15,12 @@ public class Client {
         this.etape = etape;
         this.rang = rang;
     }
+
+    public int getNumeroClient(){
+        return this.numeroClient;
+    }
+
+    public Etape getEtape(){
+        return this.etape;
+    }
 }

@@ -23,8 +23,8 @@ public class Main extends Application {
         root.setBottom(new VueOutils(monde));
 
         Scene scene = new Scene(root, 1280, 720);
-        scene.getStylesheets().add("/style.css");
-        stage.getIcons().add(new Image("/logo.png"));
+        scene.getStylesheets().add("/styles/style.css");
+        stage.getIcons().add(new Image("/images/logo.png"));
         stage.setScene(scene);
         stage.show();
     }

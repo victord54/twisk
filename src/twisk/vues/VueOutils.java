@@ -21,7 +21,7 @@ public class VueOutils extends TilePane implements Observateur {
         this.monde = monde;
         monde.ajouterObservateur(this);
 
-        Image img = new Image("/add.png");
+        Image img = new Image("/images/add.png");
         ImageView view = new ImageView(img);
         view.setFitHeight(50);
         view.setPreserveRatio(true);
@@ -35,7 +35,7 @@ public class VueOutils extends TilePane implements Observateur {
         this.getChildren().add(boutonAjouter);
 
         /* ------------------------------------ */
-        img = new Image("/left.png");
+        img = new Image("/images/left.png");
         view = new ImageView(img);
         view.setFitHeight(50);
         view.setPreserveRatio(true);
@@ -52,7 +52,7 @@ public class VueOutils extends TilePane implements Observateur {
         this.getChildren().add(boutonRetour);
 
         /* ------------------------------------ */
-        img = new Image("/delete.png");
+        img = new Image("/images/delete.png");
         view = new ImageView(img);
         view.setFitHeight(50);
         view.setPreserveRatio(true);

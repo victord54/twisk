@@ -77,13 +77,13 @@ public class VueMondeIG extends Pane implements Observateur {
                 vueEtape.setId("VueActiviteSelect");
             }
             if (monde.getEntrees().contains(etape)) {
-                ImageView img = new ImageView("/input.png");
+                ImageView img = new ImageView("/images/input.png");
                 img.setPreserveRatio(true);
                 img.setFitHeight(20);
                 vueEtape.getTitre().setGraphic(img);
                 vueEtape.getTitre().setContentDisplay(ContentDisplay.LEFT);
             } else if (monde.getSorties().contains(etape)) {
-                ImageView img = new ImageView("/output.png");
+                ImageView img = new ImageView("/images/output.png");
                 img.setPreserveRatio(true);
                 img.setFitHeight(20);
                 vueEtape.getTitre().setGraphic(img);

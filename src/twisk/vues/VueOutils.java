@@ -12,7 +12,7 @@ import twisk.mondeIG.MondeIG;
 
 public class VueOutils extends TilePane implements Observateur {
     private final MondeIG monde;
-    final Button boutonAjouter;
+    final Button boutonAjouter, boutonAjouterG;
     final Button boutonRetour;
     final Button boutonEffacer;
 
@@ -33,6 +33,22 @@ public class VueOutils extends TilePane implements Observateur {
 
         boutonAjouter.setOnAction(actionEvent -> monde.ajouter("Activité"));
         this.getChildren().add(boutonAjouter);
+
+        /*-------------------------------------*/
+
+        img = new Image("/images/add.png");
+        view= new ImageView(img);
+        view.setFitHeight(50);
+        view.setPreserveRatio(true);
+        view.setSmooth(true);
+
+        boutonAjouterG = new Button();
+        boutonAjouterG.getStyleClass().add("bouton-outils");
+        boutonAjouterG.setGraphic(view);
+
+        boutonAjouterG.setOnAction(actionEvent -> monde.ajouter("Guichet"));
+        this.getChildren().add(boutonAjouterG);
+
 
         /* ------------------------------------ */
         img = new Image("/images/left.png");

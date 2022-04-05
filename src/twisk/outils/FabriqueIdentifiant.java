@@ -5,6 +5,7 @@ import twisk.mondeIG.PointDeControleIG;
 public class FabriqueIdentifiant {
     private int noEtape;
     private int noPointDeControle;
+    private int noGuichet;
     private static final FabriqueIdentifiant instance = new FabriqueIdentifiant();
 
     private FabriqueIdentifiant() {
@@ -12,6 +13,11 @@ public class FabriqueIdentifiant {
 
     public static FabriqueIdentifiant getInstance() {
         return instance;
+    }
+
+    public String getIdentifiantGuichet(){
+        noGuichet++;
+        return "guichet" + (noGuichet - 1);
     }
 
     public String getIdentifiantEtape() {

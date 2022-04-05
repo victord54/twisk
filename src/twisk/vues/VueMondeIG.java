@@ -72,7 +72,13 @@ public class VueMondeIG extends Pane implements Observateur {
         this.getChildren().clear();
         miseAjourArcs();
         for (EtapeIG etape : monde) {
-            VueEtapeIG vueEtape = new VueActiviteIG(monde, (ActiviteIG) etape);
+            VueEtapeIG vueEtape;
+            if (etape.estUnGuichet()) {
+                vueEtape = new VueGuichetIG(monde, (GuichetIG) etape);
+            }
+            else {
+                vueEtape = new VueActiviteIG(monde, (ActiviteIG) etape);
+            }
             if (monde.getEtapesSelectionnees().contains(etape)) {
                 vueEtape.setId("VueActiviteSelect");
             }

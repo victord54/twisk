@@ -83,8 +83,6 @@ public class ClientTwisk {
             simuler.invoke(sim, monde);
             loaderPerso.finalize();
 
-
-
         } catch (ClassNotFoundException | InvocationTargetException | InstantiationException | IllegalAccessException | NoSuchMethodException e) {
             e.printStackTrace();
         }

@@ -19,6 +19,16 @@ VueActiviteIG {
     -fx-border-color: #37ff00;
 }
 
+VueGuichetIG {
+    -fx-background-color: #159789;
+    -fx-background-radius: 6;
+    -fx-border-style: solid;
+    -fx-border-color: black;
+    -fx-border-radius: 6;
+    -fx-border-width: 2;
+}
+
+
 #titre {
     -fx-background-color: #A59EFA;
     -fx-padding: 10 0 10 0;

@@ -94,4 +94,10 @@ public abstract class EtapeIG implements Iterable<PointDeControleIG> {
     public Iterator<PointDeControleIG> iterator() {
         return controles.iterator();
     }
+
+
+    public abstract boolean estUnGuichet();
+
+
+
 }

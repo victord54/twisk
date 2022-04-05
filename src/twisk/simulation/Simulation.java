@@ -92,8 +92,8 @@ public class Simulation {
         System.out.println("Les étapes ne seront pas dans l'ordre !");
         kit.creerFichier(monde.toC());
         kit.compiler();
-        kit.construireLaLibrairie();
-        System.load("/tmp/twisk/libTwisk.so");
+        kit.construireLaLibrairie(monde.getNumMonde());
+        System.load("/tmp/twisk/libTwisk"+monde.getNumMonde()+".so");
 
         int nb_etapes = monde.nbEtapes() ;
         int nb_guichets = monde.nbGuichets();

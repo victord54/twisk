@@ -20,6 +20,9 @@ public class FabriqueNumero {
      */
     private int cptSemaphore;
 
+
+    private int cptMonde;
+
     /**
      * Constructeur par défaut de la classe.
      */
@@ -55,11 +58,18 @@ public class FabriqueNumero {
         return cptSemaphore;
     }
 
+    public int getNumeroMonde(){
+        cptMonde++;
+        return cptMonde;
+    }
+
+
     /**
      * Méthode remettant à 0 les compteurs d'étapes et de sémaphore.
      */
     public void reset() {
         cptEtape = 0;
         cptSemaphore = 0;
+        cptMonde = 0;
     }
 }

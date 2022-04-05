@@ -7,9 +7,12 @@
 
 package twisk.monde;
 
+import twisk.outils.FabriqueNumero;
+
 import java.util.Iterator;
 
 public class Monde implements Iterable<Etape> {
+    protected int numMonde;
     /**
      * Champs contenant le sas d'entrée du monde.
      */
@@ -33,6 +36,7 @@ public class Monde implements Iterable<Etape> {
         sortie = new SasSortie();
         gestionnaireEtapes = new GestionnaireEtapes();
         gestionnaireEtapes.ajouter(entree, sortie);
+        numMonde = FabriqueNumero.getInstance().getNumeroMonde();
     }
 
     /**
@@ -147,5 +151,9 @@ public class Monde implements Iterable<Etape> {
 
     public Etape getEtape(int i){
         return this.gestionnaireEtapes.getEtape(i);
+    }
+
+    public int getNumMonde(){
+        return this.numMonde;
     }
 }

@@ -111,10 +111,10 @@ public class KitC {
     /**
      * Méthode permettant de compiler et construire une librairie c.
      */
-    public void construireLaLibrairie() {
+    public void construireLaLibrairie(int n) {
         Runtime runtime = Runtime.getRuntime();
         try {
-            Process p = runtime.exec("gcc -shared /tmp/twisk/programmeC.o /tmp/twisk/codeNatif.o /tmp/twisk/client.o -o /tmp/twisk/libTwisk.so");
+            Process p = runtime.exec("gcc -shared /tmp/twisk/programmeC.o /tmp/twisk/codeNatif.o /tmp/twisk/client.o -o /tmp/twisk/libTwisk" + n +".so");
             // récupération des messages sur la sortie standard et la sortie d’erreur de la commande exécutée
             // à reprendre éventuellement et à adapter à votre code
             BufferedReader output = new BufferedReader(new InputStreamReader(p.getInputStream()));

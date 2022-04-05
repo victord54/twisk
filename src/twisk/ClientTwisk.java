@@ -28,7 +28,7 @@ public class ClientTwisk {
      *
      * @return Le monde créé.
      */
-    public static Monde monde1() {
+    public Monde monde1() {
         Monde monde = new Monde();
 
         Activite zoo = new Activite("balade au zoo", 3, 1);
@@ -51,7 +51,7 @@ public class ClientTwisk {
      *
      * @return Le monde créé.
      */
-    public void monde2() {
+    public Monde monde2() {
         Monde monde = new Monde();
         Guichet guichet = new Guichet("ticket", 2);
         Activite act1 = new ActiviteRestreinte("toboggan", 2, 1);
@@ -66,24 +66,28 @@ public class ClientTwisk {
         monde.aCommeEntree(etape1);
         monde.aCommeSortie(act1);
 
+        return monde;
+
+
+    }
+
+    public void lancementSimulation(Monde monde, int nbClients){
         ClassLoaderPerso loaderPerso = new ClassLoaderPerso(this.getClass().getClassLoader());
         try {
             Class<?> s = loaderPerso.loadClass("twisk.simulation.Simulation");
             System.out.println(s);
             Object sim = s.getDeclaredConstructor().newInstance();
             Method setNbClient = s.getMethod("setNbClients",int.class);
-            setNbClient.invoke(sim,5);
+            setNbClient.invoke(sim,nbClients);
             Method simuler = s.getMethod("simuler", Monde.class);
             simuler.invoke(sim, monde);
-            // Reload un truc pour que ça marche ?
-            // Il faudra ajouter un compteur de monde et renommer la librairie en fct du monde.
             loaderPerso.finalize();
-            Method simuler2 = s.getMethod("simuler", Monde.class);
-            simuler2.invoke(sim, monde1());
+
+
+
         } catch (ClassNotFoundException | InvocationTargetException | InstantiationException | IllegalAccessException | NoSuchMethodException e) {
             e.printStackTrace();
         }
-
     }
 
     /**
@@ -93,6 +97,8 @@ public class ClientTwisk {
      */
     public static void main(String[] args) {
         ClientTwisk client = new ClientTwisk();
-        client.monde2();
+        client.lancementSimulation(client.monde2(),5);
+        client.lancementSimulation(client.monde1(),8);
+
     }
 }

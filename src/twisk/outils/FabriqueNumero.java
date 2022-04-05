@@ -70,6 +70,5 @@ public class FabriqueNumero {
     public void reset() {
         cptEtape = 0;
         cptSemaphore = 0;
-        cptMonde = 0;
     }
 }

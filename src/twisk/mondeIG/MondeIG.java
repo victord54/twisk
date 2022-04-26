@@ -289,8 +289,9 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG> {
 
     private Monde creerMonde() throws MondeException{
         Monde monde = new Monde();
+        ArrayList<Etape> etapesMonde = new ArrayList<>(1);
 
-        for (EtapeIG e : entrees) {
+        /*for (EtapeIG e : entrees) {
             if (e.estUnGuichet()) {
                 GuichetIG guichet = (GuichetIG) e;
                 Guichet g = new Guichet(guichet.getNom(), guichet.getJetons());
@@ -308,30 +309,46 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG> {
             Activite a = new Activite(act.getNom(), act.getDelai(), act.getEcart());
             monde.ajouter(a);
             monde.aCommeSortie(a);
-        }
+        }*/
 
-        System.out.println(monde.toString());
-        /*for (ArcIG a : arcs){
+        for (ArcIG a : arcs){
             EtapeIG e1 = a.getPt1().getEtape();
             EtapeIG e2 = a.getPt2().getEtape();
 
-            if (!e1.estUnGuichet()){
-                ActiviteIG act = (ActiviteIG) e1;
-                Activite ac1 = new Activite(act.getNom(),act.getDelai(),act.getEcart());
-                if (!monde.contient(ac1)){
-                    monde.ajouter(ac1);
-                }
-                if (!e2.estUnGuichet()) {
-                    act = (ActiviteIG) e2;
-                    Activite ac2 = new Activite(act.getNom(), act.getDelai(), act.getEcart());
-                    if (!monde.contient(ac2)) {
-                        monde.ajouter(ac2);
-
+            if (entrees.contains(e1)) {
+                if (!e1.estUnGuichet()) {
+                    ActiviteIG act = (ActiviteIG) e1;
+                    Activite ac1 = new Activite(act.getNom(), act.getDelai(), act.getEcart());
+                    if (!monde.contient(ac1)) {
+                        monde.ajouter(ac1);
+                        monde.aCommeEntree(ac1);
                     }
-                    ac1.ajouterSuccesseur(ac2);
+                    if (sorties.contains(e2)) {
+                        if (!e2.estUnGuichet()) {
+                            act = (ActiviteIG) e2;
+                            Activite ac2 = new Activite(act.getNom(), act.getDelai(), act.getEcart());
+                            if (!monde.contient(ac2)) {
+                                monde.ajouter(ac2);
+                                monde.aCommeSortie(ac2);
+                            }
+                            ac1.ajouterSuccesseur(ac2);
+
+                        }
+                    } else{
+                        if (!e2.estUnGuichet()) {
+                            act = (ActiviteIG) e2;
+                            Activite ac2 = new Activite(act.getNom(), act.getDelai(), act.getEcart());
+                            if (!monde.contient(ac2)) {
+                                monde.ajouter(ac2);
+                            }
+                            ac1.ajouterSuccesseur(ac2);
+
+                        }
+                    }
                 }
             }
-        }*/
+
+        }
 
         return monde;
     }

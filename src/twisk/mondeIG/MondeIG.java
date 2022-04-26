@@ -4,6 +4,11 @@ import javafx.scene.control.TextInputDialog;
 import twisk.exceptions.ArcTwiskException;
 import twisk.exceptions.EtapeTwiskException;
 import twisk.exceptions.GuichetTwiskException;
+import twisk.exceptions.MondeException;
+import twisk.monde.Activite;
+import twisk.monde.Etape;
+import twisk.monde.Guichet;
+import twisk.monde.Monde;
 import twisk.outils.FabriqueIdentifiant;
 import twisk.outils.TailleComposants;
 
@@ -272,6 +277,58 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG> {
 
 
     }
+
+    public void simuler() throws MondeException {
+
+    }
+
+    private Monde creerMonde() throws MondeException{
+        Monde monde = new Monde();
+
+        for (EtapeIG e : entrees) {
+            if (e.estUnGuichet()) {
+                GuichetIG guichet = (GuichetIG) e;
+                Guichet g = new Guichet(guichet.getNom(), guichet.getJetons());
+                monde.ajouter(g);
+                monde.aCommeEntree(g);
+            } else {
+                ActiviteIG act = (ActiviteIG) e;
+                Activite a = new Activite(act.getNom(), act.getDelai(), act.getEcart());
+                monde.ajouter(a);
+                monde.aCommeEntree(a);
+            }
+        }
+        for (EtapeIG e : sorties){
+            ActiviteIG act = (ActiviteIG) e;
+            Activite a = new Activite(act.getNom(), act.getDelai(), act.getEcart());
+            monde.ajouter(a);
+            monde.aCommeSortie(a);
+        }
+
+        for (ArcIG a : arcs){
+            EtapeIG e1 = a.getPt1().getEtape();
+            EtapeIG e2 = a.getPt2().getEtape();
+
+            if (!e1.estUnGuichet()){
+                ActiviteIG act = (ActiviteIG) e1;
+                Activite ac1 = new Activite(act.getNom(),act.getDelai(),act.getEcart());
+                if (!monde.contient(ac1)){
+                    monde.ajouter(ac1);
+                }
+                if (!e2.estUnGuichet()) {
+                    act = (ActiviteIG) e2;
+                    Activite ac2 = new Activite(act.getNom(), act.getDelai(), act.getEcart());
+                    if (!monde.contient(ac2)) {
+                        monde.ajouter(ac2);
+                    }
+                    ac1.ajouterSuccesseur(ac2);
+                }
+            }
+        }
+
+        return monde;
+    }
+
 
     @Override
     public Iterator<EtapeIG> iterator() {

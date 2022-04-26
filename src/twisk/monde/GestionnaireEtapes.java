@@ -77,4 +77,8 @@ public class GestionnaireEtapes implements Iterable<Etape> {
         }
         return bd.toString();
     }
+
+    public boolean contient(Etape e){
+        return etapes.contains(e);
+    }
 }

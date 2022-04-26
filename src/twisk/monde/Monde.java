@@ -156,4 +156,8 @@ public class Monde implements Iterable<Etape> {
     public int getNumMonde(){
         return this.numMonde;
     }
+
+    public boolean contient(Etape e){
+        return gestionnaireEtapes.contient(e);
+    }
 }

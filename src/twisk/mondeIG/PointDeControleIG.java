@@ -27,6 +27,10 @@ public class PointDeControleIG {
         return id;
     }
 
+    public EtapeIG getEtape(){
+        return etape;
+    }
+
     public String getIdEtape() {
         return etape.getId();
     }

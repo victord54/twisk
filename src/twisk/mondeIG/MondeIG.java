@@ -3,6 +3,7 @@ package twisk.mondeIG;
 import javafx.scene.control.TextInputDialog;
 import twisk.exceptions.ArcTwiskException;
 import twisk.exceptions.EtapeTwiskException;
+import twisk.exceptions.GuichetTwiskException;
 import twisk.outils.FabriqueIdentifiant;
 import twisk.outils.TailleComposants;
 
@@ -251,6 +252,25 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG> {
         etapesIG.remove(idEtape);
         etapesIG.put(etapeTmp.getId(), etapeTmp);
         notifierObservateurs();
+    }
+
+    public void setJetons() throws GuichetTwiskException {
+        if (etapesSelectionnees.size() != 1) {
+            throw new GuichetTwiskException("Un seul guichet doit être sélectionné");
+        } else if (!etapesSelectionnees.get(0).estUnGuichet()) {
+                throw new GuichetTwiskException("Seul un guichet peut être sélectionné");
+        } else {
+            GuichetIG guichetIG = (GuichetIG) etapesSelectionnees.get(0);
+            TextInputDialog tid = new TextInputDialog();
+            tid.setContentText("Saisir le nombre de jetons du guichet");
+            Optional<String> optionalS = tid.showAndWait();
+            guichetIG.setJetons(Integer.parseInt(optionalS.get()));
+
+        }
+        etapesSelectionnees.clear();
+        notifierObservateurs();
+
+
     }
 
     @Override

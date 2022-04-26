@@ -5,6 +5,7 @@ import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import twisk.exceptions.EtapeTwiskException;
+import twisk.exceptions.GuichetTwiskException;
 import twisk.mondeIG.MondeIG;
 
 
@@ -75,11 +76,20 @@ public class VueMenu extends MenuBar {
                 e.afficherMessage();
             }
         });
+
+        MenuItem jeton = new MenuItem("Modifier le nombre de jetons");
+        jeton.setOnAction(actionEvent -> {
+            try {
+                monde.setJetons();
+            } catch (GuichetTwiskException e) {
+                e.afficherMessage();
+            }
+        });
 //      ----------------------------------------------- Ajout des items ------------------------------------------------
         fileMenu.getItems().add(quit);
         editMenu.getItems().addAll(delete, rename, cancel);
         worldMenu.getItems().addAll(input, output);
-        settingsMenu.getItems().addAll(delay, ecart);
+        settingsMenu.getItems().addAll(delay, ecart, jeton);
 //      ----------------------------------------------- Ajout des menus ------------------------------------------------
         this.getMenus().addAll(fileMenu, editMenu, worldMenu, settingsMenu);
     }

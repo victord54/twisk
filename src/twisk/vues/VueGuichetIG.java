@@ -12,6 +12,7 @@ public class VueGuichetIG extends VueEtapeIG implements Observateur {
 
     public VueGuichetIG(MondeIG monde, GuichetIG guichet) {
         super(monde, guichet);
+        titre.setText(guichet.getNom() + " = " + guichet.getJetons() + " jetons");
         hbox = new HBox();
 
 

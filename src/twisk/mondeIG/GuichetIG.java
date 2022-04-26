@@ -14,4 +14,8 @@ public class GuichetIG extends EtapeIG {
     public int getJetons() {
         return jetons;
     }
+
+    public void setJetons(int jetons) {
+        this.jetons = jetons;
+    }
 }

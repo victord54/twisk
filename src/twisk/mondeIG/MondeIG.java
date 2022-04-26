@@ -66,7 +66,7 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG> {
         if (type.equals("Activité") || type.equals("Activite"))
             etapesIG.put(id, new ActiviteIG("Activité", id, tailleComposants.getLargeurActivite(), tailleComposants.getHauteurActivite()));
         if (type.equals("Guichet"))
-            etapesIG.put(id, new GuichetIG("Guichet",id, tailleComposants.getLargeurActivite(), tailleComposants.getHauteurActivite()));
+            etapesIG.put(id, new GuichetIG("Guichet",id, tailleComposants.getLargeurActivite(), tailleComposants.getHauteurActivite(), 2));
 
         notifierObservateurs();
     }

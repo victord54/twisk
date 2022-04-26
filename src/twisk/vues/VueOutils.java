@@ -7,6 +7,7 @@ import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.TilePane;
+import twisk.exceptions.MondeException;
 import twisk.mondeIG.EtapeIG;
 import twisk.mondeIG.MondeIG;
 
@@ -15,6 +16,7 @@ public class VueOutils extends TilePane implements Observateur {
     final Button boutonAjouter, boutonAjouterG;
     final Button boutonRetour;
     final Button boutonEffacer;
+    final Button boutonLancement;
 
     public VueOutils(MondeIG monde) {
 
@@ -80,6 +82,26 @@ public class VueOutils extends TilePane implements Observateur {
 
         boutonEffacer.setOnAction(actionEvent -> monde.reset());
         this.getChildren().add(boutonEffacer);
+        this.reagir();
+        /*--------------------------------------*/
+        img = new Image("/images/lancement.png");
+        view = new ImageView(img);
+        view.setFitHeight(50);
+        view.setPreserveRatio(true);
+        view.setSmooth(true);
+
+        boutonLancement = new Button();
+        boutonLancement.getStyleClass().add("bouton-outils");
+        boutonLancement.setGraphic(view);
+
+        boutonLancement.setOnAction(actionEvent -> {
+            try {
+                monde.simuler();
+            } catch (MondeException e) {
+                e.printStackTrace();
+            }
+        });
+        this.getChildren().add(boutonLancement);
         this.reagir();
     }
 

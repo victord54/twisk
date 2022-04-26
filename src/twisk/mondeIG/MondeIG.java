@@ -1,6 +1,7 @@
 package twisk.mondeIG;
 
 import javafx.scene.control.TextInputDialog;
+import twisk.ClientTwisk;
 import twisk.exceptions.ArcTwiskException;
 import twisk.exceptions.EtapeTwiskException;
 import twisk.exceptions.GuichetTwiskException;
@@ -11,6 +12,7 @@ import twisk.monde.Guichet;
 import twisk.monde.Monde;
 import twisk.outils.FabriqueIdentifiant;
 import twisk.outils.TailleComposants;
+import twisk.simulation.Simulation;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -279,7 +281,9 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG> {
     }
 
     public void simuler() throws MondeException {
-
+        Simulation sim = new Simulation();
+        sim.setNbClients(5);
+        sim.simuler(creerMonde());
     }
 
     private Monde creerMonde() throws MondeException{

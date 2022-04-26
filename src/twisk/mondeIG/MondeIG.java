@@ -290,7 +290,7 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG> {
     private Monde creerMonde() throws MondeException{
         Monde monde = new Monde();
         ArrayList<Etape> etapesMonde = new ArrayList<>(1);
-
+        // Ajout en premier de toutes les etapes dans le gestionnaire d'étapes et ensuite ajout de tous les successeurs de chaques étapes.
         /*for (EtapeIG e : entrees) {
             if (e.estUnGuichet()) {
                 GuichetIG guichet = (GuichetIG) e;

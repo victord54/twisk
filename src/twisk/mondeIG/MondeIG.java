@@ -281,9 +281,10 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG> {
     }
 
     public void simuler() throws MondeException {
-        Simulation sim = new Simulation();
+        /*Simulation sim = new Simulation();
         sim.setNbClients(5);
-        sim.simuler(creerMonde());
+        sim.simuler(creerMonde());*/
+        System.out.println(creerMonde().toString());
     }
 
     private Monde creerMonde() throws MondeException{
@@ -309,7 +310,8 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG> {
             monde.aCommeSortie(a);
         }
 
-        for (ArcIG a : arcs){
+        System.out.println(monde.toString());
+        /*for (ArcIG a : arcs){
             EtapeIG e1 = a.getPt1().getEtape();
             EtapeIG e2 = a.getPt2().getEtape();
 
@@ -324,11 +326,12 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG> {
                     Activite ac2 = new Activite(act.getNom(), act.getDelai(), act.getEcart());
                     if (!monde.contient(ac2)) {
                         monde.ajouter(ac2);
+
                     }
                     ac1.ajouterSuccesseur(ac2);
                 }
             }
-        }
+        }*/
 
         return monde;
     }

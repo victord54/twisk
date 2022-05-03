@@ -335,14 +335,16 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG> {
 
         for (EtapeIG e : this){
             if (e.getSuccesseurs().size() > 0) {
-                if (!e.estUnGuichet()) {
-                    ActiviteIG tmpIG = (ActiviteIG) e;
-                    Activite tmp = (Activite) correspondanceEtapes.getEtape(tmpIG);
-                    monde.aCommeEntree(tmp);
-                } else {
-                    GuichetIG tmpIG = (GuichetIG) e;
-                    Guichet tmp = (Guichet) correspondanceEtapes.getEtape(tmpIG);
-                    monde.aCommeEntree(tmp);
+                for (EtapeIG etapeSuc: e.getSuccesseurs()) {
+                    if (!e.estUnGuichet()) {
+                        ActiviteIG tmpIG = (ActiviteIG) e;
+                        Activite tmp = (Activite) correspondanceEtapes.getEtape(tmpIG);
+                        tmp.ajouterSuccesseur(correspondanceEtapes.getEtape(etapeSuc));
+                    } else {
+                        GuichetIG tmpIG = (GuichetIG) e;
+                        Guichet tmp = (Guichet) correspondanceEtapes.getEtape(tmpIG);
+                        tmp.ajouterSuccesseur(correspondanceEtapes.getEtape(etapeSuc));
+                    }
                 }
             }
         }

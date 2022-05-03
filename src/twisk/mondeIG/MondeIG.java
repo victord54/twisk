@@ -6,10 +6,7 @@ import twisk.exceptions.ArcTwiskException;
 import twisk.exceptions.EtapeTwiskException;
 import twisk.exceptions.GuichetTwiskException;
 import twisk.exceptions.MondeException;
-import twisk.monde.Activite;
-import twisk.monde.Etape;
-import twisk.monde.Guichet;
-import twisk.monde.Monde;
+import twisk.monde.*;
 import twisk.outils.CorrespondanceEtapes;
 import twisk.outils.FabriqueIdentifiant;
 import twisk.outils.TailleComposants;
@@ -285,10 +282,9 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG> {
     }
 
     public void simuler() throws MondeException {
-        /*Simulation sim = new Simulation();
+        Simulation sim = new Simulation();
         sim.setNbClients(5);
-        sim.simuler(creerMonde());*/
-        System.out.println(creerMonde().toString());
+        sim.simuler(creerMonde());
     }
 
     private Monde creerMonde() throws MondeException {
@@ -307,6 +303,19 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG> {
                 Guichet tmp = new Guichet(tmpIG.getNom(), tmpIG.getJetons());
                 correspondanceEtapes.ajouter(tmpIG,tmp);
                 monde.ajouter(tmp);
+                ActiviteIG et = (ActiviteIG) tmpIG.getSuccesseurs().get(0);
+                Etape etape = correspondanceEtapes.getEtape(et);
+                if (monde.contient(etape)){
+                    ActiviteRestreinte act = new ActiviteRestreinte(et.getNom(),et.getDelai(),et.getEcart());
+                    monde.remplacerActiviteParActiviteR(etape,act);
+                    correspondanceEtapes.remove(et);
+                    correspondanceEtapes.ajouter(et,act);
+                }
+                else{
+                    ActiviteRestreinte act = new ActiviteRestreinte(et.getNom(),et.getDelai(),et.getEcart());
+                    correspondanceEtapes.ajouter(et,act);
+                    monde.ajouter(act);
+                }
             }
         }
 
@@ -339,11 +348,7 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG> {
                         ActiviteIG tmpIG = (ActiviteIG) e;
                         Activite tmp = (Activite) correspondanceEtapes.getEtape(tmpIG);
                         tmp.ajouterSuccesseur(correspondanceEtapes.getEtape(etapeSuc));
-                    } else {
-                        GuichetIG tmpIG = (GuichetIG) e;
-                        Guichet tmp = (Guichet) correspondanceEtapes.getEtape(tmpIG);
-                        tmp.ajouterSuccesseur(correspondanceEtapes.getEtape(etapeSuc));
-                    }
+                    } 
                 }
             }
         }

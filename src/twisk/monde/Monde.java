@@ -161,5 +161,9 @@ public class Monde implements Iterable<Etape> {
         return gestionnaireEtapes.contient(e);
     }
 
+    public void remplacerActiviteParActiviteR(Etape e1, Etape e2){
+        gestionnaireEtapes.remplacerActiviteParActiviteR(e1,e2);
+    }
+
 
 }

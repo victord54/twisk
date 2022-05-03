@@ -19,4 +19,8 @@ public class CorrespondanceEtapes {
     public Etape getEtape(EtapeIG e){
         return etapes.get(e);
     }
+
+    public void remove(EtapeIG e){
+        etapes.remove(e);
+    }
 }

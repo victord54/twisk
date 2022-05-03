@@ -23,7 +23,7 @@ public class VueOutils extends TilePane implements Observateur {
         this.monde = monde;
         monde.ajouterObservateur(this);
 
-        Image img = new Image("/images/add.png");
+        Image img = new Image("/images/activite-add.png");
         ImageView view = new ImageView(img);
         view.setFitHeight(50);
         view.setPreserveRatio(true);
@@ -38,7 +38,7 @@ public class VueOutils extends TilePane implements Observateur {
 
         /*-------------------------------------*/
 
-        img = new Image("/images/add.png");
+        img = new Image("/images/guichet-add.png");
         view= new ImageView(img);
         view.setFitHeight(50);
         view.setPreserveRatio(true);

@@ -285,10 +285,6 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG> {
 
     public void simuler() throws MondeException {
         verifierMondeIG();
-        Simulation sim = new Simulation();
-        /*Simulation sim = new Simulation();
-        sim.setNbClients(5);
-        sim.simuler(creerMonde());*/
         ClientTwisk client = new ClientTwisk();
         client.lancementSimulation(creerMonde(),5);
     }

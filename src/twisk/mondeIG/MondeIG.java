@@ -126,6 +126,7 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG> {
     }
 
     public void retirerDernierArc() {
+        arcs.get(arcs.size()-1).getPt1().getEtape().retirerSucesseur(arcs.get(arcs.size()-1).getPt2().getEtape());
         arcs.remove(arcs.size() - 1);
         notifierObservateurs();
     }
@@ -152,6 +153,7 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG> {
         etapesSelectionnees.clear();
 
         for (ArcIG arc : arcsSelectionnees) {
+            arc.getPt1().getEtape().retirerSucesseur(arc.getPt2().getEtape());
             arcs.remove(arc);
         }
         arcsSelectionnees.clear();
@@ -287,67 +289,32 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG> {
         System.out.println(creerMonde().toString());
     }
 
-    private Monde creerMonde() throws MondeException{
+    private Monde creerMonde() throws MondeException {
         Monde monde = new Monde();
-        ArrayList<Etape> etapesMonde = new ArrayList<>(1);
         // Ajout en premier de toutes les etapes dans le gestionnaire d'étapes et ensuite ajout de tous les successeurs de chaques étapes.
-        /*for (EtapeIG e : entrees) {
-            if (e.estUnGuichet()) {
-                GuichetIG guichet = (GuichetIG) e;
-                Guichet g = new Guichet(guichet.getNom(), guichet.getJetons());
-                monde.ajouter(g);
-                monde.aCommeEntree(g);
+        for (EtapeIG entree: entrees) {
+            if (!entree.estUnGuichet()) {
+                ActiviteIG tmpIG = (ActiviteIG) entree;
+                Activite tmp = new Activite(tmpIG.getNom(), tmpIG.getDelai(), tmpIG.getEcart());
+                monde.ajouter(tmp);
+                monde.aCommeEntree(tmp);
             } else {
-                ActiviteIG act = (ActiviteIG) e;
-                Activite a = new Activite(act.getNom(), act.getDelai(), act.getEcart());
-                monde.ajouter(a);
-                monde.aCommeEntree(a);
+                GuichetIG tmpIG = (GuichetIG) entree;
+                Guichet tmp = new Guichet(tmpIG.getNom(), tmpIG.getJetons());
+                monde.ajouter(tmp);
+                monde.aCommeEntree(tmp);
             }
         }
-        for (EtapeIG e : sorties){
-            ActiviteIG act = (ActiviteIG) e;
-            Activite a = new Activite(act.getNom(), act.getDelai(), act.getEcart());
-            monde.ajouter(a);
-            monde.aCommeSortie(a);
-        }*/
 
-        for (ArcIG a : arcs){
-            EtapeIG e1 = a.getPt1().getEtape();
-            EtapeIG e2 = a.getPt2().getEtape();
-
-            if (entrees.contains(e1)) {
-                if (!e1.estUnGuichet()) {
-                    ActiviteIG act = (ActiviteIG) e1;
-                    Activite ac1 = new Activite(act.getNom(), act.getDelai(), act.getEcart());
-                    if (!monde.contient(ac1)) {
-                        monde.ajouter(ac1);
-                        monde.aCommeEntree(ac1);
-                    }
-                    if (sorties.contains(e2)) {
-                        if (!e2.estUnGuichet()) {
-                            act = (ActiviteIG) e2;
-                            Activite ac2 = new Activite(act.getNom(), act.getDelai(), act.getEcart());
-                            if (!monde.contient(ac2)) {
-                                monde.ajouter(ac2);
-                                monde.aCommeSortie(ac2);
-                            }
-                            ac1.ajouterSuccesseur(ac2);
-
-                        }
-                    } else{
-                        if (!e2.estUnGuichet()) {
-                            act = (ActiviteIG) e2;
-                            Activite ac2 = new Activite(act.getNom(), act.getDelai(), act.getEcart());
-                            if (!monde.contient(ac2)) {
-                                monde.ajouter(ac2);
-                            }
-                            ac1.ajouterSuccesseur(ac2);
-
-                        }
-                    }
-                }
+        for (EtapeIG sortie: sorties) {
+            if (sortie.estUnGuichet()) {
+                throw new MondeException("Une sortie ne peut pas être un guichet !");
+            } else {
+                ActiviteIG tmpIG = (ActiviteIG) sortie;
+                Activite tmp = new Activite(tmpIG.getNom(), tmpIG.getDelai(), tmpIG.getEcart());
+                monde.ajouter(tmp);
+                monde.aCommeSortie(tmp);
             }
-
         }
 
         return monde;

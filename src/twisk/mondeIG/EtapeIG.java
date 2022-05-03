@@ -1,9 +1,11 @@
 package twisk.mondeIG;
 
+import twisk.monde.Etape;
 import twisk.outils.TailleComposants;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Random;
 
 public abstract class EtapeIG implements Iterable<PointDeControleIG> {
@@ -14,6 +16,7 @@ public abstract class EtapeIG implements Iterable<PointDeControleIG> {
     protected final int largeur;
     protected final int hauteur;
     protected final ArrayList<PointDeControleIG> controles;
+    protected final ArrayList<EtapeIG> successeurs;
 
     public EtapeIG(String nom, String idf, int largeur, int hauteur) {
         Random rd = new Random();
@@ -36,6 +39,8 @@ public abstract class EtapeIG implements Iterable<PointDeControleIG> {
 
         /* Pt de contrôle centre-droit */
         controles.add(new PointDeControleIG(posX + largeur, posY + hauteur / 2, this));
+
+        successeurs = new ArrayList<>();
     }
 
     public String getNom() {
@@ -85,6 +90,14 @@ public abstract class EtapeIG implements Iterable<PointDeControleIG> {
         controles.get(3).relocate(posX + largeur, posY + hauteur / 2);
     }
 
+    public void ajouterSucesseur(EtapeIG... etapes) {
+        successeurs.addAll(List.of(etapes));
+    }
+
+    public void retirerSucesseur(EtapeIG ... etapes) {
+        successeurs.removeAll(List.of(etapes));
+    }
+
     @Override
     public String toString() {
         return "EtapeIG{" + "nom='" + nom + '\'' + ", identifiant='" + identifiant + '\'' + ", posX=" + posX + ", posY=" + posY + ", largeur=" + largeur + ", hauteur=" + hauteur + '}';
@@ -96,7 +109,17 @@ public abstract class EtapeIG implements Iterable<PointDeControleIG> {
     }
 
 
-    public abstract boolean estUnGuichet();
+    public boolean estUnGuichet() {
+        return false;
+    }
+
+    public boolean estUneActivite() {
+        return false;
+    }
+
+    public boolean estUneActiviteRestreinte() {
+        return false;
+    }
 
 
 

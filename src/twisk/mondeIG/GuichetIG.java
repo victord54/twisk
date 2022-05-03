@@ -7,6 +7,7 @@ public class GuichetIG extends EtapeIG {
         this.jetons = jetons;
     }
 
+    @Override
     public boolean estUnGuichet(){
         return true;
     }

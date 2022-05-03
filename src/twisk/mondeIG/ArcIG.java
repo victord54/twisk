@@ -7,6 +7,8 @@ public class ArcIG {
     public ArcIG(PointDeControleIG pt1, PointDeControleIG pt2) {
         this.pt1 = pt1;
         this.pt2 = pt2;
+
+        pt1.getEtape().ajouterSucesseur(pt2.getEtape());
     }
 
     public PointDeControleIG getPt1() {

@@ -114,7 +114,6 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG> {
                     }
                 }
                 ajouterArc(pt1, pt2);
-                System.out.println("arc ajouté");
             }
         }
         notifierObservateurs();

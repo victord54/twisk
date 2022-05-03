@@ -282,9 +282,17 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG> {
     }
 
     public void simuler() throws MondeException {
+        verifierMondeIG();
         Simulation sim = new Simulation();
         sim.setNbClients(5);
         sim.simuler(creerMonde());
+    }
+
+    private void verifierMondeIG() throws MondeException {
+        if (entrees.size() == 0)
+            throw new MondeException("Il n'y a pas d'entrée dans votre monde !");
+        else if (sorties.size() == 0)
+            throw new MondeException("Il n'y a pas de sortie dans votre monde !");
     }
 
     private Monde creerMonde() throws MondeException {
@@ -312,7 +320,7 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG> {
                 }
             }
         }
-        System.out.println(monde.toString());
+        System.out.println(monde);
 
 
         for (EtapeIG entree: entrees) {

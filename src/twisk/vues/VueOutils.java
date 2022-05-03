@@ -98,7 +98,7 @@ public class VueOutils extends TilePane implements Observateur {
             try {
                 monde.simuler();
             } catch (MondeException e) {
-                e.printStackTrace();
+                e.afficherMessage();
             }
         });
         this.getChildren().add(boutonLancement);

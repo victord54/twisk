@@ -10,6 +10,7 @@ import twisk.monde.Activite;
 import twisk.monde.Etape;
 import twisk.monde.Guichet;
 import twisk.monde.Monde;
+import twisk.outils.CorrespondanceEtapes;
 import twisk.outils.FabriqueIdentifiant;
 import twisk.outils.TailleComposants;
 import twisk.simulation.Simulation;
@@ -28,6 +29,7 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG> {
     private final ArrayList<ArcIG> arcsSelectionnees;
     private final ArrayList<EtapeIG> entrees;
     private final ArrayList<EtapeIG> sorties;
+    private CorrespondanceEtapes correspondanceEtapes;
 
     public MondeIG() {
         etapesIG = new HashMap<>();
@@ -38,6 +40,7 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG> {
         entrees = new ArrayList<>();
         sorties = new ArrayList<>();
         this.ajouter("Activité");
+        
     }
 
     public EtapeIG getEtape(String id) {
@@ -290,18 +293,32 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG> {
     }
 
     private Monde creerMonde() throws MondeException {
+        correspondanceEtapes = new CorrespondanceEtapes();
         Monde monde = new Monde();
         // Ajout en premier de toutes les etapes dans le gestionnaire d'étapes et ensuite ajout de tous les successeurs de chaques étapes.
+
+        for (EtapeIG e : this){
+            if (!e.estUnGuichet()) {
+                ActiviteIG tmpIG = (ActiviteIG) e;
+                Activite tmp = new Activite(tmpIG.getNom(), tmpIG.getDelai(), tmpIG.getEcart());
+                correspondanceEtapes.ajouter(tmpIG,tmp);
+                monde.ajouter(tmp);
+            } else {
+                GuichetIG tmpIG = (GuichetIG) e;
+                Guichet tmp = new Guichet(tmpIG.getNom(), tmpIG.getJetons());
+                correspondanceEtapes.ajouter(tmpIG,tmp);
+                monde.ajouter(tmp);
+            }
+        }
+
         for (EtapeIG entree: entrees) {
             if (!entree.estUnGuichet()) {
                 ActiviteIG tmpIG = (ActiviteIG) entree;
-                Activite tmp = new Activite(tmpIG.getNom(), tmpIG.getDelai(), tmpIG.getEcart());
-                monde.ajouter(tmp);
+                Activite tmp = (Activite) correspondanceEtapes.getEtape(tmpIG);
                 monde.aCommeEntree(tmp);
             } else {
                 GuichetIG tmpIG = (GuichetIG) entree;
-                Guichet tmp = new Guichet(tmpIG.getNom(), tmpIG.getJetons());
-                monde.ajouter(tmp);
+                Guichet tmp = (Guichet) correspondanceEtapes.getEtape(tmpIG);
                 monde.aCommeEntree(tmp);
             }
         }
@@ -311,12 +328,24 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG> {
                 throw new MondeException("Une sortie ne peut pas être un guichet !");
             } else {
                 ActiviteIG tmpIG = (ActiviteIG) sortie;
-                Activite tmp = new Activite(tmpIG.getNom(), tmpIG.getDelai(), tmpIG.getEcart());
-                monde.ajouter(tmp);
+                Activite tmp = (Activite) correspondanceEtapes.getEtape(tmpIG);
                 monde.aCommeSortie(tmp);
             }
         }
 
+        for (EtapeIG e : this){
+            if (e.getSuccesseurs().size() > 0) {
+                if (!e.estUnGuichet()) {
+                    ActiviteIG tmpIG = (ActiviteIG) e;
+                    Activite tmp = (Activite) correspondanceEtapes.getEtape(tmpIG);
+                    monde.aCommeEntree(tmp);
+                } else {
+                    GuichetIG tmpIG = (GuichetIG) e;
+                    Guichet tmp = (Guichet) correspondanceEtapes.getEtape(tmpIG);
+                    monde.aCommeEntree(tmp);
+                }
+            }
+        }
         return monde;
     }
 

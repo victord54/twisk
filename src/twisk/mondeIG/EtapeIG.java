@@ -98,6 +98,10 @@ public abstract class EtapeIG implements Iterable<PointDeControleIG> {
         successeurs.removeAll(List.of(etapes));
     }
 
+    public ArrayList<EtapeIG> getSuccesseurs(){
+        return successeurs;
+    }
+
     @Override
     public String toString() {
         return "EtapeIG{" + "nom='" + nom + '\'' + ", identifiant='" + identifiant + '\'' + ", posX=" + posX + ", posY=" + posY + ", largeur=" + largeur + ", hauteur=" + hauteur + '}';

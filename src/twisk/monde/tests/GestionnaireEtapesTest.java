@@ -2,10 +2,7 @@ package twisk.monde.tests;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import twisk.monde.Activite;
-import twisk.monde.Etape;
-import twisk.monde.GestionnaireEtapes;
-import twisk.monde.Guichet;
+import twisk.monde.*;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -47,5 +44,15 @@ class GestionnaireEtapesTest {
         }
     }
 
+    @Test
+    void remplacerActiviteParActiviteR(){
+        Activite a = new Activite(("c"));
+        gE.ajouter(new Activite("e"), new Activite("ee"), new Guichet("eee"),a);
+        System.out.println(gE.toString());
+        gE.remplacerActiviteParActiviteR(a,new ActiviteRestreinte("ez"));
+        System.out.println(gE.toString());
+    }
 
-}
+
+
+    }

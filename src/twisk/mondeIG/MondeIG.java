@@ -318,6 +318,8 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG> {
                 }
             }
         }
+        System.out.println(monde.toString());
+
 
         for (EtapeIG entree: entrees) {
             if (!entree.estUnGuichet()) {

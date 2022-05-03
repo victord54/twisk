@@ -293,28 +293,22 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG> {
         // Ajout en premier de toutes les etapes dans le gestionnaire d'étapes et ensuite ajout de tous les successeurs de chaques étapes.
 
         for (EtapeIG e : this){
-            if (!e.estUnGuichet()) {
-                ActiviteIG tmpIG = (ActiviteIG) e;
-                Activite tmp = new Activite(tmpIG.getNom(), tmpIG.getDelai(), tmpIG.getEcart());
-                correspondanceEtapes.ajouter(tmpIG,tmp);
-                monde.ajouter(tmp);
-            } else {
-                GuichetIG tmpIG = (GuichetIG) e;
-                Guichet tmp = new Guichet(tmpIG.getNom(), tmpIG.getJetons());
-                correspondanceEtapes.ajouter(tmpIG,tmp);
-                monde.ajouter(tmp);
-                ActiviteIG et = (ActiviteIG) tmpIG.getSuccesseurs().get(0);
-                Etape etape = correspondanceEtapes.getEtape(et);
-                if (monde.contient(etape)){
-                    ActiviteRestreinte act = new ActiviteRestreinte(et.getNom(),et.getDelai(),et.getEcart());
-                    monde.remplacerActiviteParActiviteR(etape,act);
-                    correspondanceEtapes.remove(et);
-                    correspondanceEtapes.ajouter(et,act);
-                }
-                else{
-                    ActiviteRestreinte act = new ActiviteRestreinte(et.getNom(),et.getDelai(),et.getEcart());
-                    correspondanceEtapes.ajouter(et,act);
-                    monde.ajouter(act);
+            if (!monde.contient(correspondanceEtapes.getEtape(e))) {
+                if (!e.estUnGuichet()) {
+                    ActiviteIG tmpIG = (ActiviteIG) e;
+                    Activite tmp = new Activite(tmpIG.getNom(), tmpIG.getDelai(), tmpIG.getEcart());
+                    correspondanceEtapes.ajouter(tmpIG, tmp);
+                    monde.ajouter(tmp);
+                } else {
+                    GuichetIG tmpIG = (GuichetIG) e;
+                    Guichet tmp = new Guichet(tmpIG.getNom(), tmpIG.getJetons());
+                    correspondanceEtapes.ajouter(tmpIG, tmp);
+                    monde.ajouter(tmp);
+                    ActiviteIG sucIG = (ActiviteIG) tmpIG.getSuccesseurs().get(0);
+                    ActiviteRestreinte suc = new ActiviteRestreinte(sucIG.getNom(), sucIG.getDelai(), sucIG.getEcart());
+                    correspondanceEtapes.ajouter(sucIG, suc);
+                    tmp.ajouterSuccesseur(suc);
+                    monde.ajouter(suc);
                 }
             }
         }
@@ -344,7 +338,7 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG> {
         }
 
         for (EtapeIG e : this){
-            if (e.getSuccesseurs().size() > 0) {
+            if (!e.getSuccesseurs().isEmpty()) {
                 for (EtapeIG etapeSuc: e.getSuccesseurs()) {
                     if (!e.estUnGuichet()) {
                         ActiviteIG tmpIG = (ActiviteIG) e;

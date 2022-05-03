@@ -120,6 +120,8 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG> {
         etapesIG.clear();
         arcs.clear();
         pointsControleSelectionnes.clear();
+        entrees.clear();
+        sorties.clear();
         FabriqueIdentifiant.getInstance().reset();
         notifierObservateurs();
     }
@@ -282,9 +284,11 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG> {
     }
 
     public void simuler() throws MondeException {
-        Simulation sim = new Simulation();
+        /*Simulation sim = new Simulation();
         sim.setNbClients(5);
-        sim.simuler(creerMonde());
+        sim.simuler(creerMonde());*/
+        ClientTwisk client = new ClientTwisk();
+        client.lancementSimulation(creerMonde(),5);
     }
 
     private Monde creerMonde() throws MondeException {
@@ -312,8 +316,6 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG> {
                 }
             }
         }
-        System.out.println(monde.toString());
-
 
         for (EtapeIG entree: entrees) {
             if (!entree.estUnGuichet()) {

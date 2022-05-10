@@ -11,13 +11,14 @@ import twisk.outils.CorrespondanceEtapes;
 import twisk.outils.FabriqueIdentifiant;
 import twisk.outils.TailleComposants;
 import twisk.simulation.Simulation;
+import twisk.vues.Observateur;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Optional;
 
-public class MondeIG extends SujetObserve implements Iterable<EtapeIG> {
+public class MondeIG extends SujetObserve implements Iterable<EtapeIG>, Observateur {
     private final HashMap<String, EtapeIG> etapesIG;
     private final TailleComposants tailleComposants = TailleComposants.getInstance();
     private final ArrayList<ArcIG> arcs;
@@ -37,7 +38,7 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG> {
         entrees = new ArrayList<>();
         sorties = new ArrayList<>();
         this.ajouter("Activité");
-        
+        ajouterObservateur(this);
     }
 
     public EtapeIG getEtape(String id) {
@@ -366,5 +367,10 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG> {
 
     public Iterator<ArcIG> iteratorArcs() {
         return arcs.iterator();
+    }
+
+    @Override
+    public void reagir() {
+        notifierObservateurs();
     }
 }

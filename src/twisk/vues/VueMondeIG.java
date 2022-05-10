@@ -98,5 +98,11 @@ public class VueMondeIG extends Pane implements Observateur {
             this.getChildren().add(vueEtape);
             miseAJourPointsDeControle(etape);
         }
+
+
+        
+
+
+
     }
 }

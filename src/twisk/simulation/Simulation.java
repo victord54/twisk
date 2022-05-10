@@ -9,10 +9,11 @@ package twisk.simulation;
 
 import twisk.monde.Etape;
 import twisk.monde.Monde;
+import twisk.mondeIG.SujetObserve;
 import twisk.outils.FabriqueNumero;
 import twisk.outils.KitC;
 
-public class Simulation {
+public class Simulation extends SujetObserve {
 
     /**
      * Champs représentant les outils pour compiler, exécuter le code c.
@@ -26,6 +27,7 @@ public class Simulation {
      * Constructeur par défaut de la classe.
      */
     public Simulation() {
+        super();
         kit = new KitC();
         kit.creerEnvironnement();
         gestionnaireClients = new GestionnaireClients();

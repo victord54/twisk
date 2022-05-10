@@ -105,9 +105,11 @@ public class VueMondeIG extends Pane implements Observateur {
             for (Client c : monde.getGestionnaireClients()) {
                 Etape tmpEtape = c.getEtape();
                 EtapeIG etapeIGTmp = monde.getCorrespondanceEtapes().getEtapeIG(tmpEtape);
-                System.out.println(etapeIGTmp);
-                Circle tmpCircle = new Circle(etapeIGTmp.getPosX(), etapeIGTmp.getPosY(), 10);
-                this.getChildren().add(tmpCircle);
+                if (etapeIGTmp != null) {
+                    Circle tmpCircle = new Circle(etapeIGTmp.getPosX() - c.getRang(), etapeIGTmp.getPosY(), 10);
+                    System.out.println(c.toString() + " ; " + tmpCircle.toString());
+                    this.getChildren().add(tmpCircle);
+                }
             }
         }
 

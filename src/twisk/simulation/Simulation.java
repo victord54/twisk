@@ -144,6 +144,7 @@ public class Simulation extends SujetObserve {
             }
 //            System.out.println(gestionnaireClients); // Debug
             System.out.println();
+            notifierObservateurs();
             try {
                 Thread.sleep(1000);
             } catch(Exception e) {

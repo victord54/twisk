@@ -6,7 +6,10 @@ import javafx.scene.input.Dragboard;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
+import twisk.monde.Etape;
 import twisk.mondeIG.*;
+import twisk.simulation.Client;
 
 import java.util.Iterator;
 
@@ -99,8 +102,12 @@ public class VueMondeIG extends Pane implements Observateur {
             miseAJourPointsDeControle(etape);
         }
 
-
-        
+        for (Client c: monde.getGestionnaireClients()) {
+            Etape tmpEtape = c.getEtape();
+            EtapeIG etapeIGTmp = monde.getCorrespondanceEtapes().getEtapeIG(tmpEtape);
+            Circle tmpCircle = new Circle(etapeIGTmp.getPosX(), etapeIGTmp.getPosY(), 10);
+            this.getChildren().add(tmpCircle);
+        }
 
 
 

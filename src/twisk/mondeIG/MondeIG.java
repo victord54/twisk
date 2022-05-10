@@ -376,7 +376,15 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>, Observat
         notifierObservateurs();
     }
 
+    public GestionnaireClients getGestionnaireClients() {
+        return gestionnaireClients;
+    }
+
     public void setGestionnaireClients(GestionnaireClients g){
         gestionnaireClients = g;
+    }
+
+    public CorrespondanceEtapes getCorrespondanceEtapes() {
+        return correspondanceEtapes;
     }
 }

@@ -16,10 +16,12 @@ public class ThreadsManager {
     }
 
     public void lancerTask(Task task) {
-
+        task.run();
     }
 
     public void detruiretout() {
-
+        for (Thread thread: threads) {
+            thread.interrupt();
+        }
     }
 }

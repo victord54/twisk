@@ -7,6 +7,7 @@ import javafx.scene.control.MenuItem;
 import twisk.exceptions.EtapeTwiskException;
 import twisk.exceptions.GuichetTwiskException;
 import twisk.mondeIG.MondeIG;
+import twisk.outils.ThreadsManager;
 
 
 public class VueMenu extends MenuBar {
@@ -15,7 +16,12 @@ public class VueMenu extends MenuBar {
 //      ------------------------------------------------- Menu Fichier -------------------------------------------------
         Menu fileMenu = new Menu("Fichier");
         MenuItem quit = new MenuItem("Quitter");
-        quit.setOnAction(actionEvent -> Platform.exit());
+        quit.setOnAction(actionEvent -> {
+            ThreadsManager.getInstance().detruiretout();
+                Platform.exit();
+
+        });
+
 //      ------------------------------------------------- Menu Édition -------------------------------------------------
         Menu editMenu = new Menu("Édition");
         MenuItem delete = new MenuItem("Supprimer la selection");

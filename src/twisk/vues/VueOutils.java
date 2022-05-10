@@ -11,6 +11,7 @@ import javafx.scene.layout.TilePane;
 import twisk.exceptions.MondeException;
 import twisk.mondeIG.EtapeIG;
 import twisk.mondeIG.MondeIG;
+import twisk.outils.ThreadsManager;
 
 public class VueOutils extends TilePane implements Observateur {
     private final MondeIG monde;
@@ -96,11 +97,7 @@ public class VueOutils extends TilePane implements Observateur {
         boutonLancement.setGraphic(view);
 
         boutonLancement.setOnAction(actionEvent -> {
-            try {
-                monde.simuler();
-            } catch (MondeException e) {
-                e.afficherMessage();
-            }
+            animer();
         });
         this.getChildren().add(boutonLancement);
         this.reagir();
@@ -118,7 +115,7 @@ public class VueOutils extends TilePane implements Observateur {
                 return null;
             }
         };
-        ThreadsManager.getInstance.lancer(task);
+        ThreadsManager.getInstance().lancerTask(task);
     }
 
     @Override

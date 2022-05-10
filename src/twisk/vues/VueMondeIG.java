@@ -12,6 +12,7 @@ import twisk.mondeIG.*;
 import twisk.simulation.Client;
 
 import java.util.Iterator;
+import java.util.Random;
 
 public class VueMondeIG extends Pane implements Observateur {
     final MondeIG monde;
@@ -101,12 +102,18 @@ public class VueMondeIG extends Pane implements Observateur {
             this.getChildren().add(vueEtape);
             miseAJourPointsDeControle(etape);
         }
+
+        Random r = new Random();
+        Circle tmpCircle = new Circle(r.nextInt(150) , r.nextInt(150), 100);
+        this.getChildren().add(tmpCircle);
         if (monde.getGestionnaireClients() != null) {
+
+
             for (Client c : monde.getGestionnaireClients()) {
                 Etape tmpEtape = c.getEtape();
                 EtapeIG etapeIGTmp = monde.getCorrespondanceEtapes().getEtapeIG(tmpEtape);
                 if (etapeIGTmp != null) {
-                    Circle tmpCircle = new Circle(etapeIGTmp.getPosX() - c.getRang(), etapeIGTmp.getPosY(), 10);
+                    tmpCircle = new Circle(100 - c.getRang(), 100, 100);
                     System.out.println(c.toString() + " ; " + tmpCircle.toString());
                     this.getChildren().add(tmpCircle);
                 }

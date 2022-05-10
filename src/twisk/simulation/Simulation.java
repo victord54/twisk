@@ -33,6 +33,7 @@ public class Simulation extends SujetObserve {
         kit.creerEnvironnement();
         gestionnaireClients = new GestionnaireClients();
         this.ajouterObservateur(m);
+        m.setGestionnaireClients(gestionnaireClients);
     }
 
     /**

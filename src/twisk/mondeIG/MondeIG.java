@@ -10,6 +10,7 @@ import twisk.monde.*;
 import twisk.outils.CorrespondanceEtapes;
 import twisk.outils.FabriqueIdentifiant;
 import twisk.outils.TailleComposants;
+import twisk.simulation.GestionnaireClients;
 import twisk.simulation.Simulation;
 import twisk.vues.Observateur;
 
@@ -27,6 +28,7 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>, Observat
     private final ArrayList<ArcIG> arcsSelectionnees;
     private final ArrayList<EtapeIG> entrees;
     private final ArrayList<EtapeIG> sorties;
+    private GestionnaireClients gestionnaireClients;
     private CorrespondanceEtapes correspondanceEtapes;
 
     public MondeIG() {
@@ -38,6 +40,7 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>, Observat
         entrees = new ArrayList<>();
         sorties = new ArrayList<>();
         this.ajouter("Activité");
+        gestionnaireClients = null;
     }
 
     public EtapeIG getEtape(String id) {
@@ -371,5 +374,9 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>, Observat
     @Override
     public void reagir() {
         notifierObservateurs();
+    }
+
+    public void setGestionnaireClients(GestionnaireClients g){
+        gestionnaireClients = g;
     }
 }

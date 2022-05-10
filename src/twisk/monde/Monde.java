@@ -8,6 +8,7 @@
 package twisk.monde;
 
 import twisk.outils.FabriqueNumero;
+import twisk.simulation.GestionnaireClients;
 
 import java.util.Iterator;
 
@@ -28,7 +29,6 @@ public class Monde implements Iterable<Etape> {
      */
     protected GestionnaireEtapes gestionnaireEtapes;
 
-
     /**
      * Constructeur par défaut de la classe.
      */
@@ -38,6 +38,7 @@ public class Monde implements Iterable<Etape> {
         gestionnaireEtapes = new GestionnaireEtapes();
         gestionnaireEtapes.ajouter(entree, sortie);
         numMonde = FabriqueNumero.getInstance().getNumeroMonde();
+
     }
 
     /**

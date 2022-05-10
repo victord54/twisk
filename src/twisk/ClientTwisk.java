@@ -8,6 +8,7 @@
 package twisk;
 
 import twisk.monde.*;
+import twisk.mondeIG.MondeIG;
 import twisk.outils.ClassLoaderPerso;
 import twisk.simulation.Client;
 import twisk.simulation.Simulation;
@@ -18,10 +19,10 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
 public class ClientTwisk {
+    private MondeIG mondeIG;
 
-
-    public ClientTwisk(){
-
+    public ClientTwisk(MondeIG m){
+        mondeIG = m;
     }
     /**
      * Un monde parmi d'autres pour la simulation.
@@ -76,7 +77,7 @@ public class ClientTwisk {
         try {
             Class<?> s = loaderPerso.loadClass("twisk.simulation.Simulation");
             System.out.println(s);
-            Object sim = s.getDeclaredConstructor().newInstance();
+            Object sim = s.getConstructor(MondeIG.class).newInstance(mondeIG);
             Method setNbClient = s.getMethod("setNbClients",int.class);
             setNbClient.invoke(sim,nbClients);
             Method simuler = s.getMethod("simuler", Monde.class);
@@ -94,9 +95,9 @@ public class ClientTwisk {
      * @param args Arguments lors de l'exécution.
      */
     public static void main(String[] args) {
-        ClientTwisk client = new ClientTwisk();
-        client.lancementSimulation(client.monde2(),5);
-        client.lancementSimulation(client.monde1(),8);
+        //ClientTwisk client = new ClientTwisk();
+        //client.lancementSimulation(client.monde2(),5);
+        //client.lancementSimulation(client.monde1(),8);
 
     }
 }

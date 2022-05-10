@@ -38,7 +38,6 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>, Observat
         entrees = new ArrayList<>();
         sorties = new ArrayList<>();
         this.ajouter("Activité");
-        ajouterObservateur(this);
     }
 
     public EtapeIG getEtape(String id) {
@@ -286,7 +285,7 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>, Observat
 
     public void simuler() throws MondeException {
         verifierMondeIG();
-        ClientTwisk client = new ClientTwisk();
+        ClientTwisk client = new ClientTwisk(this);
         client.lancementSimulation(creerMonde(),5);
     }
 

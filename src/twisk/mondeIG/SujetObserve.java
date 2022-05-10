@@ -20,4 +20,6 @@ public class SujetObserve {
             observateur.reagir();
         }
     }
+
+
 }

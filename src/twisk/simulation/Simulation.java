@@ -9,6 +9,7 @@ package twisk.simulation;
 
 import twisk.monde.Etape;
 import twisk.monde.Monde;
+import twisk.mondeIG.MondeIG;
 import twisk.mondeIG.SujetObserve;
 import twisk.outils.FabriqueNumero;
 import twisk.outils.KitC;
@@ -26,11 +27,12 @@ public class Simulation extends SujetObserve {
     /**
      * Constructeur par défaut de la classe.
      */
-    public Simulation() {
+    public Simulation(MondeIG m) {
         super();
         kit = new KitC();
         kit.creerEnvironnement();
         gestionnaireClients = new GestionnaireClients();
+        this.ajouterObservateur(m);
     }
 
     /**

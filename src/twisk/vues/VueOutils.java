@@ -1,5 +1,6 @@
 package twisk.vues;
 
+import javafx.concurrent.Task;
 import javafx.scene.control.Button;
 import javafx.scene.control.ContentDisplay;
 import javafx.scene.control.Label;
@@ -103,6 +104,21 @@ public class VueOutils extends TilePane implements Observateur {
         });
         this.getChildren().add(boutonLancement);
         this.reagir();
+    }
+
+    public void animer(){
+        Task<Void> task = new Task<Void>(){
+            @Override
+            protected Void call() throws Exception{
+                try {
+                    monde.simuler();
+                }catch (MondeException e) {
+                    e.afficherMessage();
+                }
+                return null;
+            }
+        };
+        ThreadsManager.getInstance.lancer(task);
     }
 
     @Override

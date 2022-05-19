@@ -88,16 +88,4 @@ public class ClientTwisk {
             e.printStackTrace();
         }
     }
-
-    /**
-     * Méthode main permettant l'exécution du programme.
-     *
-     * @param args Arguments lors de l'exécution.
-     */
-    public static void main(String[] args) {
-        //ClientTwisk client = new ClientTwisk();
-        //client.lancementSimulation(client.monde2(),5);
-        //client.lancementSimulation(client.monde1(),8);
-
-    }
 }

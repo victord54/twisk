@@ -109,7 +109,8 @@ public class VueOutils extends TilePane implements Observateur {
             protected Void call() throws Exception{
                 try {
                     monde.simuler();
-                }catch (MondeException e) {
+                    monde.reagir();
+                } catch (MondeException e) {
                     e.afficherMessage();
                 }
                 return null;

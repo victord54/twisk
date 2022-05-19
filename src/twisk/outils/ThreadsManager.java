@@ -21,7 +21,7 @@ public class ThreadsManager {
 
     public void detruiretout() {
         for (Thread thread: threads) {
-            thread.interrupt();
+            thread.stop();
         }
     }
 }

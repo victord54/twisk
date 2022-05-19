@@ -1,5 +1,6 @@
 package twisk.vues;
 
+import javafx.application.Platform;
 import javafx.scene.control.ContentDisplay;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.Dragboard;
@@ -79,8 +80,7 @@ public class VueMondeIG extends Pane implements Observateur {
             VueEtapeIG vueEtape;
             if (etape.estUnGuichet()) {
                 vueEtape = new VueGuichetIG(monde, (GuichetIG) etape);
-            }
-            else {
+            } else {
                 vueEtape = new VueActiviteIG(monde, (ActiviteIG) etape);
             }
             if (monde.getEtapesSelectionnees().contains(etape)) {
@@ -102,25 +102,29 @@ public class VueMondeIG extends Pane implements Observateur {
             this.getChildren().add(vueEtape);
             miseAJourPointsDeControle(etape);
         }
-
-        Random r = new Random();
-        Circle tmpCircle = new Circle(r.nextInt(150) , r.nextInt(150), 100);
-        this.getChildren().add(tmpCircle);
-        if (monde.getGestionnaireClients() != null) {
-
-
-            for (Client c : monde.getGestionnaireClients()) {
-                Etape tmpEtape = c.getEtape();
-                EtapeIG etapeIGTmp = monde.getCorrespondanceEtapes().getEtapeIG(tmpEtape);
-                if (etapeIGTmp != null) {
-                    tmpCircle = new Circle(100 - c.getRang(), 100, 100);
-                    System.out.println(c.toString() + " ; " + tmpCircle.toString());
-                    this.getChildren().add(tmpCircle);
+        Pane panneau = this;
+        Runnable command = new Runnable() {
+            @Override
+            public void run() {
+                if (monde.getGestionnaireClients() != null) {
+                    for (Client c : monde.getGestionnaireClients()) {
+                        Etape tmpEtape = c.getEtape();
+                        EtapeIG etapeIGTmp = monde.getCorrespondanceEtapes().getEtapeIG(tmpEtape);
+                        if (etapeIGTmp != null) {
+                            Circle tmpCircle = new Circle(100 - c.getRang(), 100, 100);
+                            tmpCircle.setFill(Color.TURQUOISE);
+                            System.out.println(c.toString() + " ; " + tmpCircle.toString());
+                            panneau.getChildren().add(tmpCircle);
+                            System.out.println("Cercle ajouté au mondeIG");
+                        }
+                    }
                 }
             }
+        };
+        if (Platform.isFxApplicationThread()) {
+            command.run();
+        } else {
+            Platform.runLater(command);
         }
-
-
-
     }
 }

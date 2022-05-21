@@ -97,7 +97,11 @@ public class VueOutils extends TilePane implements Observateur {
         boutonLancement.setGraphic(view);
 
         boutonLancement.setOnAction(actionEvent -> {
-            animer();
+            try {
+                monde.simuler();
+            } catch (MondeException e) {
+                throw new RuntimeException(e);
+            }
         });
         this.getChildren().add(boutonLancement);
         this.reagir();
@@ -107,13 +111,15 @@ public class VueOutils extends TilePane implements Observateur {
         Task<Void> task = new Task<Void>(){
             @Override
             protected Void call() throws Exception{
-                try {
+                try{
                     monde.simuler();
-                    monde.reagir();
-                } catch (MondeException e) {
-                    e.afficherMessage();
+                    Thread.sleep(10);
+                    monde.notifierObservateurs();
+                }catch (InterruptedException e){
+
                 }
                 return null;
+
             }
         };
         ThreadsManager.getInstance().lancerTask(task);

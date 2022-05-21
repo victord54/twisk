@@ -1,5 +1,6 @@
 package twisk.mondeIG;
 
+import javafx.concurrent.Task;
 import javafx.scene.control.TextInputDialog;
 import twisk.ClientTwisk;
 import twisk.exceptions.ArcTwiskException;
@@ -10,6 +11,7 @@ import twisk.monde.*;
 import twisk.outils.CorrespondanceEtapes;
 import twisk.outils.FabriqueIdentifiant;
 import twisk.outils.TailleComposants;
+import twisk.outils.ThreadsManager;
 import twisk.simulation.GestionnaireClients;
 import twisk.simulation.Simulation;
 import twisk.vues.Observateur;
@@ -289,7 +291,22 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>, Observat
     public void simuler() throws MondeException {
         verifierMondeIG();
         ClientTwisk client = new ClientTwisk(this);
-        client.lancementSimulation(creerMonde(),5);
+        Task<Void> task = new Task<Void>(){
+            @Override
+            protected Void call() throws Exception{
+                try{
+                    client.lancementSimulation(creerMonde(),5);
+                    Thread.sleep(10);
+                    notifierObservateurs();
+                }catch (InterruptedException e){
+
+                }
+                return null;
+
+            }
+        };
+        ThreadsManager.getInstance().lancerTask(task);
+
     }
 
     private void verifierMondeIG() throws MondeException {

@@ -12,19 +12,47 @@ import twisk.exceptions.MondeException;
 import twisk.mondeIG.EtapeIG;
 import twisk.mondeIG.MondeIG;
 import twisk.outils.ThreadsManager;
+import twisk.simulation.Simulation;
 
 public class VueOutils extends TilePane implements Observateur {
     private final MondeIG monde;
-    final Button boutonAjouter, boutonAjouterG;
-    final Button boutonRetour;
-    final Button boutonEffacer;
-    final Button boutonLancement;
+    private Button boutonAjouter;
+    private Button boutonAjouterG;
+    private Button boutonRetour;
+    private Button boutonEffacer;
+    private Button boutonLancement;
+    private boolean simEnCours;
 
     public VueOutils(MondeIG monde) {
+        boutonLancement = null;
+        boutonAjouter = null;
+        boutonAjouterG = null;
+        boutonRetour = null;
+        boutonEffacer = null;
 
+        simEnCours = false;
         this.monde = monde;
         monde.ajouterObservateur(this);
 
+        reagir();
+    }
+
+    public void animer(){
+        Task<Void> task = new Task<>() {
+            @Override
+            protected Void call() throws Exception {
+                monde.simuler();
+                monde.notifierObservateurs();
+                return null;
+            }
+        };
+        ThreadsManager.getInstance().lancerTask(task);
+    }
+
+    @Override
+    public void reagir() {
+        this.getChildren().clear();
+        /*------------------ Ajout d'activité -------------------*/
         Image img = new Image("/images/activite-add.png");
         ImageView view = new ImageView(img);
         view.setFitHeight(50);
@@ -38,7 +66,7 @@ public class VueOutils extends TilePane implements Observateur {
         boutonAjouter.setOnAction(actionEvent -> monde.ajouter("Activité"));
         this.getChildren().add(boutonAjouter);
 
-        /*-------------------------------------*/
+        /*------------------ Ajout de guichet -------------------*/
 
         img = new Image("/images/guichet-add.png");
         view= new ImageView(img);
@@ -54,7 +82,7 @@ public class VueOutils extends TilePane implements Observateur {
         this.getChildren().add(boutonAjouterG);
 
 
-        /* ------------------------------------ */
+        /* --------------- Revenir en arrière --------------------- */
         img = new Image("/images/left.png");
         view = new ImageView(img);
         view.setFitHeight(50);
@@ -71,7 +99,7 @@ public class VueOutils extends TilePane implements Observateur {
         });
         this.getChildren().add(boutonRetour);
 
-        /* ------------------------------------ */
+        /* ------------------ Réinitialiser ------------------ */
         img = new Image("/images/delete.png");
         view = new ImageView(img);
         view.setFitHeight(50);
@@ -84,8 +112,7 @@ public class VueOutils extends TilePane implements Observateur {
 
         boutonEffacer.setOnAction(actionEvent -> monde.reset());
         this.getChildren().add(boutonEffacer);
-        this.reagir();
-        /*--------------------------------------*/
+        /*----------------- Lancer la simulation et l'arrêter ---------------------*/
         img = new Image("/images/lancement.png");
         view = new ImageView(img);
         view.setFitHeight(50);
@@ -96,34 +123,27 @@ public class VueOutils extends TilePane implements Observateur {
         boutonLancement.getStyleClass().add("bouton-outils");
         boutonLancement.setGraphic(view);
 
-        boutonLancement.setOnAction(actionEvent -> {
-            animer();
-        });
+        if (simEnCours) {
+            img = new Image("/images/arret.png");
+            view = new ImageView(img);
+            view.setFitHeight(50);
+            view.setPreserveRatio(true);
+            view.setSmooth(true);
+            boutonLancement.setGraphic(view);
+            boutonLancement.setOnAction(actionEvent -> {
+                System.out.println("Arret...");
+                simEnCours = false;
+                reagir();
+            });
+
+        } else {
+            boutonLancement.setOnAction(actionEvent -> {
+                simEnCours = true;
+                reagir();
+                animer();
+            });
+        }
+
         this.getChildren().add(boutonLancement);
-        this.reagir();
-    }
-
-    public void animer(){
-        Task<Void> task = new Task<Void>(){
-            @Override
-            protected Void call() throws Exception{
-                monde.simuler();
-                monde.notifierObservateurs();
-                return null;
-            }
-        };
-        ThreadsManager.getInstance().lancerTask(task);
-    }
-
-    @Override
-    public void reagir() {
-        StringBuilder str = new StringBuilder();
-        for (EtapeIG etape: monde)
-            str.append(etape).append("\n");
-        Tooltip tooltip = new Tooltip();
-        tooltip.setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
-        Label label = new Label(str.toString());
-        tooltip.setGraphic(label);
-        boutonAjouter.setTooltip(tooltip);
     }
 }

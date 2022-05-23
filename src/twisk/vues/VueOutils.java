@@ -62,6 +62,9 @@ public class VueOutils extends TilePane implements Observateur {
         boutonAjouter = new Button();
         boutonAjouter.getStyleClass().add("bouton-outils");
         boutonAjouter.setGraphic(view);
+        if (simEnCours) {
+            boutonAjouter.setDisable(true);
+        }
 
         boutonAjouter.setOnAction(actionEvent -> monde.ajouter("Activité"));
         this.getChildren().add(boutonAjouter);
@@ -77,6 +80,9 @@ public class VueOutils extends TilePane implements Observateur {
         boutonAjouterG = new Button();
         boutonAjouterG.getStyleClass().add("bouton-outils");
         boutonAjouterG.setGraphic(view);
+        if (simEnCours) {
+            boutonAjouterG.setDisable(true);
+        }
 
         boutonAjouterG.setOnAction(actionEvent -> monde.ajouter("Guichet"));
         this.getChildren().add(boutonAjouterG);
@@ -92,6 +98,9 @@ public class VueOutils extends TilePane implements Observateur {
         boutonRetour = new Button();
         boutonRetour.getStyleClass().add("bouton-outils");
         boutonRetour.setGraphic(view);
+        if (simEnCours) {
+            boutonRetour.setDisable(true);
+        }
 
         boutonRetour.setOnAction(actionEvent -> {
             if (!monde.arcIsEmpty())
@@ -109,6 +118,9 @@ public class VueOutils extends TilePane implements Observateur {
         boutonEffacer = new Button();
         boutonEffacer.getStyleClass().add("bouton-outils");
         boutonEffacer.setGraphic(view);
+        if (simEnCours) {
+            boutonEffacer.setDisable(true);
+        }
 
         boutonEffacer.setOnAction(actionEvent -> monde.reset());
         this.getChildren().add(boutonEffacer);

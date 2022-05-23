@@ -1,7 +1,10 @@
 package twisk.mondeIG;
 
-import javafx.concurrent.Task;
+import javafx.application.Platform;
 import javafx.scene.control.TextInputDialog;
+import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 import twisk.ClientTwisk;
 import twisk.exceptions.ArcTwiskException;
 import twisk.exceptions.EtapeTwiskException;
@@ -11,15 +14,12 @@ import twisk.monde.*;
 import twisk.outils.CorrespondanceEtapes;
 import twisk.outils.FabriqueIdentifiant;
 import twisk.outils.TailleComposants;
-import twisk.outils.ThreadsManager;
+import twisk.simulation.Client;
 import twisk.simulation.GestionnaireClients;
-import twisk.simulation.Simulation;
 import twisk.vues.Observateur;
+import twisk.vues.VueMondeIG;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Optional;
+import java.util.*;
 
 public class MondeIG extends SujetObserve implements Iterable<EtapeIG>, Observateur {
     private final HashMap<String, EtapeIG> etapesIG;
@@ -33,6 +33,8 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>, Observat
     private GestionnaireClients gestionnaireClients;
     private CorrespondanceEtapes correspondanceEtapes;
 
+    private VueMondeIG vueMondeIG;
+
     public MondeIG() {
         etapesIG = new HashMap<>();
         arcs = new ArrayList<>();
@@ -43,6 +45,7 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>, Observat
         sorties = new ArrayList<>();
         this.ajouter("Activité");
         gestionnaireClients = null;
+        vueMondeIG = null;
     }
 
     public EtapeIG getEtape(String id) {
@@ -73,6 +76,9 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>, Observat
         return sorties;
     }
 
+    public void setVueMondeIG(VueMondeIG m) {
+        vueMondeIG = m;
+    }
 
     public void ajouter(String type) {
         String id = FabriqueIdentifiant.getInstance().getIdentifiantEtape();
@@ -290,19 +296,9 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>, Observat
 
     public void simuler() throws MondeException {
         ClientTwisk client = new ClientTwisk(this);
-        Task<Void> task = new Task<Void>(){
-            @Override
-            protected Void call() throws Exception{
-
-                verifierMondeIG();
-                client.lancementSimulation(creerMonde(),5);
-                //reagir();
-                return null;
-
-            }
-        };
-        ThreadsManager.getInstance().lancerTask(task);
-
+        verifierMondeIG();
+        client.lancementSimulation(creerMonde(), 5);
+        this.reagir();
     }
 
     private void verifierMondeIG() throws MondeException {
@@ -386,6 +382,32 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>, Observat
 
     @Override
     public void reagir() {
+        Pane panneau = vueMondeIG;
+        Runnable command = new Runnable() {
+            @Override
+            public void run() {
+                vueMondeIG.reagir();
+                Random rd = new Random();
+                if (getGestionnaireClients() != null) {
+                    for (Client c : getGestionnaireClients()) {
+                        Etape tmpEtape = c.getEtape();
+                        EtapeIG etapeIGTmp = getCorrespondanceEtapes().getEtapeIG(tmpEtape);
+                        if (etapeIGTmp != null) {
+                            Circle tmpCircle = new Circle(rd.nextInt(500), rd.nextInt(500), 20);
+                            tmpCircle.setFill(Color.TURQUOISE);
+                            System.out.println(c.toString() + " ; " + tmpCircle.toString());
+                            panneau.getChildren().add(tmpCircle);
+                            System.out.println("Cercle ajouté au mondeIG");
+                        }
+                    }
+                }
+            }
+        };
+        if (Platform.isFxApplicationThread()) {
+            command.run();
+        } else {
+            Platform.runLater(command);
+        }
     }
 
     public GestionnaireClients getGestionnaireClients() {

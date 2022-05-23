@@ -1,19 +1,14 @@
 package twisk.vues;
 
-import javafx.application.Platform;
 import javafx.scene.control.ContentDisplay;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
-import twisk.monde.Etape;
 import twisk.mondeIG.*;
-import twisk.simulation.Client;
 
 import java.util.Iterator;
-import java.util.Random;
 
 public class VueMondeIG extends Pane implements Observateur {
     final MondeIG monde;
@@ -22,6 +17,7 @@ public class VueMondeIG extends Pane implements Observateur {
 
         this.monde = monde;
         monde.ajouterObservateur(this);
+        monde.setVueMondeIG(this);
 
         this.setOnDragOver(dragEvent -> {
             dragEvent.acceptTransferModes(TransferMode.MOVE);
@@ -101,30 +97,6 @@ public class VueMondeIG extends Pane implements Observateur {
             }
             this.getChildren().add(vueEtape);
             miseAJourPointsDeControle(etape);
-        }
-        Pane panneau = this;
-        Runnable command = new Runnable() {
-            @Override
-            public void run() {
-                if (monde.getGestionnaireClients() != null) {
-                    for (Client c : monde.getGestionnaireClients()) {
-                        Etape tmpEtape = c.getEtape();
-                        EtapeIG etapeIGTmp = monde.getCorrespondanceEtapes().getEtapeIG(tmpEtape);
-                        if (etapeIGTmp != null) {
-                            Circle tmpCircle = new Circle(100 - c.getRang(), 100, 100);
-                            tmpCircle.setFill(Color.TURQUOISE);
-                            System.out.println(c.toString() + " ; " + tmpCircle.toString());
-                            panneau.getChildren().add(tmpCircle);
-                            System.out.println("Cercle ajouté au mondeIG");
-                        }
-                    }
-                }
-            }
-        };
-        if (Platform.isFxApplicationThread()) {
-            command.run();
-        } else {
-            Platform.runLater(command);
         }
     }
 }

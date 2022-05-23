@@ -289,18 +289,14 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>, Observat
     }
 
     public void simuler() throws MondeException {
-        verifierMondeIG();
         ClientTwisk client = new ClientTwisk(this);
         Task<Void> task = new Task<Void>(){
             @Override
             protected Void call() throws Exception{
-                try{
-                    client.lancementSimulation(creerMonde(),5);
-                    Thread.sleep(10);
-                    notifierObservateurs();
-                }catch (InterruptedException e){
 
-                }
+                verifierMondeIG();
+                client.lancementSimulation(creerMonde(),5);
+                //reagir();
                 return null;
 
             }
@@ -390,7 +386,6 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>, Observat
 
     @Override
     public void reagir() {
-        notifierObservateurs();
     }
 
     public GestionnaireClients getGestionnaireClients() {

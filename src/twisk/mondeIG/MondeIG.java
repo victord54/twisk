@@ -17,6 +17,7 @@ import twisk.outils.TailleComposants;
 import twisk.simulation.Client;
 import twisk.simulation.GestionnaireClients;
 import twisk.vues.Observateur;
+import twisk.vues.VueClient;
 import twisk.vues.VueMondeIG;
 
 import java.util.*;
@@ -383,22 +384,14 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>, Observat
     @Override
     public void reagir() {
         Pane panneau = vueMondeIG;
-        Runnable command = new Runnable() {
-            @Override
-            public void run() {
-                vueMondeIG.reagir();
-                Random rd = new Random();
-                if (getGestionnaireClients() != null) {
-                    for (Client c : getGestionnaireClients()) {
-                        Etape tmpEtape = c.getEtape();
-                        EtapeIG etapeIGTmp = getCorrespondanceEtapes().getEtapeIG(tmpEtape);
-                        if (etapeIGTmp != null) {
-                            Circle tmpCircle = new Circle(rd.nextInt(500), rd.nextInt(500), 20);
-                            tmpCircle.setFill(Color.TURQUOISE);
-                            System.out.println(c.toString() + " ; " + tmpCircle.toString());
-                            panneau.getChildren().add(tmpCircle);
-                            System.out.println("Cercle ajouté au mondeIG");
-                        }
+        Runnable command = () -> {
+            vueMondeIG.reagir();
+            if (getGestionnaireClients() != null) {
+                for (Client c : getGestionnaireClients()) {
+                    Etape tmpEtape = c.getEtape();
+                    EtapeIG etapeIGTmp = getCorrespondanceEtapes().getEtapeIG(tmpEtape);
+                    if (etapeIGTmp != null) {
+                        panneau.getChildren().add(new VueClient(c, etapeIGTmp));
                     }
                 }
             }

@@ -298,8 +298,8 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>, Observat
     public void simuler() throws MondeException {
         ClientTwisk client = new ClientTwisk(this);
         verifierMondeIG();
-        client.lancementSimulation(creerMonde(), 5);
-        this.reagir();
+        client.lancementSimulation(creerMonde(), 8);
+        //this.reagir();
     }
 
     private void verifierMondeIG() throws MondeException {
@@ -385,7 +385,8 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>, Observat
     public void reagir() {
         Pane panneau = vueMondeIG;
         Runnable command = () -> {
-            vueMondeIG.reagir();
+            notifierObservateurs();
+            /*vueMondeIG.reagir();
             if (getGestionnaireClients() != null) {
                 for (Client c : getGestionnaireClients()) {
                     Etape tmpEtape = c.getEtape();
@@ -394,7 +395,7 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>, Observat
                         panneau.getChildren().add(new VueClient(c, etapeIGTmp));
                     }
                 }
-            }
+            }*/
         };
         if (Platform.isFxApplicationThread()) {
             command.run();

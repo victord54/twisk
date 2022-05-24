@@ -6,7 +6,9 @@ import javafx.scene.input.Dragboard;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
+import twisk.monde.Etape;
 import twisk.mondeIG.*;
+import twisk.simulation.Client;
 
 import java.util.Iterator;
 
@@ -97,6 +99,16 @@ public class VueMondeIG extends Pane implements Observateur {
             }
             this.getChildren().add(vueEtape);
             miseAJourPointsDeControle(etape);
+
+            if (monde.getGestionnaireClients() != null) {
+                for (Client c : monde.getGestionnaireClients()) {
+                    Etape tmpEtape = c.getEtape();
+                    EtapeIG etapeIGTmp = monde.getCorrespondanceEtapes().getEtapeIG(tmpEtape);
+                    if (etapeIGTmp != null) {
+                        this.getChildren().add(new VueClient(c, etapeIGTmp));
+                    }
+                }
+            }
         }
     }
 }

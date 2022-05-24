@@ -24,7 +24,7 @@ public class VueClient extends Circle {
         this.setRadius(radius);
         this.setFill(Color.TURQUOISE);
 
-        System.out.println(this);
+        //System.out.println(this);
     }
 
 }

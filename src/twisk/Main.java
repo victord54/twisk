@@ -18,7 +18,7 @@ public class Main extends Application {
         BorderPane root = new BorderPane();
         root.setId("root");
 
-        root.setTop(new VueMenu(monde));
+        root.setTop(new VueMenu(monde, stage));
         root.setCenter(new VueMondeIG(monde));
         root.setBottom(new VueOutils(monde));
 

@@ -4,21 +4,48 @@ import javafx.application.Platform;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 import twisk.exceptions.EtapeTwiskException;
 import twisk.exceptions.GuichetTwiskException;
 import twisk.mondeIG.MondeIG;
 import twisk.outils.ThreadsManager;
 
+import java.io.File;
+
 
 public class VueMenu extends MenuBar {
 
-    public VueMenu(MondeIG monde) {
+    public VueMenu(MondeIG monde, Stage stage) {
+        FileChooser fileChooser = new FileChooser();
 //      ------------------------------------------------- Menu Fichier -------------------------------------------------
         Menu fileMenu = new Menu("Fichier");
         MenuItem quit = new MenuItem("Quitter");
         quit.setOnAction(actionEvent -> {
             ThreadsManager.getInstance().detruiretout();
                 Platform.exit();
+
+        });
+
+        MenuItem open = new MenuItem("Ouvrir");
+        open.setOnAction(actionEvent -> {
+            fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("JSON files (*.json)", "*.json"));
+            File file = fileChooser.showOpenDialog(stage);
+
+            if (file != null) {
+                monde.ouvrir(file.getAbsolutePath());
+            }
+
+        });
+
+        MenuItem save = new MenuItem("Sauvegarder sous ...");
+        save.setOnAction(actionEvent -> {
+            fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("JSON files (*.json)", "*.json"));
+            File file = fileChooser.showSaveDialog(stage);
+
+            if (file != null) {
+                monde.sauvegarder(file.getAbsolutePath());
+            }
 
         });
 
@@ -92,7 +119,7 @@ public class VueMenu extends MenuBar {
             }
         });
 //      ----------------------------------------------- Ajout des items ------------------------------------------------
-        fileMenu.getItems().add(quit);
+        fileMenu.getItems().addAll(open,save,quit);
         editMenu.getItems().addAll(delete, rename, cancel);
         worldMenu.getItems().addAll(input, output);
         settingsMenu.getItems().addAll(delay, ecart, jeton);

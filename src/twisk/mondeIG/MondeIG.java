@@ -430,12 +430,13 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>, Observat
         return correspondanceEtapes;
     }
 
-    public void sauvegarder(){
+    public void sauvegarder(String emplacement){
         JsonWriter writer = null;
         try {
-            writer = new JsonWriter(new FileWriter("test.json"));
+            writer = new JsonWriter(new FileWriter(emplacement));
             writer.beginObject();
 
+            /*----Enregistrement des EtapesIG du monde-----*/
             writer.name("EtapesIG");
             writer.beginArray();
             for (EtapeIG s : this){
@@ -471,9 +472,28 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>, Observat
                     writer.value("Guichet");
                 }
 
+                /*----Gestion des entrées & sorties----*/
+                if (entrees.contains(s)){
+                    writer.name("Entree");
+                    writer.value("oui");
+                } else{
+                    writer.name("Entree");
+                    writer.value("non");
+                }
+
+                if (sorties.contains(s)){
+                    writer.name("Sortie");
+                    writer.value("oui");
+                } else {
+                    writer.name("Sortie");
+                    writer.value("non");
+                }
+
                 writer.endObject();
             }
             writer.endArray();
+
+
 
             writer.endObject();
         } catch (IOException e) {
@@ -488,6 +508,8 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>, Observat
     }
 
     public void ouvrir(String emplacement){
+        reset();
+
         JsonParser jsonParser = new JsonParser();
 
         try (FileReader reader = new FileReader(emplacement)) {
@@ -496,12 +518,17 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>, Observat
             JsonArray listeEtapesIG = obj.getAsJsonArray("EtapesIG");
             listeEtapesIG.forEach(etapes -> {
                 JsonObject objEt = etapes.getAsJsonObject();
+
+                /*---Récupère les info de bases des étapes---*/
                 String nom = objEt.get("Nom").getAsString();
                 String id = objEt.get("ID").getAsString();
                 int posX = objEt.get("PosX").getAsInt();
                 int posY = objEt.get("PosY").getAsInt();
 
+                /*----Vérifie si l'étape est un guichet ou une activité-----*/
                 String type = objEt.get("Type").getAsString();
+                String entreeA = objEt.get("Entree").getAsString();
+                String sortieA = objEt.get("Sortie").getAsString();
                 if (type.equalsIgnoreCase("Activité")){
                     int delai = objEt.get("Delai").getAsInt();
                     int ecart = objEt.get("Ecart").getAsInt();
@@ -512,6 +539,14 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>, Observat
                     tmp.actualiserPointsDeControle();
                     ajouter(tmp);
 
+                    /*---Gestion si etape est une entrée ou une sortie---*/
+                    if (entreeA.equalsIgnoreCase("oui")){
+                        this.entrees.add(tmp);
+                    }
+                    if (sortieA.equalsIgnoreCase("oui")){
+                        this.sorties.add(tmp);
+                    }
+
                 }
                 if (type.equalsIgnoreCase("Guichet")){
                     int jetons = objEt.get("Jetons").getAsInt();
@@ -519,6 +554,14 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>, Observat
                     tmp.relocate(posX,posY);
                     tmp.actualiserPointsDeControle();
                     ajouter(tmp);
+
+                    /*---Gestion si etape est une entrée ou une sortie---*/
+                    if (entreeA.equalsIgnoreCase("oui")){
+                        this.entrees.add(tmp);
+                    }
+                    if (sortieA.equalsIgnoreCase("oui")){
+                        this.sorties.add(tmp);
+                    }
                 }
             });
 

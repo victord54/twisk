@@ -21,4 +21,20 @@ class MondeIGTest {
             System.out.println(etapeIG);
         }
     }
+
+    @Test
+    void sauvegarder(){
+        monde.ajouter("Activité");
+        monde.ajouter("Guichet");
+        monde.ajouter("Activité");
+        monde.sauvegarder();
+    }
+
+    @Test
+    void ouvrir(){
+        monde.ouvrir("test.json");
+        for (EtapeIG e : monde){
+            System.out.println(e.toString());
+        }
+    }
 }

@@ -1,5 +1,10 @@
 package twisk.mondeIG;
 
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+import com.google.gson.stream.JsonWriter;
 import javafx.application.Platform;
 import javafx.scene.control.TextInputDialog;
 import javafx.scene.layout.Pane;
@@ -20,7 +25,12 @@ import twisk.vues.Observateur;
 import twisk.vues.VueClient;
 import twisk.vues.VueMondeIG;
 
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.*;
+
 
 public class MondeIG extends SujetObserve implements Iterable<EtapeIG>, Observateur {
     private final HashMap<String, EtapeIG> etapesIG;
@@ -89,6 +99,10 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>, Observat
             etapesIG.put(id, new GuichetIG("Guichet",id, tailleComposants.getLargeurActivite(), tailleComposants.getHauteurActivite(), 2));
 
         notifierObservateurs();
+    }
+
+    public void ajouter(EtapeIG e){
+        etapesIG.put(e.getId(),e);
     }
 
     public void ajouterArc(PointDeControleIG pt1, PointDeControleIG pt2) {
@@ -415,4 +429,108 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>, Observat
     public CorrespondanceEtapes getCorrespondanceEtapes() {
         return correspondanceEtapes;
     }
+
+    public void sauvegarder(){
+        JsonWriter writer = null;
+        try {
+            writer = new JsonWriter(new FileWriter("test.json"));
+            writer.beginObject();
+
+            writer.name("EtapesIG");
+            writer.beginArray();
+            for (EtapeIG s : this){
+                writer.beginObject();
+                writer.name("Nom");
+                writer.value(s.getNom());
+
+                writer.name("ID");
+                writer.value(s.getId());
+
+                writer.name("PosX");
+                writer.value(s.getPosX());
+
+                writer.name("PosY");
+                writer.value(s.getPosY());
+
+                if(s.estUneActivite()){
+                    ActiviteIG tmp = (ActiviteIG) s;
+                    writer.name("Delai");
+                    writer.value(tmp.getDelai());
+
+                    writer.name("Ecart");
+                    writer.value(tmp.getEcart());
+
+                    writer.name("Type");
+                    writer.value("Activité");
+                } else {
+                    GuichetIG tmp = (GuichetIG) s;
+                    writer.name("Jetons");
+                    writer.value(tmp.getJetons());
+
+                    writer.name("Type");
+                    writer.value("Guichet");
+                }
+
+                writer.endObject();
+            }
+            writer.endArray();
+
+            writer.endObject();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }finally{
+            try {
+                writer.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public void ouvrir(String emplacement){
+        JsonParser jsonParser = new JsonParser();
+
+        try (FileReader reader = new FileReader(emplacement)) {
+            JsonObject obj = (JsonObject) jsonParser.parse(reader);
+
+            JsonArray listeEtapesIG = obj.getAsJsonArray("EtapesIG");
+            listeEtapesIG.forEach(etapes -> {
+                JsonObject objEt = etapes.getAsJsonObject();
+                String nom = objEt.get("Nom").getAsString();
+                String id = objEt.get("ID").getAsString();
+                int posX = objEt.get("PosX").getAsInt();
+                int posY = objEt.get("PosY").getAsInt();
+
+                String type = objEt.get("Type").getAsString();
+                if (type.equalsIgnoreCase("Activité")){
+                    int delai = objEt.get("Delai").getAsInt();
+                    int ecart = objEt.get("Ecart").getAsInt();
+                    ActiviteIG tmp = new ActiviteIG(nom,id, tailleComposants.getLargeurActivite(), tailleComposants.getHauteurActivite());
+                    tmp.relocate(posX,posY);
+                    tmp.setDelai(delai);
+                    tmp.setEcart(ecart);
+                    tmp.actualiserPointsDeControle();
+                    ajouter(tmp);
+
+                }
+                if (type.equalsIgnoreCase("Guichet")){
+                    int jetons = objEt.get("Jetons").getAsInt();
+                    GuichetIG tmp = new GuichetIG(nom,id, tailleComposants.getLargeurActivite(), tailleComposants.getHauteurActivite(), jetons);
+                    tmp.relocate(posX,posY);
+                    tmp.actualiserPointsDeControle();
+                    ajouter(tmp);
+                }
+            });
+
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        notifierObservateurs();
+    }
+
+
+
 }

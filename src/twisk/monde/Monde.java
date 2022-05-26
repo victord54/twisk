@@ -144,10 +144,11 @@ public class Monde implements Iterable<Etape> {
     public String toC() {
         StringBuilder str = new StringBuilder();
         Etape etape = entree;
-        while (etape.nbSuccesseurs() >= 1) {
-            str.append(etape.toC());
-            etape = etape.gestionnaireSuccesseur.getSucc();
-        }
+//        while (etape.nbSuccesseurs() >= 1) {
+//            str.append(etape.toC());
+//            etape = etape.gestionnaireSuccesseur.getSucc();
+//        }
+        str.append(etape.toC());
         return str.toString();
     }
 

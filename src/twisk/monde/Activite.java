@@ -74,11 +74,29 @@ public class Activite extends Etape {
     @Override
     public String toC() {
         StringBuilder builder = new StringBuilder();
-        builder.append("delai(").append(temps).append(",").append(ecartTemps).append(");\n");
-        if (!this.estUneSortie()) {
-            builder.append("transfert(").append(this.numEtape).append(",").append(this.gestionnaireSuccesseur.getSucc().getNumEtape()).append(");\n");
+        if (this.gestionnaireSuccesseur.nbEtapes() >= 2) {
+            builder.append("int seed = getpid()*14;\n");
+            builder.append("srand(seed);\n");
+            builder.append("int nb = rand()%").append(this.gestionnaireSuccesseur.nbEtapes()).append(";\n");
+            builder.append("switch (nb) {\n");
+            for (int i = 0; i < gestionnaireSuccesseur.nbEtapes(); i++) {
+                builder.append("case ").append(i).append(": {\n");
+                builder.append("delai(").append(temps).append(",").append(ecartTemps).append(");\n");
+                if (!this.estUneSortie()) {
+                    builder.append("transfert(").append(this.numEtape).append(",").append(this.gestionnaireSuccesseur.getEtape(i).getNumEtape()).append(");\n");
+                } else {
+                    builder.append("transfert(").append(this.numEtape).append(",1);\n");
+                }
+                builder.append("break;\n}\n");
+            }
+            builder.append("}\n\n");
         } else {
-            builder.append("transfert(").append(this.numEtape).append(",1);\n");
+            builder.append("delai(").append(temps).append(",").append(ecartTemps).append(");\n");
+            if (!this.estUneSortie()) {
+                builder.append("transfert(").append(this.numEtape).append(",").append(this.gestionnaireSuccesseur.getSucc().getNumEtape()).append(");\n");
+            } else {
+                builder.append("transfert(").append(this.numEtape).append(",1);\n");
+            }
         }
         return builder.toString();
     }

@@ -8,10 +8,7 @@ import javafx.application.Platform;
 import javafx.scene.control.TextInputDialog;
 import javafx.scene.layout.Pane;
 import twisk.ClientTwisk;
-import twisk.exceptions.ArcTwiskException;
-import twisk.exceptions.EtapeTwiskException;
-import twisk.exceptions.GuichetTwiskException;
-import twisk.exceptions.MondeException;
+import twisk.exceptions.*;
 import twisk.monde.Activite;
 import twisk.monde.ActiviteRestreinte;
 import twisk.monde.Guichet;
@@ -303,21 +300,34 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>, Observat
 
     }
 
-    public void simuler() throws MondeException {
+    public void simuler() {
         ClientTwisk client = new ClientTwisk(this);
-        verifierMondeIG();
-        client.lancementSimulation(creerMonde(), 8);
-        //this.reagir();
+        try {
+            client.lancementSimulation(creerMonde(), 8);
+        } catch (GuichetTwiskException | MondeException e) {
+            e.afficherMessage();
+        }
     }
 
-    private void verifierMondeIG() throws MondeException {
+    private void verifierMondeIG() throws MondeException, GuichetTwiskException {
         if (entrees.size() == 0)
             throw new MondeException("Il n'y a pas d'entrée dans votre monde !");
         else if (sorties.size() == 0)
             throw new MondeException("Il n'y a pas de sortie dans votre monde !");
+        for (EtapeIG etapeIG: this) {
+            GuichetIG guichetIG;
+            if (etapeIG.estUnGuichet()) {
+                guichetIG = (GuichetIG) etapeIG;
+                if (guichetIG.getSuccesseurs().size() > 1) {
+                    System.out.println("ou lala");
+                    throw new GuichetTwiskException("1 seule étape reliée au guichet !");
+                }
+            }
+        }
     }
 
-    private Monde creerMonde() throws MondeException {
+    private Monde creerMonde() throws GuichetTwiskException, MondeException {
+            verifierMondeIG();
         correspondanceEtapes = new CorrespondanceEtapes();
         Monde monde = new Monde();
         // Ajout en premier de toutes les etapes dans le gestionnaire d'étapes et ensuite ajout de tous les successeurs de chaques étapes.

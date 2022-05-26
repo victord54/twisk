@@ -7,6 +7,7 @@
 
 package twisk.monde;
 
+import twisk.exceptions.EtapeTwiskException;
 import twisk.outils.FabriqueNumero;
 
 public class Guichet extends Etape {

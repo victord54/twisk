@@ -9,6 +9,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.TilePane;
 import twisk.exceptions.MondeException;
+import twisk.exceptions.TwiskException;
 import twisk.mondeIG.EtapeIG;
 import twisk.mondeIG.MondeIG;
 import twisk.outils.ThreadsManager;
@@ -40,7 +41,7 @@ public class VueOutils extends TilePane implements Observateur {
     public void animer(){
         Task<Void> task = new Task<>() {
             @Override
-            protected Void call() throws Exception {
+            protected Void call() {
                 monde.simuler();
                 monde.notifierObservateurs();
                 return null;

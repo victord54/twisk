@@ -71,8 +71,12 @@ public class KitC {
         try {
             File chemin = new File("client.c");
             PrintWriter flotFiltre = new PrintWriter(chemin);
-            flotFiltre.println("#include \"def.h\"");
-            flotFiltre.println("void simulation(int ids){");
+            flotFiltre.println("#include <stdlib.h>");
+            flotFiltre.println("#include <sys/types.h>");
+            flotFiltre.println("#include <unistd.h>");
+            flotFiltre.println("#include <time.h>");
+            flotFiltre.println("#include \"def.h\"\n");
+            flotFiltre.println("void simulation(int ids) {");
             flotFiltre.print(codeC);
             flotFiltre.println("}");
             flotFiltre.close();

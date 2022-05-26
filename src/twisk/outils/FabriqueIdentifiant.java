@@ -34,4 +34,8 @@ public class FabriqueIdentifiant {
         noEtape = 0;
         noPointDeControle = 0;
     }
+
+    public void resetPointDeControle(){
+        noPointDeControle = 0;
+    }
 }

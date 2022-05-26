@@ -1,35 +1,36 @@
 package twisk.mondeIG;
 
 import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.google.gson.stream.JsonWriter;
 import javafx.application.Platform;
 import javafx.scene.control.TextInputDialog;
 import javafx.scene.layout.Pane;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
 import twisk.ClientTwisk;
 import twisk.exceptions.ArcTwiskException;
 import twisk.exceptions.EtapeTwiskException;
 import twisk.exceptions.GuichetTwiskException;
 import twisk.exceptions.MondeException;
-import twisk.monde.*;
+import twisk.monde.Activite;
+import twisk.monde.ActiviteRestreinte;
+import twisk.monde.Guichet;
+import twisk.monde.Monde;
 import twisk.outils.CorrespondanceEtapes;
 import twisk.outils.FabriqueIdentifiant;
 import twisk.outils.TailleComposants;
-import twisk.simulation.Client;
 import twisk.simulation.GestionnaireClients;
 import twisk.vues.Observateur;
-import twisk.vues.VueClient;
 import twisk.vues.VueMondeIG;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Optional;
 
 
 public class MondeIG extends SujetObserve implements Iterable<EtapeIG>, Observateur {
@@ -398,9 +399,7 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>, Observat
     @Override
     public void reagir() {
         Pane panneau = vueMondeIG;
-        Runnable command = () -> {
-            notifierObservateurs();
-            /*vueMondeIG.reagir();
+        /*vueMondeIG.reagir();
             if (getGestionnaireClients() != null) {
                 for (Client c : getGestionnaireClients()) {
                     Etape tmpEtape = c.getEtape();
@@ -410,7 +409,7 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>, Observat
                     }
                 }
             }*/
-        };
+        Runnable command = this::notifierObservateurs;
         if (Platform.isFxApplicationThread()) {
             command.run();
         } else {
@@ -500,7 +499,9 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>, Observat
             e.printStackTrace();
         }finally{
             try {
-                writer.close();
+                if (writer != null) {
+                    writer.close();
+                }
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -566,8 +567,6 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>, Observat
             });
 
 
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }

@@ -18,6 +18,7 @@ public class VueMenu extends MenuBar {
 
     public VueMenu(MondeIG monde, Stage stage) {
         FileChooser fileChooser = new FileChooser();
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("JSON files (*.json)", "*.json"));
 //      ------------------------------------------------- Menu Fichier -------------------------------------------------
         Menu fileMenu = new Menu("Fichier");
         MenuItem quit = new MenuItem("Quitter");
@@ -29,7 +30,6 @@ public class VueMenu extends MenuBar {
 
         MenuItem open = new MenuItem("Ouvrir");
         open.setOnAction(actionEvent -> {
-            fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("JSON files (*.json)", "*.json"));
             File file = fileChooser.showOpenDialog(stage);
 
             if (file != null) {
@@ -40,11 +40,10 @@ public class VueMenu extends MenuBar {
 
         MenuItem save = new MenuItem("Sauvegarder sous ...");
         save.setOnAction(actionEvent -> {
-            fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("JSON files (*.json)", "*.json"));
             File file = fileChooser.showSaveDialog(stage);
 
             if (file != null) {
-                monde.sauvegarder(file.getAbsolutePath());
+                monde.sauvegarder(file.getAbsolutePath() + ".json");
             }
 
         });

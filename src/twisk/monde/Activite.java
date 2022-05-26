@@ -13,6 +13,8 @@ public class Activite extends Etape {
      */
     protected int temps;
 
+    private static int nbSwitch = 0;
+
     /**
      * Champ contenant l'écart-temps du temps de l'étape.
      */
@@ -75,29 +77,31 @@ public class Activite extends Etape {
     public String toC() {
         StringBuilder builder = new StringBuilder();
         if (this.gestionnaireSuccesseur.nbEtapes() >= 2) {
-            builder.append("int seed = getpid()*14;\n");
-            builder.append("srand(seed);\n");
-            builder.append("int nb = rand()%").append(this.gestionnaireSuccesseur.nbEtapes()).append(";\n");
-            builder.append("switch (nb) {\n");
+            nbSwitch++;
+            // Génération de la seed de manière différente pour chaque processus et niveaux de switchs.
+            builder.append("\t\nint seed = getpid()+1233*").append(nbSwitch).append(";\n");
+            builder.append("\tsrand(seed);\n");
+            builder.append("\tint nb").append(nbSwitch).append(" = rand()%").append(this.gestionnaireSuccesseur.nbEtapes()).append(";\n");
+            builder.append("\n\tswitch (nb").append(nbSwitch).append(") {\n");
             for (int i = 0; i < gestionnaireSuccesseur.nbEtapes(); i++) {
-                builder.append("case ").append(i).append(": {\n");
-                builder.append("delai(").append(temps).append(",").append(ecartTemps).append(");\n");
+                builder.append("\tcase ").append(i).append(":\n");
+                builder.append("\tdelai(").append(temps).append(",").append(ecartTemps).append(");\n");
                 if (!this.estUneSortie()) {
-                    builder.append("transfert(").append(this.numEtape).append(",").append(this.gestionnaireSuccesseur.getEtape(i).getNumEtape()).append(");\n");
+                    builder.append("\ttransfert(").append(this.numEtape).append(",").append(this.gestionnaireSuccesseur.getEtape(i).getNumEtape()).append(");\n");
                     builder.append(gestionnaireSuccesseur.getEtape(i).toC());
                 } else {
-                    builder.append("transfert(").append(this.numEtape).append(",1);\n");
+                    builder.append("\ttransfert(").append(this.numEtape).append(",1);\n");
                 }
-                builder.append("break;\n}\n");
+                builder.append("\tbreak;\n");
             }
-            builder.append("}\n\n");
+            builder.append("\t}\n\n");
         } else {
-            builder.append("delai(").append(temps).append(",").append(ecartTemps).append(");\n");
+            builder.append("\tdelai(").append(temps).append(",").append(ecartTemps).append(");\n");
             if (!this.estUneSortie()) {
-                builder.append("transfert(").append(this.numEtape).append(",").append(this.gestionnaireSuccesseur.getSucc().getNumEtape()).append(");\n");
+                builder.append("\ttransfert(").append(this.numEtape).append(",").append(this.gestionnaireSuccesseur.getSucc().getNumEtape()).append(");\n");
                 builder.append(gestionnaireSuccesseur.getSucc().toC());
             } else {
-                builder.append("transfert(").append(this.numEtape).append(",1);\n");
+                builder.append("\ttransfert(").append(this.numEtape).append(",1);\n");
             }
         }
         return builder.toString();

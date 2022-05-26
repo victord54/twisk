@@ -300,12 +300,12 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>, Observat
 
     }
 
-    public void simuler() {
+    public void simuler() throws TwiskException{
         ClientTwisk client = new ClientTwisk(this);
         try {
             client.lancementSimulation(creerMonde(), 8);
         } catch (GuichetTwiskException | MondeException e) {
-            e.afficherMessage();
+            throw new MondeException(e.toString());
         }
     }
 

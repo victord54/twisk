@@ -42,7 +42,11 @@ public class VueOutils extends TilePane implements Observateur {
         Task<Void> task = new Task<>() {
             @Override
             protected Void call() {
-                monde.simuler();
+                try {
+                    monde.simuler();
+                } catch (TwiskException e) {
+                    System.out.println(e.toString());
+                }
                 monde.notifierObservateurs();
                 return null;
             }

@@ -1,6 +1,7 @@
 package twisk.mondeIG;
 
 import twisk.monde.Etape;
+import twisk.outils.FabriqueIdentifiant;
 import twisk.outils.TailleComposants;
 
 import java.util.ArrayList;
@@ -41,6 +42,8 @@ public abstract class EtapeIG implements Iterable<PointDeControleIG> {
         controles.add(new PointDeControleIG(posX + largeur, posY + hauteur / 2, this));
 
         successeurs = new ArrayList<>();
+
+        FabriqueIdentifiant.getInstance().resetPointDeControle();
     }
 
     public String getNom() {
@@ -136,4 +139,12 @@ public abstract class EtapeIG implements Iterable<PointDeControleIG> {
         return false;
     }
 
+    public PointDeControleIG getPointDeControle(String id){
+        for (PointDeControleIG pdt : controles){
+            if (pdt.getId().equals(id)){
+                return pdt;
+            }
+        }
+        return null;
+    }
 }

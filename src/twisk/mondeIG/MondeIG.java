@@ -93,6 +93,7 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>, Observat
     }
 
     public void ajouter(EtapeIG e){
+        String id = FabriqueIdentifiant.getInstance().getIdentifiantEtape();
         etapesIG.put(e.getId(),e);
     }
 
@@ -492,19 +493,35 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>, Observat
             }
             writer.endArray();
 
+            /*----Gestion des arcs-----*/
+            writer.name("Arcs");
+            writer.beginArray();
+            for (ArcIG a : arcs){
+                writer.beginObject();
 
+                writer.name("Pt1ID");
+                writer.value(a.getPt1().getId());
+
+                writer.name("Pt1EtapeID");
+                writer.value(a.getPt1().getIdEtape());
+
+
+                /*-----------------------*/
+                writer.name("Pt2ID");
+                writer.value(a.getPt2().getId());
+
+                writer.name("Pt2EtapeID");
+                writer.value(a.getPt2().getIdEtape());
+
+                writer.endObject();
+            }
+            writer.endArray();
 
             writer.endObject();
+            writer.close();
+
         } catch (IOException e) {
             e.printStackTrace();
-        }finally{
-            try {
-                if (writer != null) {
-                    writer.close();
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
         }
     }
 
@@ -566,6 +583,24 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>, Observat
                 }
             });
 
+            JsonArray listeArcIG = obj.getAsJsonArray("Arcs");
+            listeArcIG.forEach(arc ->{
+                JsonObject objArc = arc.getAsJsonObject();
+                /*----Pt1----*/
+                String idEtapePt1 = objArc.get("Pt1EtapeID").getAsString();
+                EtapeIG tmp = this.etapesIG.get(idEtapePt1);
+                String idPt1 = objArc.get("Pt1ID").getAsString();
+                PointDeControleIG pt1 = tmp.getPointDeControle(idPt1);
+
+                /*-----Pt2----*/
+                String idEtapePt2 = objArc.get("Pt2EtapeID").getAsString();
+                EtapeIG tmp2 = this.etapesIG.get(idEtapePt2);
+                String idPt2 = objArc.get("Pt2ID").getAsString();
+                PointDeControleIG pt2 = tmp2.getPointDeControle(idPt2);
+
+                this.arcs.add(new ArcIG(pt1, pt2));
+
+            });
 
         } catch (IOException e) {
             e.printStackTrace();

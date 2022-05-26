@@ -10,20 +10,17 @@ package twisk;
 import twisk.monde.*;
 import twisk.mondeIG.MondeIG;
 import twisk.outils.ClassLoaderPerso;
-import twisk.simulation.Client;
-import twisk.simulation.Simulation;
-import twisk.outils.ClassLoaderPerso;
 
-import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
 public class ClientTwisk {
-    private MondeIG mondeIG;
+    private final MondeIG mondeIG;
 
-    public ClientTwisk(MondeIG m){
+    public ClientTwisk(MondeIG m) {
         mondeIG = m;
     }
+
     /**
      * Un monde parmi d'autres pour la simulation.
      *
@@ -72,19 +69,20 @@ public class ClientTwisk {
 
     }
 
-    public void lancementSimulation(Monde monde, int nbClients){
+    public void lancementSimulation(Monde monde, int nbClients) {
         ClassLoaderPerso loaderPerso = new ClassLoaderPerso(this.getClass().getClassLoader());
         try {
             Class<?> s = loaderPerso.loadClass("twisk.simulation.Simulation");
             System.out.println(s);
             Object sim = s.getConstructor(MondeIG.class).newInstance(mondeIG);
-            Method setNbClient = s.getMethod("setNbClients",int.class);
-            setNbClient.invoke(sim,nbClients);
+            Method setNbClient = s.getMethod("setNbClients", int.class);
+            setNbClient.invoke(sim, nbClients);
             Method simuler = s.getMethod("simuler", Monde.class);
             simuler.invoke(sim, monde);
             loaderPerso.finalize();
 
-        } catch (ClassNotFoundException | InvocationTargetException | InstantiationException | IllegalAccessException | NoSuchMethodException e) {
+        } catch (ClassNotFoundException | InvocationTargetException | InstantiationException | IllegalAccessException |
+                 NoSuchMethodException e) {
             e.printStackTrace();
         }
     }

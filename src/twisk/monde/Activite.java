@@ -84,6 +84,7 @@ public class Activite extends Etape {
                 builder.append("delai(").append(temps).append(",").append(ecartTemps).append(");\n");
                 if (!this.estUneSortie()) {
                     builder.append("transfert(").append(this.numEtape).append(",").append(this.gestionnaireSuccesseur.getEtape(i).getNumEtape()).append(");\n");
+                    builder.append(gestionnaireSuccesseur.getEtape(i).toC());
                 } else {
                     builder.append("transfert(").append(this.numEtape).append(",1);\n");
                 }
@@ -94,6 +95,7 @@ public class Activite extends Etape {
             builder.append("delai(").append(temps).append(",").append(ecartTemps).append(");\n");
             if (!this.estUneSortie()) {
                 builder.append("transfert(").append(this.numEtape).append(",").append(this.gestionnaireSuccesseur.getSucc().getNumEtape()).append(");\n");
+                builder.append(gestionnaireSuccesseur.getSucc().toC());
             } else {
                 builder.append("transfert(").append(this.numEtape).append(",1);\n");
             }

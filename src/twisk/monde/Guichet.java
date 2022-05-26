@@ -94,6 +94,7 @@ public class Guichet extends Etape {
         StringBuilder str = new StringBuilder();
         str.append("P(ids,").append(this.numSemaphore).append(");\n");
         str.append("transfert(").append(this.numEtape).append(",").append(this.gestionnaireSuccesseur.getSucc().getNumEtape()).append(");\n");
+        str.append(gestionnaireSuccesseur.getSucc().toC());
         return str.toString();
     }
 }

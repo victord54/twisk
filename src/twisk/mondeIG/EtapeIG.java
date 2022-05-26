@@ -125,6 +125,15 @@ public abstract class EtapeIG implements Iterable<PointDeControleIG> {
         return false;
     }
 
+    public boolean estAccessibleDepuis(EtapeIG etape){
+        for (EtapeIG e : etape.getSuccesseurs()){
+            if (e.getSuccesseurs().contains(this)){
+                return true;
+            }
+            return this.estAccessibleDepuis(e);
+        }
 
+        return false;
+    }
 
 }

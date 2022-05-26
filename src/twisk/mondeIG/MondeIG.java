@@ -96,8 +96,16 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>, Observat
         etapesIG.put(e.getId(),e);
     }
 
-    public void ajouterArc(PointDeControleIG pt1, PointDeControleIG pt2) {
-        arcs.add(new ArcIG(pt1, pt2));
+    public void ajouterArc(PointDeControleIG pt1, PointDeControleIG pt2) throws ArcTwiskException{
+        EtapeIG et1 = pt1.getEtape();
+        EtapeIG et2 = pt2.getEtape();
+
+
+        if (!et1.estAccessibleDepuis(et2)){
+            arcs.add(new ArcIG(pt1, pt2));
+        } else{
+            throw new ArcTwiskException("Impossible de créer un arc ici, cela fait un cycle ! ");
+        }
         notifierObservateurs();
     }
 

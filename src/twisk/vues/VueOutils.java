@@ -8,6 +8,7 @@ import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.TilePane;
+import twisk.exceptions.GuichetTwiskException;
 import twisk.exceptions.MondeException;
 import twisk.exceptions.TwiskException;
 import twisk.mondeIG.EtapeIG;
@@ -45,7 +46,7 @@ public class VueOutils extends TilePane implements Observateur {
                 try {
                     monde.simuler();
                 } catch (TwiskException e) {
-                    System.out.println(e.toString());
+                    System.out.println("Merde recommence");
                 }
                 monde.notifierObservateurs();
                 return null;
@@ -157,6 +158,14 @@ public class VueOutils extends TilePane implements Observateur {
             boutonLancement.setOnAction(actionEvent -> {
                 simEnCours = true;
                 reagir();
+                //Faire vérifier le monde avant de lancer animer car bug d'affichage des alert à cause du Thread.
+                try {
+                    monde.verifierMondeIG();
+                } catch (MondeException | GuichetTwiskException e) {
+                    simEnCours = false;
+                    e.afficherMessage();
+                    reagir();
+                }
                 animer();
             });
         }

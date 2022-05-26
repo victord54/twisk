@@ -300,7 +300,7 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>, Observat
 
     }
 
-    public void simuler() throws TwiskException{
+    public void simuler() throws TwiskException {
         ClientTwisk client = new ClientTwisk(this);
         try {
             client.lancementSimulation(creerMonde(), 8);
@@ -309,7 +309,7 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>, Observat
         }
     }
 
-    private void verifierMondeIG() throws MondeException, GuichetTwiskException {
+    public void verifierMondeIG() throws MondeException, GuichetTwiskException {
         if (entrees.size() == 0)
             throw new MondeException("Il n'y a pas d'entrée dans votre monde !");
         else if (sorties.size() == 0)
@@ -320,7 +320,7 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>, Observat
                 guichetIG = (GuichetIG) etapeIG;
                 if (guichetIG.getSuccesseurs().size() > 1) {
                     System.out.println("ou lala");
-                    throw new GuichetTwiskException("1 seule étape reliée au guichet !");
+                    throw new GuichetTwiskException("1 seule étape en sortie de guichet !");
                 }
             }
         }

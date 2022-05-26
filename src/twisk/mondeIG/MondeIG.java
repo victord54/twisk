@@ -23,7 +23,6 @@ import twisk.simulation.GestionnaireClients;
 import twisk.vues.Observateur;
 import twisk.vues.VueMondeIG;
 
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -45,8 +44,6 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>, Observat
     private GestionnaireClients gestionnaireClients;
     private CorrespondanceEtapes correspondanceEtapes;
 
-    private VueMondeIG vueMondeIG;
-
     public MondeIG() {
         etapesIG = new HashMap<>();
         arcs = new ArrayList<>();
@@ -57,7 +54,6 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>, Observat
         sorties = new ArrayList<>();
         this.ajouter("Activité");
         gestionnaireClients = null;
-        vueMondeIG = null;
     }
 
     public EtapeIG getEtape(String id) {
@@ -88,9 +84,6 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>, Observat
         return sorties;
     }
 
-    public void setVueMondeIG(VueMondeIG m) {
-        vueMondeIG = m;
-    }
 
     public void ajouter(String type) {
         String id = FabriqueIdentifiant.getInstance().getIdentifiantEtape();
@@ -398,17 +391,6 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>, Observat
 
     @Override
     public void reagir() {
-        Pane panneau = vueMondeIG;
-        /*vueMondeIG.reagir();
-            if (getGestionnaireClients() != null) {
-                for (Client c : getGestionnaireClients()) {
-                    Etape tmpEtape = c.getEtape();
-                    EtapeIG etapeIGTmp = getCorrespondanceEtapes().getEtapeIG(tmpEtape);
-                    if (etapeIGTmp != null) {
-                        panneau.getChildren().add(new VueClient(c, etapeIGTmp));
-                    }
-                }
-            }*/
         Runnable command = this::notifierObservateurs;
         if (Platform.isFxApplicationThread()) {
             command.run();
@@ -429,7 +411,7 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>, Observat
         return correspondanceEtapes;
     }
 
-    public void sauvegarder(String emplacement){
+    public void sauvegarder(String emplacement) {
         JsonWriter writer = null;
         try {
             writer = new JsonWriter(new FileWriter(emplacement));

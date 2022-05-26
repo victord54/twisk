@@ -19,7 +19,6 @@ public class VueMondeIG extends Pane implements Observateur {
 
         this.monde = monde;
         monde.ajouterObservateur(this);
-        monde.setVueMondeIG(this);
 
         this.setOnDragOver(dragEvent -> {
             dragEvent.acceptTransferModes(TransferMode.MOVE);

@@ -25,7 +25,7 @@ public class VueClient extends Circle {
         this.setCenterY(etapeIG.getPosY() + 100);
         this.setRadius(radius);
         Random random = new Random();
-        this.setFill(Color.rgb(random.nextInt(255), random.nextInt(255), random.nextInt(255)));
+        this.setFill(Color.rgb(client.getNumeroClient()*12%256, client.getNumeroClient()*123%256, client.getNumeroClient()*1234%256));
 
         //System.out.println(this);
     }

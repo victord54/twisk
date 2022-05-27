@@ -3,7 +3,6 @@ package twisk.vues;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import twisk.mondeIG.EtapeIG;
-import twisk.outils.CorrespondanceEtapes;
 import twisk.outils.TailleComposants;
 import twisk.simulation.Client;
 

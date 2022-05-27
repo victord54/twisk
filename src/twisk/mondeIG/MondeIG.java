@@ -328,11 +328,17 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>, Observat
         notifierObservateurs();
     }
 
-    public void setNbClients() {
+    public void setNbClients() throws ClientException{
         TextInputDialog tid = new TextInputDialog();
         tid.setContentText("Saisir le nombre de jetons du guichet");
         Optional<String> optionalS = tid.showAndWait();
-        nbClients = Integer.parseInt(optionalS.get());
+        int nb = Integer.parseInt(optionalS.get());
+        if (nb >= 50){
+            throw new ClientException("Le nombre de clients ne peut pas être supérieur ou égal à 50!");
+        } if (nb == 0){
+            throw new ClientException("Le nombre de clients ne peut pas être égale à 0 !");
+        }
+        nbClients = nb;
     }
 
     public void simuler() throws TwiskException {

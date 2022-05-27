@@ -10,6 +10,10 @@ import twisk.mondeIG.MondeIG;
 import twisk.outils.ThreadsManager;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.Objects;
 
 
 public class VueMenu extends MenuBar {
@@ -119,27 +123,29 @@ public class VueMenu extends MenuBar {
 
         MenuItem clients = new MenuItem("Modifier le nombre de clients");
         clients.setOnAction(actionEvent -> monde.setNbClients());
-        //      ----------------------------------------------- Menu des lois ------------------------------------------
+//      -------------------------------------------- Menu des lois -----------------------------------------------------
         Menu loiMenu = new Menu("Lois");
         RadioMenuItem uniforme = new RadioMenuItem("Loi uniforme");
         uniforme.setSelected(true);
-        uniforme.setOnAction(e->{
-            monde.setLoi("uniforme");
-        });
+        uniforme.setOnAction(e-> monde.setLoi("uniforme"));
         RadioMenuItem gaussienne = new RadioMenuItem("Loi Gaussienne");
-        gaussienne.setOnAction(e->{
-            monde.setLoi("gaussienne");
-        });
+        gaussienne.setOnAction(e-> monde.setLoi("gaussienne"));
         RadioMenuItem exponentiel = new RadioMenuItem("Loi de Poisson");
-        exponentiel.setOnAction(e -> {
-            monde.setLoi("exponentiel");
-
-        });
+        exponentiel.setOnAction(e -> monde.setLoi("exponentiel"));
 
         ToggleGroup tgLoi = new ToggleGroup();
         uniforme.setToggleGroup(tgLoi);
         gaussienne.setToggleGroup(tgLoi);
         exponentiel.setToggleGroup(tgLoi);
+
+//      ---------------------------------------- Menu des exemples -----------------------------------------------------
+        Menu exemplesMenu = new Menu("Exemples");
+
+        MenuItem bifurcations = new MenuItem("Bifurcations");
+        bifurcations.setOnAction(actionEvent -> monde.ouvrir(Objects.requireNonNull(this.getClass().getResource("/exemples/bifurcations.json")).getPath()));
+
+        MenuItem guichetsSorties = new MenuItem("Guichets avec 2 sorties");
+        guichetsSorties.setOnAction(actionEvent -> monde.ouvrir(Objects.requireNonNull(this.getClass().getResource("/exemples/2guichets-2sorties.json")).getPath()));
 
 //      ----------------------------------------------- Ajout des items ------------------------------------------------
         fileMenu.getItems().addAll(open,save,quit);
@@ -147,7 +153,8 @@ public class VueMenu extends MenuBar {
         worldMenu.getItems().addAll(input, output);
         settingsMenu.getItems().addAll(delay, ecart, jeton, clients);
         loiMenu.getItems().addAll(uniforme,gaussienne,exponentiel);
+        exemplesMenu.getItems().addAll(bifurcations, guichetsSorties);
 //      ----------------------------------------------- Ajout des menus ------------------------------------------------
-        this.getMenus().addAll(fileMenu, editMenu, worldMenu, settingsMenu,loiMenu);
+        this.getMenus().addAll(fileMenu, editMenu, worldMenu, settingsMenu,loiMenu, exemplesMenu);
     }
 }

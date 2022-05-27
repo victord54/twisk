@@ -2,19 +2,14 @@ package twisk.vues;
 
 import javafx.concurrent.Task;
 import javafx.scene.control.Button;
-import javafx.scene.control.ContentDisplay;
-import javafx.scene.control.Label;
-import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.TilePane;
 import twisk.exceptions.GuichetTwiskException;
 import twisk.exceptions.MondeException;
 import twisk.exceptions.TwiskException;
-import twisk.mondeIG.EtapeIG;
 import twisk.mondeIG.MondeIG;
 import twisk.outils.ThreadsManager;
-import twisk.simulation.Simulation;
 
 public class VueOutils extends TilePane implements Observateur {
     private final MondeIG monde;
@@ -133,7 +128,6 @@ public class VueOutils extends TilePane implements Observateur {
         boutonLancement = new Button();
         boutonLancement.getStyleClass().add("bouton-outils");
         boutonLancement.setGraphic(view);
-        System.out.println("");
         if (monde.isSimEnCours()) {
             img = new Image("/images/arret.png");
             view = new ImageView(img);

@@ -13,6 +13,9 @@ public class Activite extends Etape {
      */
     protected int temps;
 
+    /**
+     * Champs contenant le nombre de switch utilisés dans le code C pour générer des seeds.
+     */
     private static int nbSwitch = 0;
 
     /**

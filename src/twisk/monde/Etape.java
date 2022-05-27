@@ -15,16 +15,17 @@ public abstract class Etape implements Iterable<Etape>, Comparable<Etape> {
      * Champs contenant le numéro de l'étape.
      */
     protected int numEtape;
+
     /**
      * Champs contenant le nom de l'étape.
      */
     protected String nom;
+
     /**
      * Champs contenant le gestionnaire des successeurs de l'étape actuelle.
      */
     protected GestionnaireSuccesseur gestionnaireSuccesseur;
 
-//  Constructeur
     /**
      * Constructeur de la classe.
      *
@@ -36,7 +37,6 @@ public abstract class Etape implements Iterable<Etape>, Comparable<Etape> {
         numEtape = FabriqueNumero.getInstance().getNumeroEtape();
     }
 
-//  Getters
     /**
      * Méthode qui donne le nombre de successeurs de l'étape actuelle.
      *
@@ -111,8 +111,6 @@ public abstract class Etape implements Iterable<Etape>, Comparable<Etape> {
      */
     public abstract int getNbJetons();
 
-//  Setters
-
     /**
      * Méthode qui ajoute un successeur à l'étape actuelle.
      *
@@ -122,9 +120,11 @@ public abstract class Etape implements Iterable<Etape>, Comparable<Etape> {
         gestionnaireSuccesseur.ajouter(etapes);
     }
 
+    /**
+     * Méthode qui définit un n° de sémaphore pour un guichet.
+     * @param semaphore Numéro de sémaphore.
+     */
     public abstract void setSemaphoreGuichet(int semaphore);
-
-// Autres méthodes
 
     /**
      * Méthode définissant un nouvel itérateur pour Etape

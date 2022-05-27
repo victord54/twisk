@@ -7,10 +7,12 @@ import twisk.outils.CorrespondanceEtapes;
 import twisk.outils.TailleComposants;
 import twisk.simulation.Client;
 
+import java.util.Random;
+
 public class VueClient extends Circle {
 
     private Client client;
-    private EtapeIG etapeIG;
+    private final EtapeIG etapeIG;
 
     private int x;
     private int y;
@@ -22,7 +24,8 @@ public class VueClient extends Circle {
         this.setCenterX(etapeIG.getPosX() + TailleComposants.getInstance().getLargeurActivite() - client.getRang()*25); // Partie droite de l'étape décalée de n rangs vers la gauche.
         this.setCenterY(etapeIG.getPosY() + 100);
         this.setRadius(radius);
-        this.setFill(Color.TURQUOISE);
+        Random random = new Random();
+        this.setFill(Color.rgb(random.nextInt(255), random.nextInt(255), random.nextInt(255)));
 
         //System.out.println(this);
     }

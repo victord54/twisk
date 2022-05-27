@@ -117,11 +117,14 @@ public class VueMenu extends MenuBar {
                 e.afficherMessage();
             }
         });
+
+        MenuItem clients = new MenuItem("Modifier le nombre de clients");
+        clients.setOnAction(actionEvent -> monde.setNbClients());
 //      ----------------------------------------------- Ajout des items ------------------------------------------------
         fileMenu.getItems().addAll(open,save,quit);
         editMenu.getItems().addAll(delete, rename, cancel);
         worldMenu.getItems().addAll(input, output);
-        settingsMenu.getItems().addAll(delay, ecart, jeton);
+        settingsMenu.getItems().addAll(delay, ecart, jeton, clients);
 //      ----------------------------------------------- Ajout des menus ------------------------------------------------
         this.getMenus().addAll(fileMenu, editMenu, worldMenu, settingsMenu);
     }

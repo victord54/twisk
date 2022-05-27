@@ -23,7 +23,6 @@ public class ThreadsManager {
 
         threads.add(th);
         th.start();
-
         //System.out.println(th.isAlive());//--> return true
     }
 

@@ -23,7 +23,6 @@ public class VueOutils extends TilePane implements Observateur {
     private Button boutonRetour;
     private Button boutonEffacer;
     private Button boutonLancement;
-    private boolean simEnCours;
 
     public VueOutils(MondeIG monde) {
         boutonLancement = null;
@@ -31,8 +30,6 @@ public class VueOutils extends TilePane implements Observateur {
         boutonAjouterG = null;
         boutonRetour = null;
         boutonEffacer = null;
-
-        simEnCours = false;
         this.monde = monde;
         monde.ajouterObservateur(this);
 
@@ -45,8 +42,9 @@ public class VueOutils extends TilePane implements Observateur {
             protected Void call() {
                 try {
                     monde.simuler();
+                    monde.setSimEnCours(false);
                 } catch (TwiskException e) {
-                    System.out.println("Merde recommence");
+                    e.afficherMessage();
                 }
                 monde.notifierObservateurs();
                 return null;
@@ -68,7 +66,7 @@ public class VueOutils extends TilePane implements Observateur {
         boutonAjouter = new Button();
         boutonAjouter.getStyleClass().add("bouton-outils");
         boutonAjouter.setGraphic(view);
-        if (simEnCours) {
+        if (monde.isSimEnCours()) {
             boutonAjouter.setDisable(true);
         }
 
@@ -86,7 +84,7 @@ public class VueOutils extends TilePane implements Observateur {
         boutonAjouterG = new Button();
         boutonAjouterG.getStyleClass().add("bouton-outils");
         boutonAjouterG.setGraphic(view);
-        if (simEnCours) {
+        if (monde.isSimEnCours()) {
             boutonAjouterG.setDisable(true);
         }
 
@@ -104,7 +102,7 @@ public class VueOutils extends TilePane implements Observateur {
         boutonRetour = new Button();
         boutonRetour.getStyleClass().add("bouton-outils");
         boutonRetour.setGraphic(view);
-        if (simEnCours) {
+        if (monde.isSimEnCours()) {
             boutonRetour.setDisable(true);
         }
 
@@ -124,24 +122,19 @@ public class VueOutils extends TilePane implements Observateur {
         boutonEffacer = new Button();
         boutonEffacer.getStyleClass().add("bouton-outils");
         boutonEffacer.setGraphic(view);
-        if (simEnCours) {
+        if (monde.isSimEnCours()) {
             boutonEffacer.setDisable(true);
         }
 
         boutonEffacer.setOnAction(actionEvent -> monde.reset());
         this.getChildren().add(boutonEffacer);
-        /*----------------- Lancer la simulation et l'arrêter ---------------------*/
-        img = new Image("/images/lancement.png");
-        view = new ImageView(img);
-        view.setFitHeight(50);
-        view.setPreserveRatio(true);
-        view.setSmooth(true);
 
+        /*----------------- Lancer la simulation et l'arrêter ---------------------*/
         boutonLancement = new Button();
         boutonLancement.getStyleClass().add("bouton-outils");
         boutonLancement.setGraphic(view);
-
-        if (simEnCours) {
+        System.out.println("");
+        if (monde.isSimEnCours()) {
             img = new Image("/images/arret.png");
             view = new ImageView(img);
             view.setFitHeight(50);
@@ -150,26 +143,31 @@ public class VueOutils extends TilePane implements Observateur {
             boutonLancement.setGraphic(view);
             boutonLancement.setOnAction(actionEvent -> {
                 System.out.println("Arret...");
-                simEnCours = false;
+                monde.setSimEnCours(false);
                 reagir();
             });
 
         } else {
+            img = new Image("/images/lancement.png");
+            view = new ImageView(img);
+            view.setFitHeight(50);
+            view.setPreserveRatio(true);
+            view.setSmooth(true);
+            boutonLancement.setGraphic(view);
             boutonLancement.setOnAction(actionEvent -> {
-                simEnCours = true;
+                monde.setSimEnCours(true);
                 reagir();
                 //Faire vérifier le monde avant de lancer animer car bug d'affichage des alert à cause du Thread.
                 try {
                     monde.verifierMondeIG();
                 } catch (MondeException | GuichetTwiskException e) {
-                    simEnCours = false;
+                    monde.setSimEnCours(false);
                     e.afficherMessage();
                     reagir();
                 }
                 animer();
             });
         }
-
         this.getChildren().add(boutonLancement);
     }
 }

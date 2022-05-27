@@ -71,6 +71,7 @@ public class VueMondeIG extends Pane implements Observateur {
 
     @Override
     public void reagir() {
+        System.out.println("sim en cours : " + monde.isSimEnCours());
         this.getChildren().clear();
         miseAjourArcs();
         for (EtapeIG etape : monde) {

@@ -40,6 +40,9 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>, Observat
     private final ArrayList<EtapeIG> sorties;
     private GestionnaireClients gestionnaireClients;
     private CorrespondanceEtapes correspondanceEtapes;
+    private int nbClients;
+
+    private boolean simEnCours;
 
     public MondeIG() {
         etapesIG = new HashMap<>();
@@ -51,6 +54,8 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>, Observat
         sorties = new ArrayList<>();
         this.ajouter("Activité");
         gestionnaireClients = null;
+        nbClients = 5;
+        simEnCours = false;
     }
 
     public EtapeIG getEtape(String id) {
@@ -81,30 +86,38 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>, Observat
         return sorties;
     }
 
+    public boolean isSimEnCours() {
+        return simEnCours;
+    }
+
+    public void setSimEnCours(boolean b) {
+        simEnCours = b;
+        notifierObservateurs();
+    }
 
     public void ajouter(String type) {
         String id = FabriqueIdentifiant.getInstance().getIdentifiantEtape();
         if (type.equals("Activité") || type.equals("Activite"))
             etapesIG.put(id, new ActiviteIG("Activité", id, tailleComposants.getLargeurActivite(), tailleComposants.getHauteurActivite()));
         if (type.equals("Guichet"))
-            etapesIG.put(id, new GuichetIG("Guichet",id, tailleComposants.getLargeurActivite(), tailleComposants.getHauteurActivite(), 2));
+            etapesIG.put(id, new GuichetIG("Guichet", id, tailleComposants.getLargeurActivite(), tailleComposants.getHauteurActivite(), 2));
 
         notifierObservateurs();
     }
 
-    public void ajouter(EtapeIG e){
+    public void ajouter(EtapeIG e) {
         String id = FabriqueIdentifiant.getInstance().getIdentifiantEtape();
-        etapesIG.put(e.getId(),e);
+        etapesIG.put(e.getId(), e);
     }
 
-    public void ajouterArc(PointDeControleIG pt1, PointDeControleIG pt2) throws ArcTwiskException{
+    public void ajouterArc(PointDeControleIG pt1, PointDeControleIG pt2) throws ArcTwiskException {
         EtapeIG et1 = pt1.getEtape();
         EtapeIG et2 = pt2.getEtape();
 
 
-        if (!et1.estAccessibleDepuis(et2)){
+        if (!et1.estAccessibleDepuis(et2)) {
             arcs.add(new ArcIG(pt1, pt2));
-        } else{
+        } else {
             throw new ArcTwiskException("Impossible de créer un arc ici, cela fait un cycle ! ");
         }
         notifierObservateurs();
@@ -153,7 +166,7 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>, Observat
     }
 
     public void retirerDernierArc() {
-        arcs.get(arcs.size()-1).getPt1().getEtape().retirerSucesseur(arcs.get(arcs.size()-1).getPt2().getEtape());
+        arcs.get(arcs.size() - 1).getPt1().getEtape().retirerSucesseur(arcs.get(arcs.size() - 1).getPt2().getEtape());
         arcs.remove(arcs.size() - 1);
         notifierObservateurs();
     }
@@ -294,25 +307,29 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>, Observat
         if (etapesSelectionnees.size() != 1) {
             throw new GuichetTwiskException("Un seul guichet doit être sélectionné");
         } else if (!etapesSelectionnees.get(0).estUnGuichet()) {
-                throw new GuichetTwiskException("Seul un guichet peut être sélectionné");
+            throw new GuichetTwiskException("Seul un guichet peut être sélectionné");
         } else {
             GuichetIG guichetIG = (GuichetIG) etapesSelectionnees.get(0);
             TextInputDialog tid = new TextInputDialog();
             tid.setContentText("Saisir le nombre de jetons du guichet");
             Optional<String> optionalS = tid.showAndWait();
             guichetIG.setJetons(Integer.parseInt(optionalS.get()));
-
         }
         etapesSelectionnees.clear();
         notifierObservateurs();
+    }
 
-
+    public void setNbClients() {
+        TextInputDialog tid = new TextInputDialog();
+        tid.setContentText("Saisir le nombre de jetons du guichet");
+        Optional<String> optionalS = tid.showAndWait();
+        nbClients = Integer.parseInt(optionalS.get());
     }
 
     public void simuler() throws TwiskException {
         ClientTwisk client = new ClientTwisk(this);
         try {
-            client.lancementSimulation(creerMonde(), 8);
+            client.lancementSimulation(creerMonde(), nbClients);
         } catch (GuichetTwiskException | MondeException e) {
             throw new MondeException(e.toString());
         }
@@ -323,7 +340,7 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>, Observat
             throw new MondeException("Il n'y a pas d'entrée dans votre monde !");
         else if (sorties.size() == 0)
             throw new MondeException("Il n'y a pas de sortie dans votre monde !");
-        for (EtapeIG etapeIG: this) {
+        for (EtapeIG etapeIG : this) {
             GuichetIG guichetIG;
             if (etapeIG.estUnGuichet()) {
                 guichetIG = (GuichetIG) etapeIG;
@@ -336,12 +353,12 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>, Observat
     }
 
     private Monde creerMonde() throws GuichetTwiskException, MondeException {
-            verifierMondeIG();
+        verifierMondeIG();
         correspondanceEtapes = new CorrespondanceEtapes();
         Monde monde = new Monde();
         // Ajout en premier de toutes les etapes dans le gestionnaire d'étapes et ensuite ajout de tous les successeurs de chaques étapes.
 
-        for (EtapeIG e : this){
+        for (EtapeIG e : this) {
             if (!monde.contient(correspondanceEtapes.getEtape(e))) {
                 if (!e.estUnGuichet()) {
                     ActiviteIG tmpIG = (ActiviteIG) e;
@@ -362,7 +379,7 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>, Observat
             }
         }
 
-        for (EtapeIG entree: entrees) {
+        for (EtapeIG entree : entrees) {
             if (!entree.estUnGuichet()) {
                 ActiviteIG tmpIG = (ActiviteIG) entree;
                 Activite tmp = (Activite) correspondanceEtapes.getEtape(tmpIG);
@@ -374,7 +391,7 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>, Observat
             }
         }
 
-        for (EtapeIG sortie: sorties) {
+        for (EtapeIG sortie : sorties) {
             if (sortie.estUnGuichet()) {
                 throw new MondeException("Une sortie ne peut pas être un guichet !");
             } else {
@@ -384,14 +401,14 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>, Observat
             }
         }
 
-        for (EtapeIG e : this){
+        for (EtapeIG e : this) {
             if (!e.getSuccesseurs().isEmpty()) {
-                for (EtapeIG etapeSuc: e.getSuccesseurs()) {
+                for (EtapeIG etapeSuc : e.getSuccesseurs()) {
                     if (!e.estUnGuichet()) {
                         ActiviteIG tmpIG = (ActiviteIG) e;
                         Activite tmp = (Activite) correspondanceEtapes.getEtape(tmpIG);
                         tmp.ajouterSuccesseur(correspondanceEtapes.getEtape(etapeSuc));
-                    } 
+                    }
                 }
             }
         }
@@ -422,7 +439,7 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>, Observat
         return gestionnaireClients;
     }
 
-    public void setGestionnaireClients(GestionnaireClients g){
+    public void setGestionnaireClients(GestionnaireClients g) {
         gestionnaireClients = g;
     }
 
@@ -439,7 +456,7 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>, Observat
             /*----Enregistrement des EtapesIG du monde-----*/
             writer.name("EtapesIG");
             writer.beginArray();
-            for (EtapeIG s : this){
+            for (EtapeIG s : this) {
                 writer.beginObject();
                 writer.name("Nom");
                 writer.value(s.getNom());
@@ -453,7 +470,7 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>, Observat
                 writer.name("PosY");
                 writer.value(s.getPosY());
 
-                if(s.estUneActivite()){
+                if (s.estUneActivite()) {
                     ActiviteIG tmp = (ActiviteIG) s;
                     writer.name("Delai");
                     writer.value(tmp.getDelai());
@@ -473,15 +490,15 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>, Observat
                 }
 
                 /*----Gestion des entrées & sorties----*/
-                if (entrees.contains(s)){
+                if (entrees.contains(s)) {
                     writer.name("Entree");
                     writer.value("oui");
-                } else{
+                } else {
                     writer.name("Entree");
                     writer.value("non");
                 }
 
-                if (sorties.contains(s)){
+                if (sorties.contains(s)) {
                     writer.name("Sortie");
                     writer.value("oui");
                 } else {
@@ -496,7 +513,7 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>, Observat
             /*----Gestion des arcs-----*/
             writer.name("Arcs");
             writer.beginArray();
-            for (ArcIG a : arcs){
+            for (ArcIG a : arcs) {
                 writer.beginObject();
 
                 writer.name("Pt1ID");
@@ -525,7 +542,7 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>, Observat
         }
     }
 
-    public void ouvrir(String emplacement){
+    public void ouvrir(String emplacement) {
         reset();
 
         JsonParser jsonParser = new JsonParser();
@@ -547,44 +564,44 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>, Observat
                 String type = objEt.get("Type").getAsString();
                 String entreeA = objEt.get("Entree").getAsString();
                 String sortieA = objEt.get("Sortie").getAsString();
-                if (type.equalsIgnoreCase("Activité")){
+                if (type.equalsIgnoreCase("Activité")) {
                     int delai = objEt.get("Delai").getAsInt();
                     int ecart = objEt.get("Ecart").getAsInt();
-                    ActiviteIG tmp = new ActiviteIG(nom,id, tailleComposants.getLargeurActivite(), tailleComposants.getHauteurActivite());
-                    tmp.relocate(posX,posY);
+                    ActiviteIG tmp = new ActiviteIG(nom, id, tailleComposants.getLargeurActivite(), tailleComposants.getHauteurActivite());
+                    tmp.relocate(posX, posY);
                     tmp.setDelai(delai);
                     tmp.setEcart(ecart);
                     tmp.actualiserPointsDeControle();
                     ajouter(tmp);
 
                     /*---Gestion si etape est une entrée ou une sortie---*/
-                    if (entreeA.equalsIgnoreCase("oui")){
+                    if (entreeA.equalsIgnoreCase("oui")) {
                         this.entrees.add(tmp);
                     }
-                    if (sortieA.equalsIgnoreCase("oui")){
+                    if (sortieA.equalsIgnoreCase("oui")) {
                         this.sorties.add(tmp);
                     }
 
                 }
-                if (type.equalsIgnoreCase("Guichet")){
+                if (type.equalsIgnoreCase("Guichet")) {
                     int jetons = objEt.get("Jetons").getAsInt();
-                    GuichetIG tmp = new GuichetIG(nom,id, tailleComposants.getLargeurActivite(), tailleComposants.getHauteurActivite(), jetons);
-                    tmp.relocate(posX,posY);
+                    GuichetIG tmp = new GuichetIG(nom, id, tailleComposants.getLargeurActivite(), tailleComposants.getHauteurActivite(), jetons);
+                    tmp.relocate(posX, posY);
                     tmp.actualiserPointsDeControle();
                     ajouter(tmp);
 
                     /*---Gestion si etape est une entrée ou une sortie---*/
-                    if (entreeA.equalsIgnoreCase("oui")){
+                    if (entreeA.equalsIgnoreCase("oui")) {
                         this.entrees.add(tmp);
                     }
-                    if (sortieA.equalsIgnoreCase("oui")){
+                    if (sortieA.equalsIgnoreCase("oui")) {
                         this.sorties.add(tmp);
                     }
                 }
             });
 
             JsonArray listeArcIG = obj.getAsJsonArray("Arcs");
-            listeArcIG.forEach(arc ->{
+            listeArcIG.forEach(arc -> {
                 JsonObject objArc = arc.getAsJsonObject();
                 /*----Pt1----*/
                 String idEtapePt1 = objArc.get("Pt1EtapeID").getAsString();
@@ -607,7 +624,6 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>, Observat
         }
         notifierObservateurs();
     }
-
 
 
 }

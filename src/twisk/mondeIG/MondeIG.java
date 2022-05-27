@@ -16,6 +16,7 @@ import twisk.monde.Monde;
 import twisk.outils.CorrespondanceEtapes;
 import twisk.outils.FabriqueIdentifiant;
 import twisk.outils.TailleComposants;
+import twisk.simulation.Client;
 import twisk.simulation.GestionnaireClients;
 import twisk.vues.Observateur;
 import twisk.vues.VueMondeIG;
@@ -448,7 +449,7 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>, Observat
     }
 
     public void sauvegarder(String emplacement) {
-        JsonWriter writer = null;
+        JsonWriter writer;
         try {
             writer = new JsonWriter(new FileWriter(emplacement));
             writer.beginObject();
@@ -625,5 +626,21 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>, Observat
         notifierObservateurs();
     }
 
-
+    public void detruireClients() {
+        if (gestionnaireClients != null) {
+            for (Client c : gestionnaireClients) {
+                Runtime r = Runtime.getRuntime();
+                Process p;
+                try {
+                    p = r.exec("kill -9 " + c.getNumeroClient());
+                    if (p != null) {
+                        p.waitFor();
+                    }
+                } catch (IOException | InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+            gestionnaireClients.nettoyer();
+        }
+    }
 }

@@ -137,6 +137,7 @@ public class VueOutils extends TilePane implements Observateur {
             boutonLancement.setGraphic(view);
             boutonLancement.setOnAction(actionEvent -> {
                 System.out.println("Arret...");
+                monde.detruireClients();
                 monde.setSimEnCours(false);
                 reagir();
             });

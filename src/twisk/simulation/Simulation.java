@@ -20,8 +20,6 @@ public class Simulation extends SujetObserve {
      * Champs représentant les outils pour compiler, exécuter le code c.
      */
     private final KitC kit;
-
-
     private final GestionnaireClients gestionnaireClients;
 
     /**
@@ -125,7 +123,7 @@ public class Simulation extends SujetObserve {
         }
         System.out.println();
         // Affichage des PID des clients par étape
-        while (tab_client[(nb_clients + 1)] != nb_clients) {
+        while (tab_client[(nb_clients + 1)] != nb_clients && !gestionnaireClients.isSuppressionDesClients()) {
             tab_client = ou_sont_les_clients(nb_etapes, nb_clients);
             int decalage = 0;
             for (Etape e: monde) {

@@ -9,13 +9,24 @@ public class GestionnaireClients implements Iterable<Client> {
     protected ArrayList<Client> clients;
     protected int nbClients;
 
+    private boolean suppressionDesClients;
+
     public GestionnaireClients() {
         this.clients = new ArrayList<>();
+        suppressionDesClients = false;
     }
 
     public GestionnaireClients(int nbClients) {
         this.clients = new ArrayList<>();
         this.nbClients = nbClients;
+    }
+
+    public boolean isSuppressionDesClients() {
+        return suppressionDesClients;
+    }
+
+    public void setSuppressionDesClients(boolean b) {
+        suppressionDesClients = b;
     }
 
     public ArrayList<Client> getClients() {
@@ -43,6 +54,7 @@ public class GestionnaireClients implements Iterable<Client> {
 
     public void nettoyer() {
         this.clients.clear();
+        suppressionDesClients = true;
     }
 
 

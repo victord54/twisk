@@ -104,7 +104,7 @@ public class VueMondeIG extends Pane implements Observateur {
                 for (Client c : monde.getGestionnaireClients()) {
                     Etape tmpEtape = c.getEtape();
                     EtapeIG etapeIGTmp = monde.getCorrespondanceEtapes().getEtapeIG(tmpEtape);
-                    if (etapeIGTmp != null) {
+                    if (etapeIGTmp != null && c.getRang() <= 8) {
                         this.getChildren().add(new VueClient(c, etapeIGTmp));
                     }
                 }

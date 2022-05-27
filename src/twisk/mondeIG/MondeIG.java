@@ -43,6 +43,8 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>, Observat
     private CorrespondanceEtapes correspondanceEtapes;
     private int nbClients;
 
+    private String loi;
+
     private boolean simEnCours;
 
     public MondeIG() {
@@ -57,6 +59,11 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>, Observat
         gestionnaireClients = null;
         nbClients = 5;
         simEnCours = false;
+        loi = "uniforme";
+    }
+
+    public void setLoi(String l){
+        this.loi = l;
     }
 
     public EtapeIG getEtape(String id) {
@@ -413,6 +420,7 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>, Observat
                 }
             }
         }
+        monde.setLoi(this.loi);
         return monde;
     }
 

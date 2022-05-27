@@ -41,6 +41,10 @@ public class Monde implements Iterable<Etape> {
 
     }
 
+    public void setLoi(String loi){
+        this.entree.setLoi(loi);
+    }
+
     /**
      * Getter donnant le nombre d'étapes du monde.
      *

@@ -75,7 +75,22 @@ public class KitC {
             flotFiltre.println("#include <sys/types.h>");
             flotFiltre.println("#include <unistd.h>");
             flotFiltre.println("#include <time.h>");
+            flotFiltre.println("#include <math.h>");
+
             flotFiltre.println("#include \"def.h\"\n");
+
+            flotFiltre.println("double delaiGauss(double moyenne, double ecartype){");
+            flotFiltre.println("\tdouble u1 = rand()/(RAND_MAX+1.0);");
+            flotFiltre.println("\tdouble u2 = rand()/(RAND_MAX+1.0);");
+            flotFiltre.println("\tdouble X = sqrt(-2*log(u1))*cos(2*3.14*u2)*ecartype + moyenne;");
+            flotFiltre.println("\treturn X;\n}\n");
+
+            flotFiltre.println("double delaiExponentiel(double lambda){");
+            flotFiltre.println("\tdouble u = rand()/(RAND_MAX+1.0);");
+            flotFiltre.println("\tdouble X = -log(u)/lambda;");
+            flotFiltre.println("\treturn X;\n}\n");
+
+
             flotFiltre.println("void simulation(int ids) {");
             flotFiltre.print(codeC);
             flotFiltre.println("}");
@@ -95,7 +110,7 @@ public class KitC {
     public void compiler() {
         Runtime runtime = Runtime.getRuntime();
         try {
-            Process p = runtime.exec("gcc -Wall -fPIC -c /tmp/twisk/client.c -o /tmp/twisk/client.o");
+            Process p = runtime.exec("gcc -Wall -fPIC -c /tmp/twisk/client.c -o /tmp/twisk/client.o -lm");
             // récupération des messages sur la sortie standard et la sortie d’erreur de la commande exécutée
             // à reprendre éventuellement et à adapter à votre code
             BufferedReader output = new BufferedReader(new InputStreamReader(p.getInputStream()));

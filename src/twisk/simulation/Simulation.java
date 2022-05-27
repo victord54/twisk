@@ -150,6 +150,7 @@ public class Simulation extends SujetObserve {
             }
 
         }
+
         nettoyage();
         gestionnaireClients.nettoyer();
         FabriqueNumero.getInstance().reset();

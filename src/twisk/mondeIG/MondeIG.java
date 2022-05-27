@@ -43,6 +43,8 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>, Observat
     private CorrespondanceEtapes correspondanceEtapes;
     private int nbClients;
 
+    private String sensCircu;
+
     private String loi;
 
     private boolean simEnCours;
@@ -60,6 +62,7 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>, Observat
         nbClients = 5;
         simEnCours = false;
         loi = "uniforme";
+        sensCircu = null;
     }
 
     public void setLoi(String l){
@@ -123,8 +126,36 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>, Observat
         EtapeIG et1 = pt1.getEtape();
         EtapeIG et2 = pt2.getEtape();
 
+        if (sensCircu == null) {
+            if (et2.estUnGuichet()) {
+                if (pt2.getId().contains("0")) {
+                    sensCircu = "gaucheVersDroite";
+                } else {
+                    sensCircu = "droiteVersGauche";
+                }
+            }
+        }
 
         if (!et1.estAccessibleDepuis(et2)) {
+            if (sensCircu != null) {
+                if (sensCircu.equalsIgnoreCase("gaucheVersDroite")) {
+                    if (et2.estUnGuichet() && !pt2.getId().contains("ctrl0")) { //L'arc ne vient pas du pt gauche
+                        throw new ArcTwiskException("Le sens de circulation du guichet n'est pas bon ! Il est actuellement de la gauche vers la droite.\nL'arc doit donc arrivé à gauche.");
+                    }
+                    if (et1.estUnGuichet() && pt1.getId().contains("ctrl0")) {//L'arc ne part pas du pt droit
+                        throw new ArcTwiskException("Le sens de circulation du guichet n'est pas bon ! Il est actuellement de la gauche vers la droite.\nL'arc doit donc partir à droite.");
+                    }
+                }
+                if (sensCircu.equalsIgnoreCase("droiteVersGauche")) {
+                    if (et2.estUnGuichet() && !pt2.getId().contains("ctrl1")) { //L'arc ne vient pas du pt gauche
+                        throw new ArcTwiskException("Le sens de circulation du guichet n'est pas bon ! Il est actuellement de la droite vers la gauche.\nL'arc doit donc arrivé à droite.");
+                    }
+                    if (et1.estUnGuichet() && pt1.getId().contains("ctrl1")) {//L'arc ne part pas du pt gauche
+                        System.out.println(pt1.getId());
+                        throw new ArcTwiskException("Le sens de circulation du guichet n'est pas bon ! Il est actuellement de la droite vers la gauche.\nL'arc doit donc partir à gauche.");
+                    }
+                }
+            }
             arcs.add(new ArcIG(pt1, pt2));
         } else {
             throw new ArcTwiskException("Impossible de créer un arc ici, cela fait un cycle ! ");
@@ -206,6 +237,18 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>, Observat
             arcs.remove(arc);
         }
         arcsSelectionnees.clear();
+
+        boolean arcGuichet = true;
+        for (ArcIG arc : arcs){
+            if (arc.getPt1().getEtape().estUnGuichet() || arc.getPt2().getEtape().estUnGuichet()){
+                arcGuichet = false;
+                break;
+            }
+        }
+        if (arcGuichet){
+            sensCircu = null;
+        }
+        System.out.println(sensCircu);
         notifierObservateurs();
     }
 
@@ -328,11 +371,17 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>, Observat
         notifierObservateurs();
     }
 
-    public void setNbClients() {
+    public void setNbClients() throws ClientException{
         TextInputDialog tid = new TextInputDialog();
         tid.setContentText("Saisir le nombre de jetons du guichet");
         Optional<String> optionalS = tid.showAndWait();
-        nbClients = Integer.parseInt(optionalS.get());
+        int nb = Integer.parseInt(optionalS.get());
+        if (nb >= 50){
+            throw new ClientException("Le nombre de clients ne peut pas être supérieur ou égal à 50!");
+        } if (nb == 0){
+            throw new ClientException("Le nombre de clients ne peut pas être égale à 0 !");
+        }
+        nbClients = nb;
     }
 
     public void simuler() throws TwiskException {

@@ -4,6 +4,7 @@ import javafx.application.Platform;
 import javafx.scene.control.*;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import twisk.exceptions.ClientException;
 import twisk.exceptions.EtapeTwiskException;
 import twisk.exceptions.GuichetTwiskException;
 import twisk.mondeIG.MondeIG;
@@ -122,7 +123,13 @@ public class VueMenu extends MenuBar {
         });
 
         MenuItem clients = new MenuItem("Modifier le nombre de clients");
-        clients.setOnAction(actionEvent -> monde.setNbClients());
+        clients.setOnAction(actionEvent -> {
+            try {
+                monde.setNbClients();
+            } catch (ClientException e) {
+                e.afficherMessage();
+            }
+        });
 //      -------------------------------------------- Menu des lois -----------------------------------------------------
         Menu loiMenu = new Menu("Lois");
         RadioMenuItem uniforme = new RadioMenuItem("Loi uniforme");

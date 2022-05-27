@@ -29,11 +29,14 @@ public abstract class EtapeIG implements Iterable<PointDeControleIG> {
         this.posX = rd.nextInt(1000 - TailleComposants.getInstance().getLargeurActivite());
         this.posY = rd.nextInt(650 - TailleComposants.getInstance().getHauteurActivite());
 
-        /* Pt de contrôle centre-haut */
-        controles.add(new PointDeControleIG(posX + largeur / 2, posY, this));
 
-        /* Pt de contrôle centre-bas */
-        controles.add(new PointDeControleIG(posX + largeur / 2, posY + hauteur, this));
+        if (this.estUneActivite()){
+            /* Pt de contrôle centre-haut */
+            controles.add(new PointDeControleIG(posX + largeur / 2, posY, this));
+
+            /* Pt de contrôle centre-bas */
+            controles.add(new PointDeControleIG(posX + largeur / 2, posY + hauteur, this));
+        }
 
         /* Pt de contrôle centre-gauche */
         controles.add(new PointDeControleIG(posX, posY + hauteur / 2, this));
@@ -80,17 +83,27 @@ public abstract class EtapeIG implements Iterable<PointDeControleIG> {
     }
 
     public void actualiserPointsDeControle() {
-        /* Pt de contrôle centre-haut */
-        controles.get(0).relocate(posX + largeur / 2, posY);
+        if (this.estUneActivite()){
+            /* Pt de contrôle centre-haut */
+            controles.get(0).relocate(posX + largeur / 2, posY);
 
-        /* Pt de contrôle centre-bas */
-        controles.get(1).relocate(posX + largeur / 2, posY + hauteur);
+            /* Pt de contrôle centre-bas */
+            controles.get(1).relocate(posX + largeur / 2, posY + hauteur);
+            /* Pt de contrôle centre-gauche */
+            controles.get(2).relocate(posX, posY + hauteur / 2);
 
-        /* Pt de contrôle centre-gauche */
-        controles.get(2).relocate(posX, posY + hauteur / 2);
+            /* Pt de contrôle centre-droit */
+            controles.get(3).relocate(posX + largeur, posY + hauteur / 2);
+        }
+        else {
+            /* Pt de contrôle centre-gauche */
+            controles.get(0).relocate(posX, posY + hauteur / 2);
 
-        /* Pt de contrôle centre-droit */
-        controles.get(3).relocate(posX + largeur, posY + hauteur / 2);
+            /* Pt de contrôle centre-droit */
+            controles.get(1).relocate(posX + largeur, posY + hauteur / 2);
+        }
+
+
     }
 
     public void ajouterSucesseur(EtapeIG... etapes) {

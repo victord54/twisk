@@ -1,9 +1,7 @@
 package twisk.vues;
 
 import javafx.application.Platform;
-import javafx.scene.control.Menu;
-import javafx.scene.control.MenuBar;
-import javafx.scene.control.MenuItem;
+import javafx.scene.control.*;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import twisk.exceptions.EtapeTwiskException;
@@ -23,6 +21,7 @@ public class VueMenu extends MenuBar {
         Menu fileMenu = new Menu("Fichier");
         MenuItem quit = new MenuItem("Quitter");
         quit.setOnAction(actionEvent -> {
+            monde.detruireClients();
             ThreadsManager.getInstance().detruiretout();
                 Platform.exit();
 
@@ -120,12 +119,35 @@ public class VueMenu extends MenuBar {
 
         MenuItem clients = new MenuItem("Modifier le nombre de clients");
         clients.setOnAction(actionEvent -> monde.setNbClients());
+        //      ----------------------------------------------- Menu des lois ------------------------------------------
+        Menu loiMenu = new Menu("Lois");
+        RadioMenuItem uniforme = new RadioMenuItem("Loi uniforme");
+        uniforme.setSelected(true);
+        uniforme.setOnAction(e->{
+            monde.setLoi("uniforme");
+        });
+        RadioMenuItem gaussienne = new RadioMenuItem("Loi Gaussienne");
+        gaussienne.setOnAction(e->{
+            monde.setLoi("gaussienne");
+        });
+        RadioMenuItem exponentiel = new RadioMenuItem("Loi de Poisson");
+        exponentiel.setOnAction(e -> {
+            monde.setLoi("exponentiel");
+
+        });
+
+        ToggleGroup tgLoi = new ToggleGroup();
+        uniforme.setToggleGroup(tgLoi);
+        gaussienne.setToggleGroup(tgLoi);
+        exponentiel.setToggleGroup(tgLoi);
+
 //      ----------------------------------------------- Ajout des items ------------------------------------------------
         fileMenu.getItems().addAll(open,save,quit);
         editMenu.getItems().addAll(delete, rename, cancel);
         worldMenu.getItems().addAll(input, output);
         settingsMenu.getItems().addAll(delay, ecart, jeton, clients);
+        loiMenu.getItems().addAll(uniforme,gaussienne,exponentiel);
 //      ----------------------------------------------- Ajout des menus ------------------------------------------------
-        this.getMenus().addAll(fileMenu, editMenu, worldMenu, settingsMenu);
+        this.getMenus().addAll(fileMenu, editMenu, worldMenu, settingsMenu,loiMenu);
     }
 }

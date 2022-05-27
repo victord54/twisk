@@ -64,6 +64,7 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>, Observat
 
     public void setLoi(String l){
         this.loi = l;
+        notifierObservateurs();
     }
 
     public EtapeIG getEtape(String id) {

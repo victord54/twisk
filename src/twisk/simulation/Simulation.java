@@ -61,8 +61,9 @@ public class Simulation extends SujetObserve {
 
     /**
      * Méthode qui retourne un tableau de clients concernés par l'étape en cours (qui sont dans cette étape)
-     * @param tab le tableau des clients
-     * @param depart 1er clients concerné par
+     *
+     * @param tab     le tableau des clients
+     * @param depart  1er clients concerné par
      * @param arrivee dernier client concerné
      * @return le tableau des clients concernés
      */
@@ -78,9 +79,10 @@ public class Simulation extends SujetObserve {
 
     /**
      * Méthode qui permet de set les nombres de clients
+     *
      * @param nb le nombre de clients
      */
-    public void setNbClients(int nb){
+    public void setNbClients(int nb) {
         this.gestionnaireClients.setNbClients(nb);
     }
 
@@ -91,14 +93,12 @@ public class Simulation extends SujetObserve {
      * @param monde Le monde.
      */
     public void simuler(Monde monde) {
-        System.out.println(monde.toString());
-        System.out.println("Les étapes ne seront pas dans l'ordre !");
         kit.creerFichier(monde.toC());
         kit.compiler();
         kit.construireLaLibrairie(monde.getNumMonde());
-        System.load("/tmp/twisk/libTwisk"+monde.getNumMonde()+".so");
+        System.load("/tmp/twisk/libTwisk" + monde.getNumMonde() + ".so");
 
-        int nb_etapes = monde.nbEtapes() ;
+        int nb_etapes = monde.nbEtapes();
         int nb_guichets = monde.nbGuichets();
         int nb_clients = gestionnaireClients.getNbClients();
 
@@ -116,41 +116,35 @@ public class Simulation extends SujetObserve {
         int[] tab_client = ou_sont_les_clients(nb_etapes, nb_clients);
 
         // Affichage des PID des clients
-        System.out.print("les clients : ");
         for (int i = 0; i < nb_clients; i++) {
-            System.out.print(tab[i] + " ");
+//            System.out.print(tab[i] + " "); // debug
             gestionnaireClients.setClients(tab[i]);
         }
-        System.out.println();
         // Affichage des PID des clients par étape
         while (tab_client[(nb_clients + 1)] != nb_clients && !gestionnaireClients.isSuppressionDesClients()) {
             tab_client = ou_sont_les_clients(nb_etapes, nb_clients);
             int decalage = 0;
-            for (Etape e: monde) {
+            for (Etape e : monde) {
                 // Gestion de tout
-                System.out.print("Etape " + e.getNumEtape() + " - " + e.getNom());
+//                System.out.print("Etape " + e.getNumEtape() + " - " + e.getNom()); // debug
                 int i = 0;
                 int[] tabTmp = clientsConcernes(tab_client, decalage, nb_clients + decalage);
-                System.out.print(" (" + tabTmp[0] + " clients) : ");
+//                System.out.print(" (" + tabTmp[0] + " clients) : "); // débug
                 for (j = 1; j <= tabTmp[0]; j++) {
-                    System.out.print(tabTmp[j] + " ");
+//                    System.out.print(tabTmp[j] + " "); // débug
                     gestionnaireClients.allerA(tabTmp[j], e, j);
                     i++;
                 }
-                    System.out.println();
                 decalage += nb_clients + 1; // Une valeur
             }
 //            System.out.println(gestionnaireClients); // Debug
-            System.out.println();
             notifierObservateurs();
             try {
                 Thread.sleep(1000);
-            } catch(Exception e) {
+            } catch (Exception e) {
                 System.out.println(e.getMessage());
             }
-
         }
-
         nettoyage();
         gestionnaireClients.nettoyer();
         FabriqueNumero.getInstance().reset();

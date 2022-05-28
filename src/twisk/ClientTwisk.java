@@ -73,7 +73,6 @@ public class ClientTwisk {
         ClassLoaderPerso loaderPerso = new ClassLoaderPerso(this.getClass().getClassLoader());
         try {
             Class<?> s = loaderPerso.loadClass("twisk.simulation.Simulation");
-            System.out.println(s);
             Object sim = s.getConstructor(MondeIG.class).newInstance(mondeIG);
             Method setNbClient = s.getMethod("setNbClients", int.class);
             setNbClient.invoke(sim, nbClients);

@@ -70,6 +70,9 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>, Observat
         notifierObservateurs();
     }
 
+    public String getSensCircu(){
+        return sensCircu;
+    }
     public EtapeIG getEtape(String id) {
         return etapesIG.get(id);
     }
@@ -202,6 +205,7 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>, Observat
         entrees.clear();
         sorties.clear();
         FabriqueIdentifiant.getInstance().reset();
+        sensCircu = null;
         notifierObservateurs();
     }
 

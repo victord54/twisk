@@ -136,8 +136,17 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>, Observat
                 } else {
                     sensCircu = "droiteVersGauche";
                 }
+            } else{
+                if (et1.estUnGuichet()){
+                    if (pt1.getId().contains("0")){
+                        sensCircu = "droiteVersGauche";
+                    } else{
+                        sensCircu = "gaucheVersDroite";
+                    }
+                }
             }
         }
+        System.out.println(sensCircu);
 
         if (!et1.estAccessibleDepuis(et2)) {
             if (sensCircu != null) {
@@ -212,7 +221,22 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>, Observat
     public void retirerDernierArc() {
         arcs.get(arcs.size() - 1).getPt1().getEtape().retirerSucesseur(arcs.get(arcs.size() - 1).getPt2().getEtape());
         arcs.remove(arcs.size() - 1);
+
+        resetSensCircu();
         notifierObservateurs();
+    }
+
+    private void resetSensCircu() {
+        boolean arcGuichet = true;
+        for (ArcIG arc : arcs){
+            if (arc.getPt1().getEtape().estUnGuichet() || arc.getPt2().getEtape().estUnGuichet()){
+                arcGuichet = false;
+                break;
+            }
+        }
+        if (arcGuichet){
+            sensCircu = null;
+        }
     }
 
     public void selectionnerEtape(EtapeIG etape) {
@@ -242,16 +266,7 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>, Observat
         }
         arcsSelectionnees.clear();
 
-        boolean arcGuichet = true;
-        for (ArcIG arc : arcs){
-            if (arc.getPt1().getEtape().estUnGuichet() || arc.getPt2().getEtape().estUnGuichet()){
-                arcGuichet = false;
-                break;
-            }
-        }
-        if (arcGuichet){
-            sensCircu = null;
-        }
+        resetSensCircu();
         System.out.println(sensCircu);
         notifierObservateurs();
     }

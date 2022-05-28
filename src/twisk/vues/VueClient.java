@@ -15,10 +15,10 @@ public class VueClient extends Circle {
         if (etapeIG.estUnGuichet()){
             if (sensCircu.equalsIgnoreCase("gaucheVersDroite")){
                 this.setCenterX(etapeIG.getPosX() + TailleComposants.getInstance().getLargeurActivite() - client.getRang() * 25); // Partie droite de l'étape décalée de n rangs vers la gauche.
-                this.setCenterY(etapeIG.getPosY() + 100);
+                this.setCenterY(etapeIG.getPosY() + 50);
             } else{
                 this.setCenterX(etapeIG.getPosX() + client.getRang()*25); // Clients arrivent à droite donc vont à gauche
-                this.setCenterY(etapeIG.getPosY() + 100);
+                this.setCenterY(etapeIG.getPosY() + 50);
             }
         }
         else{

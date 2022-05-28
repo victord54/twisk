@@ -105,7 +105,7 @@ public class VueMondeIG extends Pane implements Observateur {
                     Etape tmpEtape = c.getEtape();
                     EtapeIG etapeIGTmp = monde.getCorrespondanceEtapes().getEtapeIG(tmpEtape);
                     if (etapeIGTmp != null && c.getRang() <= 8) {
-                        this.getChildren().add(new VueClient(c, etapeIGTmp));
+                        this.getChildren().add(new VueClient(c, etapeIGTmp, monde.getSensCircu()));
                     }
                 }
             }

@@ -70,6 +70,9 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>, Observat
         notifierObservateurs();
     }
 
+    public String getSensCircu(){
+        return sensCircu;
+    }
     public EtapeIG getEtape(String id) {
         return etapesIG.get(id);
     }
@@ -151,6 +154,7 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>, Observat
                         throw new ArcTwiskException("Le sens de circulation du guichet n'est pas bon ! Il est actuellement de la droite vers la gauche.\nL'arc doit donc arrivé à droite.");
                     }
                     if (et1.estUnGuichet() && pt1.getId().contains("ctrl1")) {//L'arc ne part pas du pt gauche
+                        System.out.println(pt1.getId());
                         throw new ArcTwiskException("Le sens de circulation du guichet n'est pas bon ! Il est actuellement de la droite vers la gauche.\nL'arc doit donc partir à gauche.");
                     }
                 }
@@ -247,6 +251,7 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>, Observat
         if (arcGuichet){
             sensCircu = null;
         }
+        System.out.println(sensCircu);
         notifierObservateurs();
     }
 
@@ -386,7 +391,6 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>, Observat
         ClientTwisk client = new ClientTwisk(this);
         try {
             client.lancementSimulation(creerMonde(), nbClients);
-            setSimEnCours(false);
         } catch (GuichetTwiskException | MondeException e) {
             throw new MondeException(e.toString());
         }
@@ -402,6 +406,7 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>, Observat
             if (etapeIG.estUnGuichet()) {
                 guichetIG = (GuichetIG) etapeIG;
                 if (guichetIG.getSuccesseurs().size() > 1) {
+                    System.out.println("ou lala");
                     throw new GuichetTwiskException("1 seule étape en sortie de guichet !");
                 }
             }
@@ -696,7 +701,6 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>, Observat
                     throw new RuntimeException(e);
                 }
             }
-            notifierObservateurs();
             gestionnaireClients.nettoyer();
         }
     }

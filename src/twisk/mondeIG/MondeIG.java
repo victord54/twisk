@@ -386,6 +386,7 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>, Observat
         ClientTwisk client = new ClientTwisk(this);
         try {
             client.lancementSimulation(creerMonde(), nbClients);
+            setSimEnCours(false);
         } catch (GuichetTwiskException | MondeException e) {
             throw new MondeException(e.toString());
         }
@@ -695,6 +696,7 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>, Observat
                     throw new RuntimeException(e);
                 }
             }
+            notifierObservateurs();
             gestionnaireClients.nettoyer();
         }
     }

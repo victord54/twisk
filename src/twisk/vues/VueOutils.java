@@ -27,8 +27,7 @@ public class VueOutils extends TilePane implements Observateur {
         boutonEffacer = null;
         this.monde = monde;
         monde.ajouterObservateur(this);
-
-        reagir();
+        monde.notifierObservateurs();
     }
 
     public void animer(){
@@ -37,11 +36,9 @@ public class VueOutils extends TilePane implements Observateur {
             protected Void call() {
                 try {
                     monde.simuler();
-                    monde.setSimEnCours(false);
                 } catch (TwiskException e) {
                     e.afficherMessage();
                 }
-                monde.notifierObservateurs();
                 return null;
             }
         };

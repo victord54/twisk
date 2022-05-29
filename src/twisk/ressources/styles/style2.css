@@ -1,53 +1,54 @@
-.root {
-    -fx-background-color: #ceafc8;
+VueMondeIG {
+    -fx-background-color: #F4E5E1;
 }
 
-.EtapeIG{
-    -fx-background-insets: 0 0 -1 0, 0, 1, 2;
-    -fx-border-color: #000000;
-    -fx-border-width: 1px;
-    -fx-background-color: #ceafc8;
-    -fx-border-radius: 5;
-    -fx-background-radius: 5;
+VueActiviteIG {
+    -fx-background-color: #72c92f;
+    -fx-background-radius: 6;
+    -fx-border-style: solid;
+    -fx-border-color: black;
+    -fx-border-radius: 6;
+    -fx-border-width: 2;
 }
 
-.selectionnee {
-    -fx-border-color: #e00b0b;
-    -fx-border-width: 2px;
+#VueActiviteSelect {
+    -fx-border-color: #ff0000;
 }
 
-.boxLabels {
-    -fx-background-color: #bdbdce;
-    -fx-border-style: hidden hidden solid hidden;
-    -fx-border-color: #000000;
-    -fx-background-radius: 5px 5px 0px 0px;
-    -fx-border-radius: 5px 5px 0px 0px;
+#VueActiviteEntree {
+    -fx-border-color: #37ff00;
+}
+
+VueGuichetIG {
+    -fx-background-color: #e57359;
+    -fx-background-radius: 6;
+    -fx-border-style: solid;
+    -fx-border-color: black;
+    -fx-border-radius: 6;
+    -fx-border-width: 2;
 }
 
 
-
-.clients{
-    -fx-background-color: #ffffff;
-    -fx-border-style: none none none none;
-    -fx-background-radius: 0px 0px 5px 5px;
-
+#titre {
+    -fx-background-color: #992de1;
+    -fx-padding: 10 0 10 0;
+    -fx-font-family: 'Calibri';
+    -fx-background-radius: 6 6 0 0;
+    -fx-font-size: 18;
+    -fx-min-width: 220;
 }
 
-.button {
-    -fx-background-color: #853577;
-    -fx-font-size: 11pt;
-    -fx-text-fill: #FFFFFF;
+VuePointDeControleIG {
+    -fx-background-color: #011936;
 }
 
-.titre {
-    -fx-font-size: 11pt;
-
+VueOutils {
+    -fx-background-color: #e5df58;
+    -fx-padding: 10;
+    -fx-hgap: 10;
 }
 
-.entreeSortie {
-    -fx-font-size : 13pt;
-    -fx-font-weight: bold;
-    -fx-font-style: italic;
-    -fx-text-fill: #d5156d;
+.bouton-outils {
+    -fx-background-radius: 100;
+    -fx-background-color: #212738;
 }
-

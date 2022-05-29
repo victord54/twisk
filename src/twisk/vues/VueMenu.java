@@ -154,9 +154,19 @@ public class VueMenu extends MenuBar {
 
 //      ---------------------------------------- Menu des styles -------------------------------------------------------
         Menu styleMenu = new Menu("Styles");
+        ToggleGroup toggleGroup = new ToggleGroup();
 
-        MenuItem style1 = new MenuItem("Style par défaut");
+        RadioMenuItem style1 = new RadioMenuItem("Style par défaut");
+        style1.setToggleGroup(toggleGroup);
+        style1.setSelected(true);
         style1.setOnAction(actionEvent -> {
+            stage.getScene().getStylesheets().clear();
+            stage.getScene().getStylesheets().add("/styles/style.css");
+        });
+
+        RadioMenuItem style2 = new RadioMenuItem("Style 2");
+        style2.setToggleGroup(toggleGroup);
+        style2.setOnAction(actionEvent -> {
             stage.getScene().getStylesheets().clear();
             stage.getScene().getStylesheets().add("/styles/style2.css");
         });
@@ -169,7 +179,7 @@ public class VueMenu extends MenuBar {
         settingsMenu.getItems().addAll(delay, ecart, jeton, clients);
         loiMenu.getItems().addAll(uniforme,gaussienne,exponentiel);
         exemplesMenu.getItems().addAll(bifurcations, guichetsSorties);
-        styleMenu.getItems().addAll(style1);
+        styleMenu.getItems().addAll(style1, style2);
 //      ----------------------------------------------- Ajout des menus ------------------------------------------------
         this.getMenus().addAll(fileMenu, editMenu, worldMenu, settingsMenu,loiMenu, exemplesMenu, styleMenu);
     }

@@ -40,11 +40,8 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>, Observat
     private GestionnaireClients gestionnaireClients;
     private CorrespondanceEtapes correspondanceEtapes;
     private int nbClients;
-
     private String sensCircu;
-
     private String loi;
-
     private boolean simEnCours;
 
     public MondeIG() {
@@ -63,14 +60,15 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>, Observat
         sensCircu = null;
     }
 
-    public void setLoi(String l){
+    public void setLoi(String l) {
         this.loi = l;
         notifierObservateurs();
     }
 
-    public String getSensCircu(){
+    public String getSensCircu() {
         return sensCircu;
     }
+
     public EtapeIG getEtape(String id) {
         return etapesIG.get(id);
     }
@@ -134,11 +132,11 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>, Observat
                 } else {
                     sensCircu = "droiteVersGauche";
                 }
-            } else{
-                if (et1.estUnGuichet()){
-                    if (pt1.getId().contains("0")){
+            } else {
+                if (et1.estUnGuichet()) {
+                    if (pt1.getId().contains("0")) {
                         sensCircu = "droiteVersGauche";
-                    } else{
+                    } else {
                         sensCircu = "gaucheVersDroite";
                     }
                 }
@@ -226,13 +224,13 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>, Observat
 
     private void resetSensCircu() {
         boolean arcGuichet = true;
-        for (ArcIG arc : arcs){
-            if (arc.getPt1().getEtape().estUnGuichet() || arc.getPt2().getEtape().estUnGuichet()){
+        for (ArcIG arc : arcs) {
+            if (arc.getPt1().getEtape().estUnGuichet() || arc.getPt2().getEtape().estUnGuichet()) {
                 arcGuichet = false;
                 break;
             }
         }
-        if (arcGuichet){
+        if (arcGuichet) {
             sensCircu = null;
         }
     }
@@ -388,14 +386,15 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>, Observat
         notifierObservateurs();
     }
 
-    public void setNbClients() throws ClientException{
+    public void setNbClients() throws ClientException {
         TextInputDialog tid = new TextInputDialog();
         tid.setContentText("Saisir le nombre de jetons du guichet");
         Optional<String> optionalS = tid.showAndWait();
         int nb = Integer.parseInt(optionalS.get());
-        if (nb >= 50){
+        if (nb >= 50) {
             throw new ClientException("Le nombre de clients ne peut pas être supérieur ou égal à 50!");
-        } if (nb == 0){
+        }
+        if (nb == 0) {
             throw new ClientException("Le nombre de clients ne peut pas être égale à 0 !");
         }
         nbClients = nb;
@@ -411,10 +410,8 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>, Observat
     }
 
     public void verifierMondeIG() throws MondeException, GuichetTwiskException {
-        if (entrees.size() == 0)
-            throw new MondeException("Il n'y a pas d'entrée dans votre monde !");
-        else if (sorties.size() == 0)
-            throw new MondeException("Il n'y a pas de sortie dans votre monde !");
+        if (entrees.size() == 0) throw new MondeException("Il n'y a pas d'entrée dans votre monde !");
+        else if (sorties.size() == 0) throw new MondeException("Il n'y a pas de sortie dans votre monde !");
         for (EtapeIG etapeIG : this) {
             GuichetIG guichetIG;
             if (etapeIG.estUnGuichet()) {

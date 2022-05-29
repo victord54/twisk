@@ -1,0 +1,53 @@
+.root {
+    -fx-background-color: #ceafc8;
+}
+
+.EtapeIG{
+    -fx-background-insets: 0 0 -1 0, 0, 1, 2;
+    -fx-border-color: #000000;
+    -fx-border-width: 1px;
+    -fx-background-color: #ceafc8;
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
+}
+
+.selectionnee {
+    -fx-border-color: #e00b0b;
+    -fx-border-width: 2px;
+}
+
+.boxLabels {
+    -fx-background-color: #bdbdce;
+    -fx-border-style: hidden hidden solid hidden;
+    -fx-border-color: #000000;
+    -fx-background-radius: 5px 5px 0px 0px;
+    -fx-border-radius: 5px 5px 0px 0px;
+}
+
+
+
+.clients{
+    -fx-background-color: #ffffff;
+    -fx-border-style: none none none none;
+    -fx-background-radius: 0px 0px 5px 5px;
+
+}
+
+.button {
+    -fx-background-color: #853577;
+    -fx-font-size: 11pt;
+    -fx-text-fill: #FFFFFF;
+}
+
+.titre {
+    -fx-font-size: 11pt;
+
+}
+
+.entreeSortie {
+    -fx-font-size : 13pt;
+    -fx-font-weight: bold;
+    -fx-font-style: italic;
+    -fx-text-fill: #d5156d;
+}
+

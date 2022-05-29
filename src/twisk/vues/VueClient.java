@@ -13,7 +13,7 @@ public class VueClient extends Circle {
         super();
         Random random = new Random();
         if (etapeIG.estUnGuichet()){
-            if (sensCircu.equalsIgnoreCase("gaucheVersDroite")){
+            if (sensCircu != null && sensCircu.equalsIgnoreCase("gaucheVersDroite")){
                 this.setCenterX(etapeIG.getPosX() + TailleComposants.getInstance().getLargeurActivite() - client.getRang() * 25); // Partie droite de l'étape décalée de n rangs vers la gauche.
                 this.setCenterY(etapeIG.getPosY() + 100);
             } else{

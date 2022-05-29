@@ -152,6 +152,16 @@ public class VueMenu extends MenuBar {
         MenuItem guichetsSorties = new MenuItem("Guichets avec 2 sorties");
         guichetsSorties.setOnAction(actionEvent -> monde.ouvrir(Objects.requireNonNull(this.getClass().getResource("/exemples/2guichets-2sorties.json")).getPath()));
 
+//      ---------------------------------------- Menu des styles -------------------------------------------------------
+        Menu styleMenu = new Menu("Styles");
+
+        MenuItem style1 = new MenuItem("Style par défaut");
+        style1.setOnAction(actionEvent -> {
+            stage.getScene().getStylesheets().clear();
+            stage.getScene().getStylesheets().add("/styles/style2.css");
+        });
+
+
 //      ----------------------------------------------- Ajout des items ------------------------------------------------
         fileMenu.getItems().addAll(open,save,quit);
         editMenu.getItems().addAll(delete, rename, cancel);
@@ -159,7 +169,8 @@ public class VueMenu extends MenuBar {
         settingsMenu.getItems().addAll(delay, ecart, jeton, clients);
         loiMenu.getItems().addAll(uniforme,gaussienne,exponentiel);
         exemplesMenu.getItems().addAll(bifurcations, guichetsSorties);
+        styleMenu.getItems().addAll(style1);
 //      ----------------------------------------------- Ajout des menus ------------------------------------------------
-        this.getMenus().addAll(fileMenu, editMenu, worldMenu, settingsMenu,loiMenu, exemplesMenu);
+        this.getMenus().addAll(fileMenu, editMenu, worldMenu, settingsMenu,loiMenu, exemplesMenu, styleMenu);
     }
 }

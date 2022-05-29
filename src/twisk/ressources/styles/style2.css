@@ -1,9 +1,9 @@
 VueMondeIG {
-    -fx-background-color: #F4E5E1;
+    -fx-background-color: #d6a7f1;
 }
 
 VueActiviteIG {
-    -fx-background-color: #72c92f;
+    -fx-background-color: #97da6c;
     -fx-background-radius: 6;
     -fx-border-style: solid;
     -fx-border-color: black;
@@ -12,7 +12,7 @@ VueActiviteIG {
 }
 
 #VueActiviteSelect {
-    -fx-border-color: #ff0000;
+    -fx-border-color: #ffffff;
 }
 
 #VueActiviteEntree {
@@ -50,5 +50,5 @@ VueOutils {
 
 .bouton-outils {
     -fx-background-radius: 100;
-    -fx-background-color: #212738;
+    -fx-background-color: #e5df58;
 }

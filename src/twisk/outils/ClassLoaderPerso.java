@@ -30,19 +30,17 @@ public class ClassLoaderPerso extends ClassLoader {
      * Chargement de la classe à partir du fichier .class
      * @param name nom du fichier .class
      * @return la classe chargée
-     * @throws ClassNotFoundException
      */
-    private Class<?> getClass(String name) throws ClassNotFoundException {
+    private Class<?> getClass(String name) {
         String file = name.replace('.', File.separatorChar) + ".class";
 
-        byte[] byteArr = null;
+        byte[] byteArr;
         try {
             // Chargement de byte code du fichier de la classe
             byteArr = loadClassData(file);
 
             Class<?> c = defineClass(name, byteArr, 0, byteArr.length);
             resolveClass(c);
-            System.out.println("la classe retournée : " + c);
             return c;
         } catch (IOException e) {
             e.printStackTrace();
@@ -59,7 +57,7 @@ public class ClassLoaderPerso extends ClassLoader {
     private byte[] loadClassData(String name) throws IOException {
         InputStream stream = getClass().getClassLoader().getResourceAsStream(name);
         int size = stream.available();
-        byte buff[] = new byte[size];
+        byte[] buff = new byte[size];
         DataInputStream in = new DataInputStream(stream);
 
         // lecture des données binaires
@@ -69,7 +67,7 @@ public class ClassLoaderPerso extends ClassLoader {
     }
 
     public void finalize() {
-        System.out.println("..................................................................................................ClassLoaderPerso : A garbage collected");
+//        System.out.println("..................................................................................................ClassLoaderPerso : A garbage collected"); // debug
     }
 
 }

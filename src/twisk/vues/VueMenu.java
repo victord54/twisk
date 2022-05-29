@@ -27,9 +27,7 @@ public class VueMenu extends MenuBar {
         MenuItem quit = new MenuItem("Quitter");
         quit.setOnAction(actionEvent -> {
             monde.detruireClients();
-            ThreadsManager.getInstance().detruiretout();
                 Platform.exit();
-
         });
 
         MenuItem open = new MenuItem("Ouvrir");

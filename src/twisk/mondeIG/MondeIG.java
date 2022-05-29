@@ -615,7 +615,7 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>, Observat
         }
     }
 
-    public void ouvrir(String emplacement) {
+    public void ouvrir(String emplacement){
         reset();
 
         JsonParser jsonParser = new JsonParser();
@@ -688,7 +688,24 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>, Observat
                 String idPt2 = objArc.get("Pt2ID").getAsString();
                 PointDeControleIG pt2 = tmp2.getPointDeControle(idPt2);
 
-                this.arcs.add(new ArcIG(pt1, pt2));
+                if (sensCircu == null) {
+                    if (tmp2.estUnGuichet()) {
+                        if (pt2.getId().contains("0")) {
+                            sensCircu = "gaucheVersDroite";
+                        } else {
+                            sensCircu = "droiteVersGauche";
+                        }
+                    } else{
+                        if (tmp.estUnGuichet()){
+                            if (pt1.getId().contains("0")){
+                                sensCircu = "droiteVersGauche";
+                            } else{
+                                sensCircu = "gaucheVersDroite";
+                            }
+                        }
+                    }
+                }
+                this.arcs.add(new ArcIG(pt1,pt2));
 
             });
 

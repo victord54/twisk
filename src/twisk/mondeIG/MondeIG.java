@@ -400,6 +400,18 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>, Observat
         nbClients = nb;
     }
 
+    public int getNombreClientsRestant(){
+        int nb = 0;
+        if (gestionnaireClients != null) {
+            for (Client c : gestionnaireClients) {
+                if (c.getEtape().getNom().equals("SasSortie")) {
+                    nb++;
+                }
+            }
+        }
+        return  nbClients - nb;
+    }
+
     public void simuler() throws TwiskException {
         ClientTwisk client = new ClientTwisk(this);
         try {

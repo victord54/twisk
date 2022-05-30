@@ -13,7 +13,7 @@ public class SasSortie extends Activite {
      * Constructeur par défaut de la classe.
      */
     public SasSortie() {
-        super("sortie");
+        super("SasSortie");
     }
 
     /**

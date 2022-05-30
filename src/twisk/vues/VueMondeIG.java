@@ -1,11 +1,14 @@
 package twisk.vues;
 
 import javafx.scene.control.ContentDisplay;
+import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.TransferMode;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 import twisk.monde.Etape;
 import twisk.mondeIG.*;
 import twisk.simulation.Client;
@@ -73,6 +76,14 @@ public class VueMondeIG extends Pane implements Observateur {
     public void reagir() {
 //        System.out.println("sim : " + monde.isSimEnCours()); // debug
         this.getChildren().clear();
+        if (monde.isSimEnCours()) {
+            Label label = new Label();
+            label.relocate(1200, 550);
+            label.setText(Integer.toString(monde.getNombreClientsRestant()));
+            label.setFont(new Font(50));
+            this.getChildren().add(label);
+        }
+
         miseAjourArcs();
         for (EtapeIG etape : monde) {
             VueEtapeIG vueEtape;

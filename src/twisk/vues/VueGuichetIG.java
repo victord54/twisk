@@ -16,7 +16,7 @@ public class VueGuichetIG extends VueEtapeIG implements Observateur {
         hbox = new HBox();
 
 
-        this.setPrefSize(TailleComposants.getInstance().getLargeurActivite(), TailleComposants.getInstance().getHauteurActivite());
+        this.setPrefSize(TailleComposants.getInstance().getLargeurActivite(), TailleComposants.getInstance().getHauteurGuichet());
         this.getChildren().add(hbox);
     }
 

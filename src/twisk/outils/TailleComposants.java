@@ -5,12 +5,14 @@ public class TailleComposants {
     final int hauteurActivite;
     final int radiusClient;
 
+    final int hauteurGuichet;
     private static final TailleComposants instance = new TailleComposants();
 
     private TailleComposants() {
         largeurActivite = 220;
         hauteurActivite = 120;
         radiusClient = 10;
+        hauteurGuichet = 80;
     }
 
     public static TailleComposants getInstance() {
@@ -27,5 +29,9 @@ public class TailleComposants {
 
     public int getRadiusClient() {
         return radiusClient;
+    }
+
+    public int getHauteurGuichet(){
+        return hauteurGuichet;
     }
 }

@@ -1,9 +1,9 @@
 VueMondeIG {
-    -fx-background-color: #d6a7f1;
+    -fx-background-color: #FEFAE0;
 }
 
 VueActiviteIG {
-    -fx-background-color: #97da6c;
+    -fx-background-color: #E9EDC9;
     -fx-background-radius: 6;
     -fx-border-style: solid;
     -fx-border-color: black;
@@ -20,7 +20,7 @@ VueActiviteIG {
 }
 
 VueGuichetIG {
-    -fx-background-color: #e57359;
+    -fx-background-color: #FEFAE0;
     -fx-background-radius: 6;
     -fx-border-style: solid;
     -fx-border-color: black;
@@ -30,7 +30,7 @@ VueGuichetIG {
 
 
 #titre {
-    -fx-background-color: #992de1;
+    -fx-background-color: #CCD5AE;
     -fx-padding: 10 0 10 0;
     -fx-font-family: 'Calibri';
     -fx-background-radius: 6 6 0 0;
@@ -43,12 +43,12 @@ VuePointDeControleIG {
 }
 
 VueOutils {
-    -fx-background-color: #e5df58;
+    -fx-background-color: #D4A373;
     -fx-padding: 10;
     -fx-hgap: 10;
 }
 
 .bouton-outils {
     -fx-background-radius: 100;
-    -fx-background-color: #e5df58;
+    -fx-background-color: #D4A373;
 }

@@ -171,6 +171,13 @@ public class VueMenu extends MenuBar {
             stage.getScene().getStylesheets().add("/styles/style2.css");
         });
 
+        RadioMenuItem style3 = new RadioMenuItem("Style 3");
+        style3.setToggleGroup(toggleGroup);
+        style3.setOnAction(actionEvent -> {
+            stage.getScene().getStylesheets().clear();
+            stage.getScene().getStylesheets().add("/styles/style3.css");
+        });
+
 
 //      ----------------------------------------------- Ajout des items ------------------------------------------------
         fileMenu.getItems().addAll(open,save,quit);
@@ -179,7 +186,7 @@ public class VueMenu extends MenuBar {
         settingsMenu.getItems().addAll(delay, ecart, jeton, clients);
         loiMenu.getItems().addAll(uniforme,gaussienne,exponentiel);
         exemplesMenu.getItems().addAll(bifurcations, guichetsSorties);
-        styleMenu.getItems().addAll(style1, style2);
+        styleMenu.getItems().addAll(style1, style2,style3);
 //      ----------------------------------------------- Ajout des menus ------------------------------------------------
         this.getMenus().addAll(fileMenu, editMenu, worldMenu, settingsMenu,loiMenu, exemplesMenu, styleMenu);
     }

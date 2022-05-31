@@ -1,0 +1,54 @@
+VueMondeIG {
+    -fx-background-color: #FED9B7;
+}
+
+VueActiviteIG {
+    -fx-background-color: #efb5b0;
+    -fx-background-radius: 6;
+    -fx-border-style: solid;
+    -fx-border-color: black;
+    -fx-border-radius: 6;
+    -fx-border-width: 2;
+}
+
+#VueActiviteSelect {
+    -fx-border-color: #ffffff;
+}
+
+#VueActiviteEntree {
+    -fx-border-color: #37ff00;
+}
+
+VueGuichetIG {
+    -fx-background-color: #FDFCDC;
+    -fx-background-radius: 6;
+    -fx-border-style: solid;
+    -fx-border-color: black;
+    -fx-border-radius: 6;
+    -fx-border-width: 2;
+}
+
+
+#titre {
+    -fx-background-color: #dc736b;
+    -fx-padding: 10 0 10 0;
+    -fx-font-family: 'Calibri';
+    -fx-background-radius: 6 6 0 0;
+    -fx-font-size: 18;
+    -fx-min-width: 220;
+}
+
+VuePointDeControleIG {
+    -fx-background-color: #011936;
+}
+
+VueOutils {
+    -fx-background-color: #F07167;
+    -fx-padding: 10;
+    -fx-hgap: 10;
+}
+
+.bouton-outils {
+    -fx-background-radius: 100;
+    -fx-background-color: #F07167;
+}

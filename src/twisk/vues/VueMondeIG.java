@@ -77,11 +77,17 @@ public class VueMondeIG extends Pane implements Observateur {
 //        System.out.println("sim : " + monde.isSimEnCours()); // debug
         this.getChildren().clear();
         if (monde.isSimEnCours()) {
-            Label label = new Label();
-            label.relocate(1200, 550);
-            label.setText(Integer.toString(monde.getNombreClientsRestant()));
-            label.setFont(new Font(50));
-            this.getChildren().add(label);
+            if (monde.getNombreClientsRestant() == 0) {
+                monde.detruireClients();
+                monde.setSimEnCours(false);
+                monde.notifierObservateurs();
+            } else {
+                Label label = new Label();
+                label.relocate(1200, 550);
+                label.setText(Integer.toString(monde.getNombreClientsRestant()));
+                label.setFont(new Font(50));
+                this.getChildren().add(label);
+            }
         }
 
         miseAjourArcs();

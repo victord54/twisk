@@ -78,12 +78,14 @@ public class GestionnaireEtapes implements Iterable<Etape> {
         return bd.toString();
     }
 
+    /**
+     * Méthode permettant de savoir si le gestionnaire d'étape contient l'étape passée en paramètre.
+     *
+     * @param e L'étape dont on veut savoir si elle appartient au gestionnaire des étapes.
+     * @return true si l'étape fait partie du Gestionnaire, False si non.
+     */
     public boolean contient(Etape e) {
         return etapes.contains(e);
     }
 
-    public void remplacerActiviteParActiviteR(Etape e1, Etape e2) {
-        this.etapes.remove(e1);
-        this.etapes.add(e2);
-    }
 }

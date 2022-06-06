@@ -7,17 +7,16 @@
 
 package twisk.monde;
 
-import twisk.exceptions.EtapeTwiskException;
 import twisk.outils.FabriqueNumero;
 
 public class Guichet extends Etape {
     /**
-     * Champs contenant le nombre de jetons disponibles.
+     * Champ contenant le nombre de jetons disponibles.
      */
     protected int nbJetons;
 
     /**
-     * Champs contenant l'identifiant unique du guichet.
+     * Champ contenant l'identifiant unique du guichet.
      */
     protected int numSemaphore;
 
@@ -72,6 +71,11 @@ public class Guichet extends Etape {
         return numSemaphore;
     }
 
+    /**
+     * Méthode permettant d'ajouter les successeurs passés en paramètre au guichet. Les numéro de sémaphores sont set en même temps.
+     *
+     * @param etapes Les étapes successeures.
+     */
     @Override
     public void ajouterSuccesseur(Etape... etapes) {
         for (Etape e: etapes) {
@@ -80,6 +84,11 @@ public class Guichet extends Etape {
         }
     }
 
+    /**
+     * Méthode permettant de set le numéro de sémaphore correspondant. Ne sera jamais set car c'est un guichet.
+     *
+     * @param semaphore Numéro de sémaphore.
+     */
     @Override
     public void setSemaphoreGuichet(int semaphore) {
     }

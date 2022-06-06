@@ -14,7 +14,7 @@ public class Activite extends Etape {
     protected int temps;
 
     /**
-     * Champs contenant le nombre de switch utilisés dans le code C pour générer des seeds.
+     * Champ contenant le nombre de switch utilisés dans le code C pour générer des seeds.
      */
     private static int nbSwitch = 0;
 
@@ -67,6 +67,11 @@ public class Activite extends Etape {
         return 0;
     }
 
+    /**
+     * Méthode permettant de set le numéro de sémaphore correspondant. Ne sera jamais set car c'est une activité.
+     *
+     * @param semaphore Numéro de sémaphore.
+     */
     @Override
     public void setSemaphoreGuichet(int semaphore) {
     }

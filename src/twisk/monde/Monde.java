@@ -13,19 +13,22 @@ import twisk.simulation.GestionnaireClients;
 import java.util.Iterator;
 
 public class Monde implements Iterable<Etape> {
+    /**
+     * Champ correspondant au numéro du monde.
+     */
     protected int numMonde;
     /**
-     * Champs contenant le sas d'entrée du monde.
+     * Champ contenant le sas d'entrée du monde.
      */
     protected SasEntree entree;
 
     /**
-     * Champs contenant le sas de sortie du monde.
+     * Champ contenant le sas de sortie du monde.
      */
     protected SasSortie sortie;
 
     /**
-     * Champs contenant le gestionnaire d'étapes du monde.
+     * Champ contenant le gestionnaire d'étapes du monde.
      */
     protected GestionnaireEtapes gestionnaireEtapes;
 
@@ -41,6 +44,11 @@ public class Monde implements Iterable<Etape> {
 
     }
 
+    /**
+     * Setter permettant de set la Loi en cours.
+     *
+     * @param loi La loi à set (uniforme, gausienne, exponentiel)
+     */
     public void setLoi(String loi){
         this.entree.setLoi(loi);
     }
@@ -149,21 +157,33 @@ public class Monde implements Iterable<Etape> {
         return str.toString();
     }
 
+    /**
+     * Getter permettant de récupérer l'étape dont l'indice est passé en paramètre.
+     *
+     * @param i i-ème étape à récupérer.
+     * @return La i-ème étape.
+     */
     public Etape getEtape(int i){
         return this.gestionnaireEtapes.getEtape(i);
     }
 
+    /**
+     * Getter du numéro du monde.
+     *
+     * @return Le numéro du monde.
+     */
     public int getNumMonde(){
         return this.numMonde;
     }
 
+    /**
+     * Méthode permettant de savoir si le Monde contient l'étape passée en paramètre.
+     *
+     * @param e L'étape dont on veut savoir si elle fait partie au Monde.
+     * @return true si l'étape fait partie du Monde, False si non.
+     */
     public boolean contient(Etape e){
         return gestionnaireEtapes.contient(e);
-    }
-
-    public void remplacerActiviteParActiviteR(Etape e1, Etape e2){
-        gestionnaireEtapes.remplacerActiviteParActiviteR(e1,e2);
-
     }
 
 

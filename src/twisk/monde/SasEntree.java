@@ -8,6 +8,9 @@
 package twisk.monde;
 
 public class SasEntree extends Activite {
+    /**
+     * Champ correspondant à la loi actuelle.
+     */
     private String loi;
 
     /**
@@ -18,6 +21,10 @@ public class SasEntree extends Activite {
         loi = null;
     }
 
+    /**
+     * Méthode perttant de set la loi passée en paramètre.
+     * @param l La loi (uniforme, gausienne ou exponentiel)
+     */
     public void setLoi(String l) {
         loi = l;
     }

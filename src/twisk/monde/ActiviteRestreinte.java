@@ -9,7 +9,7 @@ package twisk.monde;
 
 public class ActiviteRestreinte extends Activite {
     /**
-     * Indique le numéro de sémaphore du guichet.
+     * Champ indiquant le numéro de sémaphore du guichet.
      */
     private int numSemGuichet;
 

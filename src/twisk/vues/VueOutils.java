@@ -7,6 +7,7 @@ package twisk.vues;
 
 import javafx.concurrent.Task;
 import javafx.scene.control.Button;
+import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.TilePane;
@@ -33,7 +34,7 @@ public class VueOutils extends TilePane implements Observateur {
     private Button boutonAjouterG;
 
     /**
-     * Champ correspondant au bouton permettant de supprimer le dernier élément ajouter.
+     * Champ correspondant au bouton permettant de supprimer le dernier arc ajouter.
      */
     private Button boutonRetour;
 
@@ -87,6 +88,8 @@ public class VueOutils extends TilePane implements Observateur {
     @Override
     public void reagir() {
         this.getChildren().clear();
+        Tooltip tooltip;
+
         /*------------------ Ajout d'activité -------------------*/
         Image img = new Image("/images/activite-add.png");
         ImageView view = new ImageView(img);
@@ -102,6 +105,10 @@ public class VueOutils extends TilePane implements Observateur {
         }
 
         boutonAjouter.setOnAction(actionEvent -> monde.ajouter("Activité"));
+
+        tooltip = new Tooltip("Ajouter une activité");
+        boutonAjouter.setTooltip(tooltip);
+
         this.getChildren().add(boutonAjouter);
 
         /*------------------ Ajout de guichet -------------------*/
@@ -120,6 +127,10 @@ public class VueOutils extends TilePane implements Observateur {
         }
 
         boutonAjouterG.setOnAction(actionEvent -> monde.ajouter("Guichet"));
+
+        tooltip = new Tooltip("Ajouter un guichet");
+        boutonAjouterG.setTooltip(tooltip);
+
         this.getChildren().add(boutonAjouterG);
 
 
@@ -141,6 +152,10 @@ public class VueOutils extends TilePane implements Observateur {
             if (!monde.arcIsEmpty())
                 monde.retirerDernierArc();
         });
+
+        tooltip = new Tooltip("Retirer le dernier arc ajouté");
+        boutonRetour.setTooltip(tooltip);
+
         this.getChildren().add(boutonRetour);
 
         /* ------------------ Réinitialiser ------------------ */
@@ -158,6 +173,10 @@ public class VueOutils extends TilePane implements Observateur {
         }
 
         boutonEffacer.setOnAction(actionEvent -> monde.reset());
+
+        tooltip = new Tooltip("Tout effacer");
+        boutonEffacer.setTooltip(tooltip);
+
         this.getChildren().add(boutonEffacer);
 
         /*----------------- Lancer la simulation et l'arrêter ---------------------*/
@@ -171,6 +190,9 @@ public class VueOutils extends TilePane implements Observateur {
             view.setPreserveRatio(true);
             view.setSmooth(true);
             boutonLancement.setGraphic(view);
+            tooltip = new Tooltip("Arrêter la simulation");
+            boutonLancement.setTooltip(tooltip);
+
             boutonLancement.setOnAction(actionEvent -> {
                 monde.detruireClients();
                 monde.setSimEnCours(false);
@@ -184,6 +206,8 @@ public class VueOutils extends TilePane implements Observateur {
             view.setPreserveRatio(true);
             view.setSmooth(true);
             boutonLancement.setGraphic(view);
+            tooltip = new Tooltip("Démarrer la simulation");
+            boutonLancement.setTooltip(tooltip);
             boutonLancement.setOnAction(actionEvent -> {
                 monde.setSimEnCours(true);
                 reagir();

@@ -20,6 +20,10 @@ public class Simulation extends SujetObserve {
      * Champs représentant les outils pour compiler, exécuter le code c.
      */
     private final KitC kit;
+
+    /**
+     * Champ représentant le gestionnaire des clients de la simulation.
+     */
     private final GestionnaireClients gestionnaireClients;
 
     /**

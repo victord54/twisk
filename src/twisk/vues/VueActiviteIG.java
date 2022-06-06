@@ -14,7 +14,7 @@ public class VueActiviteIG extends VueEtapeIG {
     /**
      * Champ représentant la HBox.
      */
-    final HBox hBox;
+    private final HBox hBox;
 
     /**
      * Constructeur.

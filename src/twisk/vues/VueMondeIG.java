@@ -23,7 +23,7 @@ public class VueMondeIG extends Pane implements Observateur {
     /**
      * Champ représentant le mondeIG correspondant.
      */
-    final MondeIG monde;
+    private final MondeIG monde;
 
     /**
      * Constructeur.

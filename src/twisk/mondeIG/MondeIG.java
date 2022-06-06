@@ -476,6 +476,9 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>, Observat
         if (etapesSelectionnees.isEmpty())
             throw new EtapeTwiskException("Sélectionner au moins une étape à ajouter en sortie !");
         for (EtapeIG etape : etapesSelectionnees) {
+            if (etape.estUnGuichet()){
+                throw new EtapeTwiskException("Une sortie ne peut pas être un guichet !");
+            }
             if (sorties.contains(etape)) sorties.remove(etape);
             else if (entrees.contains(etape)) {
                 entrees.remove(etape);
@@ -634,6 +637,7 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>, Observat
     public void simuler() throws TwiskException {
         ClientTwisk client = new ClientTwisk(this);
         try {
+            verifierMondeIG();
             client.lancementSimulation(creerMonde(), nbClients);
         } catch (GuichetTwiskException | MondeException e) {
             throw new MondeException(e.toString());
@@ -664,11 +668,8 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>, Observat
      * Méthode permettant de créer un Monde à partir du MondeIG.
      *
      * @return Le monde créé à partir du MondeIG.
-     * @throws GuichetTwiskException Si une sortie est un guichet.
-     * @throws MondeException
      */
-    private Monde creerMonde() throws GuichetTwiskException, MondeException {
-        verifierMondeIG();
+    private Monde creerMonde() {
         correspondanceEtapes = new CorrespondanceEtapes();
         Monde monde = new Monde();
         // Ajout en premier de toutes les etapes dans le gestionnaire d'étapes et ensuite ajout de tous les successeurs de chaques étapes.
@@ -707,9 +708,7 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>, Observat
         }
 
         for (EtapeIG sortie : sorties) {
-            if (sortie.estUnGuichet()) {
-                throw new MondeException("Une sortie ne peut pas être un guichet !");
-            } else {
+            if (!sortie.estUnGuichet()) {
                 ActiviteIG tmpIG = (ActiviteIG) sortie;
                 Activite tmp = (Activite) correspondanceEtapes.getEtape(tmpIG);
                 monde.aCommeSortie(tmp);

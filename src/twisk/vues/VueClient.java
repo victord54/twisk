@@ -1,3 +1,8 @@
+/**
+ * Classe représentant la vue d'un Client.
+ *
+ * @author Victor Dallé et Claire Kurth.
+ */
 package twisk.vues;
 
 import javafx.scene.paint.Color;
@@ -9,6 +14,13 @@ import twisk.simulation.Client;
 import java.util.Random;
 
 public class VueClient extends Circle {
+    /**
+     * Constructeur.
+     *
+     * @param client Le client correspondant.
+     * @param etapeIG L'étapeIG où se trouve le client.
+     * @param sensCircu Le sens de circulation du mondeIG.
+     */
     public VueClient(Client client, EtapeIG etapeIG, String sensCircu) {
         super();
         Random random = new Random();

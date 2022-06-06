@@ -1,3 +1,8 @@
+/**
+ * Classe représentant la vue des outils.
+ *
+ * @author Victor Dallé et Claire Kurth.
+ */
 package twisk.vues;
 
 import javafx.concurrent.Task;
@@ -12,13 +17,41 @@ import twisk.mondeIG.MondeIG;
 import twisk.outils.ThreadsManager;
 
 public class VueOutils extends TilePane implements Observateur {
+    /**
+     * Champ correspondant au mondeIG.
+     */
     private final MondeIG monde;
+
+    /**
+     * Champ correspondant au bouton permettant d'ajouter une activité.
+     */
     private Button boutonAjouter;
+
+    /**
+     * Champ correspondant au bouton permettant d'ajouter un guichet.
+     */
     private Button boutonAjouterG;
+
+    /**
+     * Champ correspondant au bouton permettant de supprimer le dernier élément ajouter.
+     */
     private Button boutonRetour;
+
+    /**
+     * Champ correspondant au bouton permettant de tout effacer.
+     */
     private Button boutonEffacer;
+
+    /**
+     * Champ correspondant au bouton permettant de lancer la simulation.
+     */
     private Button boutonLancement;
 
+    /**
+     * Constructeur.
+     *
+     * @param monde Le mondeIG correspondant.
+     */
     public VueOutils(MondeIG monde) {
         boutonLancement = null;
         boutonAjouter = null;
@@ -30,6 +63,9 @@ public class VueOutils extends TilePane implements Observateur {
         monde.notifierObservateurs();
     }
 
+    /**
+     * Méthode permettant de lancer l'animation des clients.
+     */
     public void animer(){
         Task<Void> task = new Task<>() {
             @Override
@@ -45,6 +81,9 @@ public class VueOutils extends TilePane implements Observateur {
         ThreadsManager.getInstance().lancerTask(task);
     }
 
+    /**
+     * Méthode de mise à jour de la vue.
+     */
     @Override
     public void reagir() {
         this.getChildren().clear();

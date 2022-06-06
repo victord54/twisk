@@ -1,3 +1,8 @@
+/**
+ * Classe représentant la vue du Menu.
+ *
+ * @author Victor Dallé et Claire Kurth.
+ */
 package twisk.vues;
 
 import javafx.application.Platform;
@@ -8,17 +13,19 @@ import twisk.exceptions.ClientException;
 import twisk.exceptions.EtapeTwiskException;
 import twisk.exceptions.GuichetTwiskException;
 import twisk.mondeIG.MondeIG;
-import twisk.outils.ThreadsManager;
 
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
 import java.util.Objects;
 
 
 public class VueMenu extends MenuBar {
 
+    /**
+     * Constructeur.
+     *
+     * @param monde Le mondeIG.
+     * @param stage Le stage de l'application.
+     */
     public VueMenu(MondeIG monde, Stage stage) {
         FileChooser fileChooser = new FileChooser();
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("JSON files (*.json)", "*.json"));

@@ -1,3 +1,8 @@
+/**
+ * Classe représentant la vue d'un ArcIG.
+ *
+ * @author Victor Dallé et Claire Kurth.
+ */
 package twisk.vues;
 
 import javafx.scene.Group;
@@ -8,25 +13,59 @@ import twisk.mondeIG.ArcIG;
 import twisk.mondeIG.MondeIG;
 
 public class VueArcIG extends Group implements Observateur {
+    /**
+     * Champ correspondant au mondeIG.
+     */
     private final MondeIG monde;
+
+    /**
+     * Champ correspondant à l'arcIG correspondant.
+     */
     private final ArcIG arc;
+
+    /**
+     * Champ correspondant à la ligne de l'arc.
+     */
     private Line line;
+
+    /**
+     * Champ correspondant au bout de la flèche de l'arc.
+     */
     private Polyline triangle;
 
+    /**
+     * Constructeur.
+     *
+     * @param arc L'arcIG correspondant.
+     * @param monde Le mondeIG.
+     */
     public VueArcIG(ArcIG arc, MondeIG monde) {
         this.monde = monde;
         this.arc = arc;
         this.reagir();
     }
 
+    /**
+     * Getter de la ligne de l'arc.
+     *
+     * @return  La Line de l'arc.
+     */
     public Line getLigne() {
         return (Line) this.getChildren().get(0);
     }
 
+    /**
+     * Getter du du bout de la flèche de l'arc.
+     *
+     * @return Le polyline de l'arc.
+     */
     public Polyline getTriangle() {
         return (Polyline) this.getChildren().get(1);
     }
 
+    /**
+     * Méthode de mise à jour de la vue.
+     */
     @Override
     public void reagir() {
         line = new Line(arc.getPt1().getPosX(), arc.getPt1().getPosY(), arc.getPt2().getPosX(), arc.getPt2().getPosY());

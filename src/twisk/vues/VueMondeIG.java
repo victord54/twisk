@@ -1,3 +1,8 @@
+/**
+ * Classe représentant la vue du MondeIG.
+ *
+ * @author Victor Dallé et Claire Kurth.
+ */
 package twisk.vues;
 
 import javafx.scene.control.ContentDisplay;
@@ -5,7 +10,6 @@ import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.TransferMode;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -16,8 +20,16 @@ import twisk.simulation.Client;
 import java.util.Iterator;
 
 public class VueMondeIG extends Pane implements Observateur {
+    /**
+     * Champ représentant le mondeIG correspondant.
+     */
     final MondeIG monde;
 
+    /**
+     * Constructeur.
+     *
+     * @param monde Le mondeIG correspondant.
+     */
     public VueMondeIG(MondeIG monde) {
 
         this.monde = monde;
@@ -48,6 +60,10 @@ public class VueMondeIG extends Pane implements Observateur {
         this.reagir();
     }
 
+    /**
+     * Méthode permettant de mettre à jours les vues des points de contrôles.
+     * @param e L'étapeIG dont les points de contrôles doivent être mise à jours.
+     */
     public void miseAJourPointsDeControle(EtapeIG e) {
         for (PointDeControleIG p : e) {
             VuePointDeControleIG vue = new VuePointDeControleIG(p, monde);
@@ -58,6 +74,9 @@ public class VueMondeIG extends Pane implements Observateur {
         }
     }
 
+    /**
+     * Méthode permettant de mettre à jours les vues des arcsIG.
+     */
     public void miseAjourArcs() {
         Iterator<ArcIG> it = monde.iteratorArcs();
         while (it.hasNext()) {
@@ -71,7 +90,9 @@ public class VueMondeIG extends Pane implements Observateur {
             this.getChildren().add(vue);
         }
     }
-
+    /**
+     * Méthode de mise à jour de la vue.
+     */
     @Override
     public void reagir() {
 //        System.out.println("sim : " + monde.isSimEnCours()); // debug

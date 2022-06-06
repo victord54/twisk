@@ -1,3 +1,8 @@
+/**
+ * Classe représentant la vue d'une EtapeIG.
+ *
+ * @author Victor Dallé et Claire Kurth.
+ */
 package twisk.vues;
 
 import javafx.geometry.Pos;
@@ -11,10 +16,27 @@ import twisk.mondeIG.EtapeIG;
 import twisk.mondeIG.MondeIG;
 
 public abstract class VueEtapeIG extends VBox implements Observateur {
+    /**
+     * Champ correspondant au mondeIG.
+     */
     protected final MondeIG monde;
+
+    /**
+     * Champ correspondant à l'étapeIG correspondante.
+     */
     protected final EtapeIG etape;
+
+    /**
+     * Champ correspondant au titre de l'étape.
+     */
     protected final Label titre;
 
+    /**
+     * Constructeur.
+     *
+     * @param monde Le mondeIG.
+     * @param etape L'étapeIG correspondante.
+     */
     public VueEtapeIG(MondeIG monde, EtapeIG etape) {
         this.monde = monde;
         this.etape = etape;
@@ -37,6 +59,11 @@ public abstract class VueEtapeIG extends VBox implements Observateur {
         });
     }
 
+    /**
+     * Getter du Label contenant le titre de l'étape.
+     *
+     * @return Le Label contenant le titre.
+     */
     public Label getTitre() {
         return titre;
     }

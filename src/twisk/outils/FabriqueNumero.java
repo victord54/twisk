@@ -8,7 +8,7 @@ package twisk.outils;
 
 public class FabriqueNumero {
     /**
-     * Instante pour le singleton.
+     * Instance pour le singleton.
      */
     private static final FabriqueNumero instance = new FabriqueNumero();
     /**
@@ -20,7 +20,9 @@ public class FabriqueNumero {
      */
     private int cptSemaphore;
 
-
+    /**
+     * Compteur de monde.
+     */
     private int cptMonde;
 
     /**
@@ -58,6 +60,10 @@ public class FabriqueNumero {
         return cptSemaphore;
     }
 
+    /**
+     * Getter donnant le numéro unique du prochain Monde.
+     * @return
+     */
     public int getNumeroMonde(){
         cptMonde++;
         return cptMonde;

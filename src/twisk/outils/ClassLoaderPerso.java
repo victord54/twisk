@@ -1,3 +1,8 @@
+/**
+ * Classe représentant un ClassLoader personnel.
+ *
+ * @author Victor Dallé et Claire Kurth
+ */
 package twisk.outils;
 
 import java.io.DataInputStream;
@@ -6,7 +11,11 @@ import java.io.IOException;
 import java.io.InputStream;
 
 public class ClassLoaderPerso extends ClassLoader {
-
+    /**
+     * Constructeur.
+     *
+     * @param parent Le ClassLoader parent.
+     */
     public ClassLoaderPerso(ClassLoader parent) {
         super(parent);
     }

@@ -1,3 +1,8 @@
+/**
+ * Classe principale de Twisk.
+ *
+ * @author Victor Dallé et Claire Kurth.
+ */
 package twisk;
 
 import javafx.application.Application;

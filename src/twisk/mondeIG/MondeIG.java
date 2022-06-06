@@ -11,7 +11,7 @@ import com.google.gson.JsonParser;
 import com.google.gson.stream.JsonWriter;
 import javafx.application.Platform;
 import javafx.scene.control.TextInputDialog;
-import twisk.ClientTwisk;
+import twisk.simulation.ClientTwisk;
 import twisk.exceptions.*;
 import twisk.monde.Activite;
 import twisk.monde.ActiviteRestreinte;

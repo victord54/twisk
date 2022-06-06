@@ -44,14 +44,6 @@ class GestionnaireEtapesTest {
         }
     }
 
-    @Test
-    void remplacerActiviteParActiviteR(){
-        Activite a = new Activite(("c"));
-        gE.ajouter(new Activite("e"), new Activite("ee"), new Guichet("eee"),a);
-        System.out.println(gE.toString());
-        gE.remplacerActiviteParActiviteR(a,new ActiviteRestreinte("ez"));
-        System.out.println(gE.toString());
-    }
 
 
 

@@ -1,3 +1,8 @@
+/**
+ * Classe représentant le mondeIG.
+ *
+ * @author Victor Dallé et Claire Kurth
+ */
 package twisk.mondeIG;
 
 import com.google.gson.JsonArray;
@@ -29,21 +34,79 @@ import java.util.Optional;
 
 
 public class MondeIG extends SujetObserve implements Iterable<EtapeIG>, Observateur {
+    /**
+     * Champ correspondant aux étapesIG du mondeIG.
+     */
     private final HashMap<String, EtapeIG> etapesIG;
+
+    /**
+     * Champ correspondant au singleton définissant la taille des composants.
+     */
     private final TailleComposants tailleComposants = TailleComposants.getInstance();
+
+    /**
+     * Champ correspondant aux arcs du mondeIG.
+     */
     private final ArrayList<ArcIG> arcs;
+
+    /**
+     * Champ correspondant aux points de contrôles sélectionnés.
+     */
     private final ArrayList<PointDeControleIG> pointsControleSelectionnes;
+
+    /**
+     * Champ correspondant aux étapes sélectionnées.
+     */
     private final ArrayList<EtapeIG> etapesSelectionnees;
+
+    /**
+     * Champ correspondant aux arcs sélectionnées.
+     */
     private final ArrayList<ArcIG> arcsSelectionnees;
+
+    /**
+     * Champ correspondant aux entrées du mondeIG.
+     */
     private final ArrayList<EtapeIG> entrees;
+
+    /**
+     * Champ correspondant aux sorties du mondeIG.
+     */
     private final ArrayList<EtapeIG> sorties;
+
+    /**
+     * Champ correspondant au gestionnaire des clients du mondeIG.
+     */
     private GestionnaireClients gestionnaireClients;
+
+    /**
+     * Champ correspondant à la correspondance des étapes entre MondeIG et Monde.
+     */
     private CorrespondanceEtapes correspondanceEtapes;
+
+    /**
+     * Champ correspondant au nombre de clients du mondeIG.
+     */
     private int nbClients;
+
+    /**
+     * Champ correspondant au sens de circulation des clients dans le mondeIG.
+     */
     private String sensCircu;
+
+    /**
+     * Champ correspondant à la loi d'arrivée des clients en cours dans le mondeIG.
+     */
     private String loi;
+
+    /**
+     * Champ correspondant au fait que la simulation est en cours ou non.
+     */
     private boolean simEnCours;
 
+    /**
+     * Constructeur par défaut.
+     */
     public MondeIG() {
         etapesIG = new HashMap<>();
         arcs = new ArrayList<>();
@@ -60,52 +123,113 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>, Observat
         sensCircu = null;
     }
 
+    /**
+     * Setter de la loi d'arrivée des clients du mondeIG.
+     *
+     * @param l La nouvelle loi.
+     */
     public void setLoi(String l) {
         this.loi = l;
         notifierObservateurs();
     }
 
+    /**
+     * Getter du sens de circulation des clients dans le monde.
+     *
+     * @return Le sens de circulation.
+     */
     public String getSensCircu() {
         return sensCircu;
     }
 
+    /**
+     * Méthode permettant de récupérer l'étape correspondant à l'id passé en paramètre.
+     *
+     * @param id L'identifiant de l'étape à récupérer.
+     * @return L'étape correspondante.
+     */
     public EtapeIG getEtape(String id) {
         return etapesIG.get(id);
     }
 
+    /**
+     * Getter des points de contrôles sélectionnés.
+     *
+     * @return La liste des points de contrôles sélectionnés.
+     */
     public ArrayList<PointDeControleIG> getPointsControleSelectionnes() {
         return pointsControleSelectionnes;
     }
 
+    /**
+     * Getter des étapesIG sélectionnées.
+     *
+     * @return La liste des étapesIG sélectionnées.
+     */
     public ArrayList<EtapeIG> getEtapesSelectionnees() {
         return etapesSelectionnees;
     }
 
+    /**
+     * Méthode permettant de savoir si le mondeIG possède des arcs ou non.
+     *
+     * @return true si la liste des arcs est vide, false si non.
+     */
     public boolean arcIsEmpty() {
         return arcs.isEmpty();
     }
 
+    /**
+     * Getter des arcs sélectionnées.
+     *
+     * @return La liste des arcs sélectionnées.
+     */
     public ArrayList<ArcIG> getArcsSelectionnees() {
         return arcsSelectionnees;
     }
 
+    /**
+     * Getter des entrées du mondeIG.
+     *
+     * @return La liste des entrées.
+     */
     public ArrayList<EtapeIG> getEntrees() {
         return entrees;
     }
 
+    /**
+     * Getter des sorties du mondeIG.
+     *
+     * @return La liste des sorties.
+     */
     public ArrayList<EtapeIG> getSorties() {
         return sorties;
     }
 
+    /**
+     * Méthode permettant de savoir si la simulation est en cours.
+     *
+     * @return true si la simulation est en cours, false si non.
+     */
     public boolean isSimEnCours() {
         return simEnCours;
     }
 
+    /**
+     * Setter de la simulation en cours (true si en cours, false si non).
+     *
+     * @param b La nouvelle valeur de la simulation.
+     */
     public void setSimEnCours(boolean b) {
         simEnCours = b;
         notifierObservateurs();
     }
 
+    /**
+     * Méthode permettant d'ajouter une nouvelle étape aux étapes du mondeIG.
+     *
+     * @param type Le type d'étape que l'on veut ajouter (Activité ou Guichet).
+     */
     public void ajouter(String type) {
         String id = FabriqueIdentifiant.getInstance().getIdentifiantEtape();
         if (type.equals("Activité") || type.equals("Activite"))
@@ -116,11 +240,23 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>, Observat
         notifierObservateurs();
     }
 
+    /**
+     * Méthode permettant d'ajouter une étapeIG au monde IG.
+     *
+     * @param e L'étape à ajouter au mondeIG.
+     */
     public void ajouter(EtapeIG e) {
-        String id = FabriqueIdentifiant.getInstance().getIdentifiantEtape();
+        String id = FabriqueIdentifiant.getInstance().getIdentifiantEtape(); //Pour que la fabrique soit au même stade que le nombre d'étapes.
         etapesIG.put(e.getId(), e);
     }
 
+    /**
+     * Méthode permettant d'ajouter un nouvel arc au mondeIG.
+     *
+     * @param pt1 Le point de contrôle de départ de l'arc.
+     * @param pt2 Le point de contrôle d'arrivé de l'arc.
+     * @throws ArcTwiskException si le sens de circulation n'est pas respecté ou si l'arc entraine un cycle.
+     */
     public void ajouterArc(PointDeControleIG pt1, PointDeControleIG pt2) throws ArcTwiskException {
         EtapeIG et1 = pt1.getEtape();
         EtapeIG et2 = pt2.getEtape();
@@ -142,7 +278,6 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>, Observat
                 }
             }
         }
-        System.out.println(sensCircu);
 
         if (!et1.estAccessibleDepuis(et2)) {
             if (sensCircu != null) {
@@ -171,6 +306,11 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>, Observat
         notifierObservateurs();
     }
 
+    /**
+     * Méthode permettant d'ajouter des points de contrôles à la liste des points de contrôles sélectionnés et qui créé un arc lorsque celle ci en contient 2.
+     * @param c Le point de contrôle à ajouter.
+     * @throws ArcTwiskException Si 2 points de contrôles appartiennent à la même étape ou si un arc existe déjà entre ces 2 points de contrôles.
+     */
     public void ajouterPointDeControle(PointDeControleIG c) throws ArcTwiskException {
         /* Ajout des Points de contrôle dans controleTmp pour créer l'arc */
         if (pointsControleSelectionnes.isEmpty()) {
@@ -203,6 +343,9 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>, Observat
         notifierObservateurs();
     }
 
+    /**
+     * Méthode permettant de reset les données du mondeIG.
+     */
     public void reset() {
         etapesIG.clear();
         arcs.clear();
@@ -214,6 +357,9 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>, Observat
         notifierObservateurs();
     }
 
+    /**
+     * Méthode permettant de retirer le dernier arc ajouté au mondeIG.
+     */
     public void retirerDernierArc() {
         arcs.get(arcs.size() - 1).getPt1().getEtape().retirerSucesseur(arcs.get(arcs.size() - 1).getPt2().getEtape());
         arcs.remove(arcs.size() - 1);
@@ -222,6 +368,9 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>, Observat
         notifierObservateurs();
     }
 
+    /**
+     * Méthode permettant de reset le sens de circulation si il n'y a plus d'arcs avec un guichet.
+     */
     private void resetSensCircu() {
         boolean arcGuichet = true;
         for (ArcIG arc : arcs) {
@@ -235,6 +384,11 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>, Observat
         }
     }
 
+    /**
+     * Méthode permettant d'ajouter une étape passée en paramètre à la liste des étapes séléctionnées.
+     *
+     * @param etape L'étape sélectionnée.
+     */
     public void selectionnerEtape(EtapeIG etape) {
         if (etapesSelectionnees.isEmpty()) {
             etapesSelectionnees.add(etape);
@@ -246,6 +400,11 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>, Observat
         notifierObservateurs();
     }
 
+    /**
+     * Méthode permettant de supprimer les arcs et les étapes sélectionnés.
+     *
+     * @throws EtapeTwiskException Si la liste des arcs ou des étapes sélectionnés est vide.
+     */
     public void supprimerSelection() throws EtapeTwiskException {
         if (etapesSelectionnees.isEmpty() && arcsSelectionnees.isEmpty()) {
             throw new EtapeTwiskException("Sélectionner au moins 1 étape ou 1 arc à supprimer.");
@@ -267,6 +426,11 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>, Observat
         notifierObservateurs();
     }
 
+    /**
+     * Méthode permettant de renommer les étapes sélectionnées.
+     *
+     * @throws EtapeTwiskException Si aucune étape n'est sélectionnée.
+     */
     public void renommerEtapesSelectionnees() throws EtapeTwiskException {
         if (etapesSelectionnees.isEmpty()) {
             throw new EtapeTwiskException("Sélectionner au moins 1 étape à renommer.");
@@ -282,6 +446,11 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>, Observat
         }
     }
 
+    /**
+     * Setter des entrées du mondeIG.
+     *
+     * @throws EtapeTwiskException Si aucune étape n'est sélectionnée.
+     */
     public void setEntree() throws EtapeTwiskException {
         if (etapesSelectionnees.isEmpty())
             throw new EtapeTwiskException("Sélectionner au moins une étape à ajouter en entrée !");
@@ -298,6 +467,11 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>, Observat
         notifierObservateurs();
     }
 
+    /**
+     * Setter des sorties du mondeIG.
+     *
+     * @throws EtapeTwiskException Si aucune étape n'est sélectionnée.
+     */
     public void setSortie() throws EtapeTwiskException {
         if (etapesSelectionnees.isEmpty())
             throw new EtapeTwiskException("Sélectionner au moins une étape à ajouter en sortie !");
@@ -314,6 +488,11 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>, Observat
         notifierObservateurs();
     }
 
+    /**
+     * Méthode permettant de set le délai de l'étape sélectionnée.
+     *
+     * @throws EtapeTwiskException S'il n'y a pas exactement 1 étape sélectionnée.
+     */
     public void setDelais() throws EtapeTwiskException {
         if (etapesSelectionnees.size() != 1) {
             throw new EtapeTwiskException("Une seule étape doit être sélectionnée pour changer le délai.");
@@ -329,6 +508,11 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>, Observat
         notifierObservateurs();
     }
 
+    /**
+     * Méthode permettant de set l'écart-type de l'étape sélectionnée.
+     *
+     * @throws EtapeTwiskException S'il n'y a pas exactement 1 étape sélectionnée.
+     */
     public void setEcarts() throws EtapeTwiskException {
         if (etapesSelectionnees.size() != 1) {
             throw new EtapeTwiskException("Une seule étape doit être sélectionnée pour changer l'écart.");
@@ -344,12 +528,20 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>, Observat
         notifierObservateurs();
     }
 
+    /**
+     * Méthode permettant d'annuler la sélection.
+     */
     public void annulerSelectionEtapes() {
         etapesSelectionnees.clear();
         arcsSelectionnees.clear();
         notifierObservateurs();
     }
 
+    /**
+     * Méthode permettant d'ajouter un arc aux arcs sélectionnés.
+     *
+     * @param arc Le nouvel arc sélectionné.
+     */
     public void selectionnerArc(ArcIG arc) {
         if (arcsSelectionnees.isEmpty()) {
             arcsSelectionnees.add(arc);
@@ -361,6 +553,13 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>, Observat
         notifierObservateurs();
     }
 
+    /**
+     * Méthode permettant de relocaliser l'étape à de nouvelles coordonnées.
+     *
+     * @param idEtape Identifiant de l'étape à relocaliser.
+     * @param newPosX La nouvelle coordonnée sur l'axe des abscisses.
+     * @param newPosY La nouvelle coordonnée sur l'axe des ordonnées.
+     */
     public void repositionnerEtape(String idEtape, int newPosX, int newPosY) {
         EtapeIG etapeTmp = etapesIG.get(idEtape);
         etapeTmp.relocate(newPosX, newPosY);
@@ -370,6 +569,11 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>, Observat
         notifierObservateurs();
     }
 
+    /**
+     * Setter du nombre de jetons du guichet sélectionné.
+     *
+     * @throws GuichetTwiskException  S'il n'y a pas exactement 1 guichet sélectionné.
+     */
     public void setJetons() throws GuichetTwiskException {
         if (etapesSelectionnees.size() != 1) {
             throw new GuichetTwiskException("Un seul guichet doit être sélectionné");
@@ -386,6 +590,11 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>, Observat
         notifierObservateurs();
     }
 
+    /**
+     * Setter du nombre clients.
+     *
+     * @throws ClientException Si le nombre de clients n'est pas entre [1;49]
+     */
     public void setNbClients() throws ClientException {
         TextInputDialog tid = new TextInputDialog();
         tid.setContentText("Saisir le nombre de jetons du guichet");
@@ -400,6 +609,11 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>, Observat
         nbClients = nb;
     }
 
+    /**
+     * Méthode permettant de récupérer le nombre de clients qui ne sont pas encore sortis.
+     *
+     * @return Le nombre de clients restant.
+     */
     public int getNombreClientsRestant(){
         int nb = 0;
         if (gestionnaireClients != null) {
@@ -412,6 +626,11 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>, Observat
         return  nbClients - nb;
     }
 
+    /**
+     * Méthode permettant de lancer la simulation.
+     *
+     * @throws TwiskException Si exception au niveau du monde ou des guichets.
+     */
     public void simuler() throws TwiskException {
         ClientTwisk client = new ClientTwisk(this);
         try {
@@ -421,6 +640,12 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>, Observat
         }
     }
 
+    /**
+     * Méthode permettant de vérifier que le mondeIG est est conforme pour lancer une simulation.
+     *
+     * @throws MondeException Si il n'y a pas de sorties ou d'entrées dans le monde.
+     * @throws GuichetTwiskException Si il y a plusieurs étapes directement après un guichet.
+     */
     public void verifierMondeIG() throws MondeException, GuichetTwiskException {
         if (entrees.size() == 0) throw new MondeException("Il n'y a pas d'entrée dans votre monde !");
         else if (sorties.size() == 0) throw new MondeException("Il n'y a pas de sortie dans votre monde !");
@@ -429,13 +654,19 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>, Observat
             if (etapeIG.estUnGuichet()) {
                 guichetIG = (GuichetIG) etapeIG;
                 if (guichetIG.getSuccesseurs().size() > 1) {
-                    System.out.println("ou lala");
                     throw new GuichetTwiskException("1 seule étape en sortie de guichet !");
                 }
             }
         }
     }
 
+    /**
+     * Méthode permettant de créer un Monde à partir du MondeIG.
+     *
+     * @return Le monde créé à partir du MondeIG.
+     * @throws GuichetTwiskException Si une sortie est un guichet.
+     * @throws MondeException
+     */
     private Monde creerMonde() throws GuichetTwiskException, MondeException {
         verifierMondeIG();
         correspondanceEtapes = new CorrespondanceEtapes();
@@ -500,16 +731,28 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>, Observat
         return monde;
     }
 
-
+    /**
+     * Méthode définissant un nouvel itérateur sur le monde.
+     *
+     * @return Un itaror sur les étapesIG du mondeIG.
+     */
     @Override
     public Iterator<EtapeIG> iterator() {
         return etapesIG.values().iterator();
     }
 
+    /**
+     * Méthode définissant un nouvel itérateur sur le monde.
+     *
+     * @return Un iterator sur les arcs.
+     */
     public Iterator<ArcIG> iteratorArcs() {
         return arcs.iterator();
     }
 
+    /**
+     * Méthode réagir.
+     */
     @Override
     public void reagir() {
         Runnable command = this::notifierObservateurs;
@@ -520,18 +763,38 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>, Observat
         }
     }
 
+    /**
+     * Getter du gestionnaire clients du mondeIG.
+     *
+     * @return Le gestionnaireClients.
+     */
     public GestionnaireClients getGestionnaireClients() {
         return gestionnaireClients;
     }
 
+    /**
+     * Setter du gestionnaire clients du mondeIG.
+     *
+     * @param g Le gestionnaire clients.
+     */
     public void setGestionnaireClients(GestionnaireClients g) {
         gestionnaireClients = g;
     }
 
+    /**
+     * Getter du correspondance étape de mondeIG.
+     *
+     * @return Le correspondanceEtapes du mondeIG.
+     */
     public CorrespondanceEtapes getCorrespondanceEtapes() {
         return correspondanceEtapes;
     }
 
+    /**
+     * Méthode permettant de sauvegarder au format .json le mondeIG actuel.
+     *
+     * @param emplacement Emplacement de la sauvegarde.
+     */
     public void sauvegarder(String emplacement) {
         JsonWriter writer;
         try {
@@ -627,6 +890,10 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>, Observat
         }
     }
 
+    /**
+     * Méthode permettant d'ouvrir un mondeIG sauvegardé au format .json.
+     * @param emplacement Emplacement du mondeIG à ouvrir.
+     */
     public void ouvrir(String emplacement){
         reset();
 
@@ -727,6 +994,9 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>, Observat
         notifierObservateurs();
     }
 
+    /**
+     * Méthode permettant de détruire les processus clients.
+     */
     public void detruireClients() {
         if (gestionnaireClients != null) {
             for (Client c : gestionnaireClients) {

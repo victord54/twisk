@@ -34,24 +34,10 @@ public class VueClient extends Circle {
             }
         }
         else{
-            /*int max = etapeIG.getPosX()+ TailleComposants.getInstance().getLargeurActivite();
-            int min = etapeIG.getPosX();
-            this.setCenterX(random.nextInt(max - min) + min);
-            System.out.println(client.getNumeroClient());
-            max = etapeIG.getPosY() + 100;
-            min = etapeIG.getPosY() + 20;
-            int y = random.nextInt(max- min ) + min;
-            this.setCenterY(y);
-            System.out.println("Et y : " + min + "L : " + max + " y : "+ y);
-            System.out.println("------------");*/
-
-
             this.setCenterX(etapeIG.getPosX() + TailleComposants.getInstance().getLargeurActivite() - client.getRang() * 25); // Partie droite de l'étape décalée de n rangs vers la gauche.
             this.setCenterY(etapeIG.getPosY() + 100);
         }
-        //this.setCenterX(etapeIG.getPosX() + TailleComposants.getInstance().getLargeurActivite() - client.getRang() * 25); // Partie droite de l'étape décalée de n rangs vers la gauche.
-        //this.setCenterY(etapeIG.getPosY() + 100);
-        this.setRadius(TailleComposants.getInstance().getRadiusClient());
+             this.setRadius(TailleComposants.getInstance().getRadiusClient());
         this.setFill(Color.rgb(client.getNumeroClient()*12%256, client.getNumeroClient()*123%256, client.getNumeroClient()*1234%256));
     }
 

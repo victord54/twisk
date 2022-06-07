@@ -993,6 +993,10 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>, Observat
         notifierObservateurs();
     }
 
+    /**
+     * Méthode permettant d'ouvrir un mondeIG déjà préenregistré.
+     * @param json Données en format String du monde.
+     */
     public void ouvrirExemple(String json) {
         JsonObject object = JsonParser.parseString(json).getAsJsonObject();
 

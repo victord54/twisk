@@ -993,6 +993,97 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>, Observat
         notifierObservateurs();
     }
 
+    public void ouvrirExemple(String json) {
+        JsonObject object = JsonParser.parseString(json).getAsJsonObject();
+
+            JsonArray listeEtapesIG = object.getAsJsonArray("EtapesIG");
+            listeEtapesIG.forEach(etapes -> {
+                JsonObject objEt = etapes.getAsJsonObject();
+
+                /*---Récupère les info de bases des étapes---*/
+                String nom = objEt.get("Nom").getAsString();
+                String id = objEt.get("ID").getAsString();
+                int posX = objEt.get("PosX").getAsInt();
+                int posY = objEt.get("PosY").getAsInt();
+
+                /*----Vérifie si l'étape est un guichet ou une activité-----*/
+                String type = objEt.get("Type").getAsString();
+                String entreeA = objEt.get("Entree").getAsString();
+                String sortieA = objEt.get("Sortie").getAsString();
+                if (type.equalsIgnoreCase("Activité")) {
+                    int delai = objEt.get("Delai").getAsInt();
+                    int ecart = objEt.get("Ecart").getAsInt();
+                    ActiviteIG tmp = new ActiviteIG(nom, id, tailleComposants.getLargeurActivite(), tailleComposants.getHauteurActivite());
+                    tmp.relocate(posX, posY);
+                    tmp.setDelai(delai);
+                    tmp.setEcart(ecart);
+                    tmp.actualiserPointsDeControle();
+                    ajouter(tmp);
+
+                    /*---Gestion si etape est une entrée ou une sortie---*/
+                    if (entreeA.equalsIgnoreCase("oui")) {
+                        this.entrees.add(tmp);
+                    }
+                    if (sortieA.equalsIgnoreCase("oui")) {
+                        this.sorties.add(tmp);
+                    }
+
+                }
+                if (type.equalsIgnoreCase("Guichet")) {
+                    int jetons = objEt.get("Jetons").getAsInt();
+                    GuichetIG tmp = new GuichetIG(nom, id, tailleComposants.getLargeurActivite(), tailleComposants.getHauteurActivite(), jetons);
+                    tmp.relocate(posX, posY);
+                    tmp.actualiserPointsDeControle();
+                    ajouter(tmp);
+
+                    /*---Gestion si etape est une entrée ou une sortie---*/
+                    if (entreeA.equalsIgnoreCase("oui")) {
+                        this.entrees.add(tmp);
+                    }
+                    if (sortieA.equalsIgnoreCase("oui")) {
+                        this.sorties.add(tmp);
+                    }
+                }
+            });
+
+            JsonArray listeArcIG = object.getAsJsonArray("Arcs");
+            listeArcIG.forEach(arc -> {
+                JsonObject objArc = arc.getAsJsonObject();
+                /*----Pt1----*/
+                String idEtapePt1 = objArc.get("Pt1EtapeID").getAsString();
+                EtapeIG tmp = this.etapesIG.get(idEtapePt1);
+                String idPt1 = objArc.get("Pt1ID").getAsString();
+                PointDeControleIG pt1 = tmp.getPointDeControle(idPt1);
+
+                /*-----Pt2----*/
+                String idEtapePt2 = objArc.get("Pt2EtapeID").getAsString();
+                EtapeIG tmp2 = this.etapesIG.get(idEtapePt2);
+                String idPt2 = objArc.get("Pt2ID").getAsString();
+                PointDeControleIG pt2 = tmp2.getPointDeControle(idPt2);
+
+                if (sensCircu == null) {
+                    if (tmp2.estUnGuichet()) {
+                        if (pt2.getId().contains("0")) {
+                            sensCircu = "gaucheVersDroite";
+                        } else {
+                            sensCircu = "droiteVersGauche";
+                        }
+                    } else{
+                        if (tmp.estUnGuichet()){
+                            if (pt1.getId().contains("0")){
+                                sensCircu = "droiteVersGauche";
+                            } else{
+                                sensCircu = "gaucheVersDroite";
+                            }
+                        }
+                    }
+                }
+                this.arcs.add(new ArcIG(pt1,pt2));
+
+            });
+        notifierObservateurs();
+    }
+
     /**
      * Méthode permettant de détruire les processus clients.
      */

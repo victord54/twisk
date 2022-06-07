@@ -13,6 +13,7 @@ import twisk.exceptions.ClientException;
 import twisk.exceptions.EtapeTwiskException;
 import twisk.exceptions.GuichetTwiskException;
 import twisk.mondeIG.MondeIG;
+import twisk.outils.ExemplesDeMondes;
 
 import java.io.File;
 import java.util.Objects;
@@ -154,10 +155,10 @@ public class VueMenu extends MenuBar {
         Menu exemplesMenu = new Menu("Exemples");
 
         MenuItem bifurcations = new MenuItem("Bifurcations");
-        bifurcations.setOnAction(actionEvent -> monde.ouvrir(Objects.requireNonNull(this.getClass().getResource("/exemples/bifurcations.json")).getPath()));
+        bifurcations.setOnAction(actionEvent -> monde.ouvrirExemple(ExemplesDeMondes.getInstance().bifurcations()));
 
         MenuItem guichetsSorties = new MenuItem("Guichets avec 2 sorties");
-        guichetsSorties.setOnAction(actionEvent -> monde.ouvrir(Objects.requireNonNull(this.getClass().getResource("/exemples/2guichets-2sorties.json")).getPath()));
+        guichetsSorties.setOnAction(actionEvent -> monde.ouvrirExemple(ExemplesDeMondes.getInstance().guichets()));
 
 //      ---------------------------------------- Menu des styles -------------------------------------------------------
         Menu styleMenu = new Menu("Styles");

@@ -308,6 +308,7 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>, Observat
 
     /**
      * Méthode permettant d'ajouter des points de contrôles à la liste des points de contrôles sélectionnés et qui créé un arc lorsque celle ci en contient 2.
+     *
      * @param c Le point de contrôle à ajouter.
      * @throws ArcTwiskException Si 2 points de contrôles appartiennent à la même étape ou si un arc existe déjà entre ces 2 points de contrôles.
      */
@@ -476,7 +477,7 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>, Observat
         if (etapesSelectionnees.isEmpty())
             throw new EtapeTwiskException("Sélectionner au moins une étape à ajouter en sortie !");
         for (EtapeIG etape : etapesSelectionnees) {
-            if (etape.estUnGuichet()){
+            if (etape.estUnGuichet()) {
                 throw new EtapeTwiskException("Une sortie ne peut pas être un guichet !");
             }
             if (sorties.contains(etape)) sorties.remove(etape);
@@ -575,7 +576,7 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>, Observat
     /**
      * Setter du nombre de jetons du guichet sélectionné.
      *
-     * @throws GuichetTwiskException  S'il n'y a pas exactement 1 guichet sélectionné.
+     * @throws GuichetTwiskException S'il n'y a pas exactement 1 guichet sélectionné.
      */
     public void setJetons() throws GuichetTwiskException {
         if (etapesSelectionnees.size() != 1) {
@@ -617,7 +618,7 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>, Observat
      *
      * @return Le nombre de clients restant.
      */
-    public int getNombreClientsRestant(){
+    public int getNombreClientsRestant() {
         int nb = 0;
         if (gestionnaireClients != null) {
             for (Client c : gestionnaireClients) {
@@ -626,7 +627,7 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>, Observat
                 }
             }
         }
-        return  nbClients - nb;
+        return nbClients - nb;
     }
 
     /**
@@ -647,7 +648,7 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>, Observat
     /**
      * Méthode permettant de vérifier que le mondeIG est est conforme pour lancer une simulation.
      *
-     * @throws MondeException Si il n'y a pas de sorties ou d'entrées dans le monde.
+     * @throws MondeException        Si il n'y a pas de sorties ou d'entrées dans le monde.
      * @throws GuichetTwiskException Si il y a plusieurs étapes directement après un guichet.
      */
     public void verifierMondeIG() throws MondeException, GuichetTwiskException {
@@ -891,9 +892,10 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>, Observat
 
     /**
      * Méthode permettant d'ouvrir un mondeIG sauvegardé au format .json.
+     *
      * @param emplacement Emplacement du mondeIG à ouvrir.
      */
-    public void ouvrir(String emplacement){
+    public void ouvrir(String emplacement) {
         reset();
 
         JsonParser jsonParser = new JsonParser();
@@ -973,17 +975,17 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>, Observat
                         } else {
                             sensCircu = "droiteVersGauche";
                         }
-                    } else{
-                        if (tmp.estUnGuichet()){
-                            if (pt1.getId().contains("0")){
+                    } else {
+                        if (tmp.estUnGuichet()) {
+                            if (pt1.getId().contains("0")) {
                                 sensCircu = "droiteVersGauche";
-                            } else{
+                            } else {
                                 sensCircu = "gaucheVersDroite";
                             }
                         }
                     }
                 }
-                this.arcs.add(new ArcIG(pt1,pt2));
+                this.arcs.add(new ArcIG(pt1, pt2));
 
             });
 
@@ -995,96 +997,99 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>, Observat
 
     /**
      * Méthode permettant d'ouvrir un mondeIG déjà préenregistré.
+     *
      * @param json Données en format String du monde.
      */
     public void ouvrirExemple(String json) {
+        reset();
+
         JsonObject object = JsonParser.parseString(json).getAsJsonObject();
 
-            JsonArray listeEtapesIG = object.getAsJsonArray("EtapesIG");
-            listeEtapesIG.forEach(etapes -> {
-                JsonObject objEt = etapes.getAsJsonObject();
+        JsonArray listeEtapesIG = object.getAsJsonArray("EtapesIG");
+        listeEtapesIG.forEach(etapes -> {
+            JsonObject objEt = etapes.getAsJsonObject();
 
-                /*---Récupère les info de bases des étapes---*/
-                String nom = objEt.get("Nom").getAsString();
-                String id = objEt.get("ID").getAsString();
-                int posX = objEt.get("PosX").getAsInt();
-                int posY = objEt.get("PosY").getAsInt();
+            /*---Récupère les info de bases des étapes---*/
+            String nom = objEt.get("Nom").getAsString();
+            String id = objEt.get("ID").getAsString();
+            int posX = objEt.get("PosX").getAsInt();
+            int posY = objEt.get("PosY").getAsInt();
 
-                /*----Vérifie si l'étape est un guichet ou une activité-----*/
-                String type = objEt.get("Type").getAsString();
-                String entreeA = objEt.get("Entree").getAsString();
-                String sortieA = objEt.get("Sortie").getAsString();
-                if (type.equalsIgnoreCase("Activité")) {
-                    int delai = objEt.get("Delai").getAsInt();
-                    int ecart = objEt.get("Ecart").getAsInt();
-                    ActiviteIG tmp = new ActiviteIG(nom, id, tailleComposants.getLargeurActivite(), tailleComposants.getHauteurActivite());
-                    tmp.relocate(posX, posY);
-                    tmp.setDelai(delai);
-                    tmp.setEcart(ecart);
-                    tmp.actualiserPointsDeControle();
-                    ajouter(tmp);
+            /*----Vérifie si l'étape est un guichet ou une activité-----*/
+            String type = objEt.get("Type").getAsString();
+            String entreeA = objEt.get("Entree").getAsString();
+            String sortieA = objEt.get("Sortie").getAsString();
+            if (type.equalsIgnoreCase("Activité")) {
+                int delai = objEt.get("Delai").getAsInt();
+                int ecart = objEt.get("Ecart").getAsInt();
+                ActiviteIG tmp = new ActiviteIG(nom, id, tailleComposants.getLargeurActivite(), tailleComposants.getHauteurActivite());
+                tmp.relocate(posX, posY);
+                tmp.setDelai(delai);
+                tmp.setEcart(ecart);
+                tmp.actualiserPointsDeControle();
+                ajouter(tmp);
 
-                    /*---Gestion si etape est une entrée ou une sortie---*/
-                    if (entreeA.equalsIgnoreCase("oui")) {
-                        this.entrees.add(tmp);
-                    }
-                    if (sortieA.equalsIgnoreCase("oui")) {
-                        this.sorties.add(tmp);
-                    }
-
+                /*---Gestion si etape est une entrée ou une sortie---*/
+                if (entreeA.equalsIgnoreCase("oui")) {
+                    this.entrees.add(tmp);
                 }
-                if (type.equalsIgnoreCase("Guichet")) {
-                    int jetons = objEt.get("Jetons").getAsInt();
-                    GuichetIG tmp = new GuichetIG(nom, id, tailleComposants.getLargeurActivite(), tailleComposants.getHauteurActivite(), jetons);
-                    tmp.relocate(posX, posY);
-                    tmp.actualiserPointsDeControle();
-                    ajouter(tmp);
-
-                    /*---Gestion si etape est une entrée ou une sortie---*/
-                    if (entreeA.equalsIgnoreCase("oui")) {
-                        this.entrees.add(tmp);
-                    }
-                    if (sortieA.equalsIgnoreCase("oui")) {
-                        this.sorties.add(tmp);
-                    }
+                if (sortieA.equalsIgnoreCase("oui")) {
+                    this.sorties.add(tmp);
                 }
-            });
 
-            JsonArray listeArcIG = object.getAsJsonArray("Arcs");
-            listeArcIG.forEach(arc -> {
-                JsonObject objArc = arc.getAsJsonObject();
-                /*----Pt1----*/
-                String idEtapePt1 = objArc.get("Pt1EtapeID").getAsString();
-                EtapeIG tmp = this.etapesIG.get(idEtapePt1);
-                String idPt1 = objArc.get("Pt1ID").getAsString();
-                PointDeControleIG pt1 = tmp.getPointDeControle(idPt1);
+            }
+            if (type.equalsIgnoreCase("Guichet")) {
+                int jetons = objEt.get("Jetons").getAsInt();
+                GuichetIG tmp = new GuichetIG(nom, id, tailleComposants.getLargeurActivite(), tailleComposants.getHauteurActivite(), jetons);
+                tmp.relocate(posX, posY);
+                tmp.actualiserPointsDeControle();
+                ajouter(tmp);
 
-                /*-----Pt2----*/
-                String idEtapePt2 = objArc.get("Pt2EtapeID").getAsString();
-                EtapeIG tmp2 = this.etapesIG.get(idEtapePt2);
-                String idPt2 = objArc.get("Pt2ID").getAsString();
-                PointDeControleIG pt2 = tmp2.getPointDeControle(idPt2);
+                /*---Gestion si etape est une entrée ou une sortie---*/
+                if (entreeA.equalsIgnoreCase("oui")) {
+                    this.entrees.add(tmp);
+                }
+                if (sortieA.equalsIgnoreCase("oui")) {
+                    this.sorties.add(tmp);
+                }
+            }
+        });
 
-                if (sensCircu == null) {
-                    if (tmp2.estUnGuichet()) {
-                        if (pt2.getId().contains("0")) {
-                            sensCircu = "gaucheVersDroite";
-                        } else {
+        JsonArray listeArcIG = object.getAsJsonArray("Arcs");
+        listeArcIG.forEach(arc -> {
+            JsonObject objArc = arc.getAsJsonObject();
+            /*----Pt1----*/
+            String idEtapePt1 = objArc.get("Pt1EtapeID").getAsString();
+            EtapeIG tmp = this.etapesIG.get(idEtapePt1);
+            String idPt1 = objArc.get("Pt1ID").getAsString();
+            PointDeControleIG pt1 = tmp.getPointDeControle(idPt1);
+
+            /*-----Pt2----*/
+            String idEtapePt2 = objArc.get("Pt2EtapeID").getAsString();
+            EtapeIG tmp2 = this.etapesIG.get(idEtapePt2);
+            String idPt2 = objArc.get("Pt2ID").getAsString();
+            PointDeControleIG pt2 = tmp2.getPointDeControle(idPt2);
+
+            if (sensCircu == null) {
+                if (tmp2.estUnGuichet()) {
+                    if (pt2.getId().contains("0")) {
+                        sensCircu = "gaucheVersDroite";
+                    } else {
+                        sensCircu = "droiteVersGauche";
+                    }
+                } else {
+                    if (tmp.estUnGuichet()) {
+                        if (pt1.getId().contains("0")) {
                             sensCircu = "droiteVersGauche";
-                        }
-                    } else{
-                        if (tmp.estUnGuichet()){
-                            if (pt1.getId().contains("0")){
-                                sensCircu = "droiteVersGauche";
-                            } else{
-                                sensCircu = "gaucheVersDroite";
-                            }
+                        } else {
+                            sensCircu = "gaucheVersDroite";
                         }
                     }
                 }
-                this.arcs.add(new ArcIG(pt1,pt2));
+            }
+            this.arcs.add(new ArcIG(pt1, pt2));
 
-            });
+        });
         notifierObservateurs();
     }
 

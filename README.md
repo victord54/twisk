@@ -1,3 +1,3 @@
-# Twisk-dalle5u-kurth2u
+# Twisk par Claire et Victor
 
-Projet twisk
+Projet twisk qui simule le passage de clients dans différentes activités au moyen d'une interface grapihique.
